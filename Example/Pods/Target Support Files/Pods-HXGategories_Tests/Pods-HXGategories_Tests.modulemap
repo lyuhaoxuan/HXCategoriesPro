@@ -1,0 +1,6 @@
+framework module Pods_HXGategories_Tests {
+  umbrella header "Pods-HXGategories_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
