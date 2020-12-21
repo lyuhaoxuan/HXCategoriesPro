@@ -1,6 +1,0 @@
-framework module HXGategories {
-  umbrella header "HXGategories-umbrella.h"
-
-  export *
-  module * { export * }
-}
