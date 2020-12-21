@@ -9,14 +9,14 @@ PODS:
   - FBSnapshotTestCase/Core (2.1.4)
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
-  - HXCategories (1.0.1)
+  - HXCategoriesPro (1.0.0)
   - Specta (1.0.7)
 
 DEPENDENCIES:
   - Expecta
   - "Expecta+Snapshots"
   - FBSnapshotTestCase
-  - HXCategories (from `../`)
+  - HXCategoriesPro (from `../`)
   - Specta
 
 SPEC REPOS:
@@ -27,16 +27,16 @@ SPEC REPOS:
     - Specta
 
 EXTERNAL SOURCES:
-  HXCategories:
+  HXCategoriesPro:
     :path: "../"
 
 SPEC CHECKSUMS:
   Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
   "Expecta+Snapshots": dcff217eef506dabd6dfdc7864ea2da321fafbb8
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  HXCategories: 3dd11015443301ae0636dd7101cc3d4a982ab3fa
+  HXCategoriesPro: 0faa0931fb0ef60441766d0a1c3522bc9c7d2950
   Specta: 3e1bd89c3517421982dc4d1c992503e48bd5fe66
 
-PODFILE CHECKSUM: eb9d60534d87f3d9c7db4266a3226d4499880fcd
+PODFILE CHECKSUM: a1bbf26bf1d63822818440a000276338649ccf3f
 
 COCOAPODS: 1.10.0
