@@ -12,66 +12,53 @@
 
 @implementation NSArray (HXCommon)
 
-/**
- *  对系统方法进行替换
- *
- *  @param systemSelector 被替换的方法
- *  @param swizzledSelector 实际使用的方法
- *  @param error            替换过程中出现的错误消息
- *
- *  @return 是否替换成功
- */
-+ (BOOL)systemSelector:(SEL)systemSelector customSelector:(SEL)swizzledSelector error:(NSError *)error{
-    Method systemMethod = class_getInstanceMethod(self, systemSelector);
-    if (!systemMethod) {
-        return NO;
+/// 对系统方法进行替换
+/// @param class 类
+/// @param originalSelector 被替换的方法
+/// @param swizzledSelector 实际使用的方法
+static inline void hx_swizzleSelector(Class class, SEL originalSelector, SEL swizzledSelector) {
+    
+    Method originalMethod = class_getInstanceMethod(class, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+    
+    BOOL didAddMethod = class_addMethod(class,
+                                        originalSelector,
+                                        method_getImplementation(swizzledMethod),
+                                        method_getTypeEncoding(swizzledMethod));
+    if (didAddMethod) {
+        class_replaceMethod(class,
+                            swizzledSelector,
+                            method_getImplementation(originalMethod),
+                            method_getTypeEncoding(originalMethod));
+    } else {
+        method_exchangeImplementations(originalMethod, swizzledMethod);
     }
-    Method swizzledMethod = class_getInstanceMethod(self, swizzledSelector);
-    if (!swizzledMethod) {
-        return NO;
-    }
-    if (class_addMethod([self class], systemSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))) {
-        class_replaceMethod([self class], swizzledSelector, method_getImplementation(systemMethod), method_getTypeEncoding(systemMethod));
-    }
-    else{
-        method_exchangeImplementations(systemMethod, swizzledMethod);
-    }
-    return YES;
 }
 
-/**
- NSArray 是一个类簇
- */
+/// NSArray 是一个类簇
 + (void)load {
     [super load];
+    
     // 越界：初始化的空数组
-    [objc_getClass("__NSArray0") systemSelector:@selector(objectAtIndex:)
-                                 customSelector:@selector(emptyObjectIndex:)
-                                          error:nil];
+    hx_swizzleSelector(objc_getClass("__NSArray0"), @selector(objectAtIndex:), @selector(emptyObjectIndex:));
+
     // 越界：初始化的非空不可变数组
-    [objc_getClass("__NSArrayI") systemSelector:@selector(objectAtIndex:)
-                                 customSelector:@selector(safe_arrObjectIndex:)
-                                          error:nil];
-    // 越界：初始化的可变数组
-    [objc_getClass("__NSArrayM") systemSelector:@selector(objectAtIndex:)
-                                 customSelector:@selector(safeObjectIndex:)
-                                          error:nil];
+    hx_swizzleSelector(objc_getClass("__NSArrayI"), @selector(objectAtIndex:), @selector(safe_arrObjectIndex:));
+
     // 越界：未初始化的可变数组和未初始化不可变数组
-    [objc_getClass("__NSPlaceholderArray") systemSelector:@selector(objectAtIndex:)
-                                           customSelector:@selector(uninitIIndex:)
-                                                    error:nil];
+    hx_swizzleSelector(objc_getClass("__NSPlaceholderArray"), @selector(objectAtIndex:), @selector(uninitIIndex:));
+
+    // 越界：初始化的可变数组
+    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(objectAtIndex:), @selector(safeObjectIndex:));
+
     // 越界：可变数组
-    [objc_getClass("__NSArrayM") systemSelector:@selector(objectAtIndexedSubscript:)
-                                 customSelector:@selector(mutableArray_safe_objectAtIndexedSubscript:)
-                                          error:nil];
+    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(objectAtIndexedSubscript:), @selector(mutableArray_safe_objectAtIndexedSubscript:));
+
     // 越界vs插入：可变数插入nil，或者插入的位置越界
-    [objc_getClass("__NSArrayM") systemSelector:@selector(insertObject:atIndex:)
-                                 customSelector:@selector(safeInsertObject:atIndex:)
-                                          error:nil];
+    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(insertObject:atIndex:), @selector(safeInsertObject:atIndex:));
+
     // 插入：可变数插入nil
-    [objc_getClass("__NSArrayM") systemSelector:@selector(addObject:)
-                                 customSelector:@selector(safeAddObject:)
-                                          error:nil];
+    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(addObject:), @selector(safeAddObject:));
 }
 
 - (id)safe_arrObjectIndex:(NSInteger)index{
