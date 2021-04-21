@@ -14,7 +14,7 @@
 /** 获取属性的名字列表
  *  http://www.cocoachina.com/industry/20140516/8445.html
  */
-- (NSArray *)getPropertyNames {
+- (NSArray *)hx_getPropertyNames {
     /*
      *  使用KVC（键-值编码），我们能够利用名称设置和获取一个对象的所有属性，并且在一个NSCoder对象中对这些属性进行编码/解码。
      
@@ -38,7 +38,7 @@
 
 
 /** 通过属性的名字获取该属性的类型*/
-- (NSDictionary *)getPropertyClassesByName {
+- (NSDictionary *)hx_getPropertyClassesByName {
     
     NSMutableDictionary * dictionary = objc_getAssociatedObject([self class], _cmd);
     if(dictionary) {

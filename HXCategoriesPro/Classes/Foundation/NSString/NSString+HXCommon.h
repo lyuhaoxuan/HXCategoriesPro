@@ -35,20 +35,19 @@ typedef NS_ENUM(NSUInteger, HXRelation) {
 @property (readonly) NSUInteger hx_unsignedIntegerValue;
 
 /**
- 根据设备型号转成完整的用于显示的字符传, 例如: @"ET18P" --> @"ET18 Plus"
- 
- @param deviceTypeString 设备型号字符串
- @return 漂亮的显示
- */
-+ (NSString *)hx_deviceTypeForDisplayWithDeviceType:(NSString *)deviceTypeString;
-
-/**
  判断字符串是否为空(安全字符串) 包括: nil, null, @"", @"\n", @"  "等
 
  @param string 字符串
  @return 空 --> YES,  非空 --> NO
  */
 + (BOOL)hx_isEmpty:(nullable NSString *)string;
+
+/**
+ 判断字符串是否安全 包括: nil, null, @"", @"\n", @"  "等
+
+ @return 安全 --> YES,  不安全 --> NO
+ */
+- (BOOL)hx_isSafe;
 
 /**
  以1024作单位转换数据大小为 KB MB GB 等格式

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'HXCategoriesPro'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'HXCategoriesPro.'
 
   s.description      = <<-DESC
@@ -13,7 +13,7 @@ TODO: HXCategoriesPro 适用于 iOS 和 macOS。
   s.source           = { :git => 'https://github.com/confidenthaoxuan/HXCategoriesPro.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '9.0'
-  s.osx.deployment_target = '10.11'
+  s.osx.deployment_target = '10.12'
 
   s.source_files = 'HXCategoriesPro/Classes/**/*'
   

@@ -42,7 +42,7 @@
 }
 
 //干支纪年
-- (NSString *)hx_HE_Y_DateString {
+- (NSString *)hx_HE_Y {
     
     NSCalendar *chineseCalendar = [[self class] hx_chineseCalendar];
     
@@ -55,7 +55,7 @@
 }
 
 //干支纪月
-- (NSString *)hx_HE_M_DateString {
+- (NSString *)hx_HE_M {
     
     NSCalendar *chineseCalendar = [[self class] hx_chineseCalendar];
     
@@ -93,7 +93,7 @@
 }
 
 //干支纪日 (目前支持 1700 ~ 2699 年)
-- (NSString *)hx_HE_D_DateString {
+- (NSString *)hx_HE_D {
     
     //公元年前两位
     NSInteger s = self.hx_year % 100;
@@ -163,7 +163,7 @@
 }
 
 //农历月
-- (NSString*)hx_L_M_DateString {
+- (NSString*)hx_L_M {
     
     NSCalendar *chineseCalendar = [[self class] hx_chineseCalendar];
     
@@ -179,7 +179,7 @@
 }
 
 //农历日
-- (NSString*)hx_L_D_DateString {
+- (NSString*)hx_L_D {
     
     NSCalendar *chineseCalendar = [[self class] hx_chineseCalendar];
     

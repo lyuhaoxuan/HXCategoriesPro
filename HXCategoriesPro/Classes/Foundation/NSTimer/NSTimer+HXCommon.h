@@ -15,19 +15,19 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  暂停NSTimer
  */
-- (void)jk_pauseTimer;
+- (void)hx_pauseTimer;
 
 /**
  开始NSTimer
  */
-- (void)jk_resumeTimer;
+- (void)hx_resumeTimer;
 
 /**
  延迟开始NSTimer
 
  @param interval 延时时间
  */
-- (void)jk_resumeTimerAfterTimeInterval:(NSTimeInterval)interval;
+- (void)hx_resumeTimerAfterTimeInterval:(NSTimeInterval)interval;
 
 @end
 

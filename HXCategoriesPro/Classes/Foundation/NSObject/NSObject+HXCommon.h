@@ -15,12 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  获取属性的名字列表
  */
-- (NSArray *)getPropertyNames;
+- (NSArray *)hx_getPropertyNames;
 
 /**
  通过属性的名字获取该属性的类型
  */
-- (NSDictionary *)getPropertyClassesByName;
+- (NSDictionary *)hx_getPropertyClassesByName;
 @end
 
 NS_ASSUME_NONNULL_END

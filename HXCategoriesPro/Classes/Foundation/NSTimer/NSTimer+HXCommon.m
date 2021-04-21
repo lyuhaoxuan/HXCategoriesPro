@@ -10,21 +10,21 @@
 
 @implementation NSTimer (HXCommon)
 
--(void)jk_pauseTimer {
+-(void)hx_pauseTimer {
     if (![self isValid]) {
         return ;
     }
     [self setFireDate:[NSDate distantFuture]];
 }
 
--(void)jk_resumeTimer {
+-(void)hx_resumeTimer {
     if (![self isValid]) {
         return ;
     }
     [self setFireDate:[NSDate date]];
 }
 
-- (void)jk_resumeTimerAfterTimeInterval:(NSTimeInterval)interval {
+- (void)hx_resumeTimerAfterTimeInterval:(NSTimeInterval)interval {
     if (![self isValid]) {
         return ;
     }

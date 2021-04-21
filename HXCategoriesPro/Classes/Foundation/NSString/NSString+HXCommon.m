@@ -61,58 +61,23 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     return self.hx_numberValue.unsignedIntegerValue;
 }
 
-+ (BOOL)hx_isEmpty:(NSString *)string {
-    if (!string || ![string isKindOfClass:[NSString class]] || string.length == 0) {
-        return YES;
+- (BOOL)hx_isSafe {
+    if (!self || ![self isKindOfClass:[NSString class]] || self.length == 0) {
+        return NO;
     }
     
     NSCharacterSet *blank = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    for (NSInteger i = 0; i < string.length; ++i) {
-        unichar c = [string characterAtIndex:i];
+    for (NSInteger i = 0; i < self.length; ++i) {
+        unichar c = [self characterAtIndex:i];
         if (![blank characterIsMember:c]) {
-            return NO;
+            return YES;
         }
     }
-    return YES;
+    return NO;
 }
 
-+ (NSString *)hx_deviceTypeForDisplayWithDeviceType:(NSString *)deviceTypeString {
-    NSString *deviceType = deviceTypeString;
-    if (!deviceType) {
-        return @"";
-    }
-    if([deviceType containsString:@"\0"]){
-        return @"";
-    }
-    
-    if ([deviceType hasSuffix:@"_"]) {
-        
-        deviceType = [deviceType substringWithRange:NSMakeRange(0, deviceType.length - 1)];
-    } else if ([deviceType hasSuffix:@"R"]) {
-        
-        deviceType = [deviceType substringWithRange:NSMakeRange(0, deviceType.length - 1)];
-        if ([deviceType hasPrefix:@"M"]) {
-            deviceType = [deviceType stringByAppendingString:@"0 Pro"];
-        } else {
-            deviceType = [deviceType stringByAppendingString:@" Pro"];
-        }
-    } else if ([deviceType hasSuffix:@"P"]) {
-        
-        deviceType = [deviceType substringWithRange:NSMakeRange(0, deviceType.length - 1)];
-        if ([deviceType hasPrefix:@"M"]) {
-            deviceType = [deviceType stringByAppendingString:@"0 Plus"];
-        } else {
-            deviceType = [deviceType stringByAppendingString:@" Plus"];
-        }
-    } else if ([deviceType hasPrefix:@"M"]) {
-        
-        NSString *subString = [deviceType substringWithRange:NSMakeRange(deviceType.length - 2, 1)];
-        deviceType = [deviceType substringWithRange:NSMakeRange(0, deviceType.length - 1)];
-        deviceType = [deviceType stringByAppendingString:@"0"];
-        deviceType = [deviceType stringByAppendingString:subString];
-    }
-    
-    return deviceType;
++ (BOOL)hx_isEmpty:(NSString *)string {
+    return !string.hx_isSafe;
 }
 
 + (NSString *)hx_stringFromFileSize:(NSUInteger)byteCount {

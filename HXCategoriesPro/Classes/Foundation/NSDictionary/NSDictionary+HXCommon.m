@@ -10,11 +10,16 @@
 #import "NSData+HXEncode.h"
 
 @implementation NSDictionary (HXCommon)
-+ (BOOL)hx_isEmpty:(NSDictionary *)dic {
-    if (!dic || ![dic isKindOfClass:[NSDictionary class]] || dic.count == 0) {
-        return YES;
+
+- (BOOL)hx_isSafe {
+    if (!self || ![self isKindOfClass:[NSDictionary class]] || self.count == 0) {
+        return NO;
     }
-    return NO;
+    return YES;
+}
+
++ (BOOL)hx_isEmpty:(NSDictionary *)dic {
+    return !dic.hx_isSafe;
 }
 
 + (NSDictionary *)hx_dictionaryWithPlistData:(NSData *)plist {

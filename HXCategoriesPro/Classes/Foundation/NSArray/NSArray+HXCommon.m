@@ -110,11 +110,15 @@ static inline void hx_swizzleSelector(Class class, SEL originalSelector, SEL swi
     return nil;
 }
 
-+ (BOOL)hx_isEmpty:(NSArray *)array {
-    if (!array || ![array isKindOfClass:[NSArray class]] || array.count == 0) {
-        return YES;
+- (BOOL)hx_isSafe {
+    if (!self || ![self isKindOfClass:[NSArray class]] || self.count == 0) {
+        return NO;
     }
-    return NO;
+    return YES;
+}
+
++ (BOOL)hx_isEmpty:(NSArray *)array {
+    return !array.hx_isSafe;
 }
 
 + (NSArray *)hx_arrayWithPlistData:(NSData *)plist {

@@ -21,6 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)hx_isEmpty:(nullable NSArray *)array;
 
 /**
+ 判断 NSArray 是否安全
+
+ @return 安全 --> YES,  不安全 --> NO
+ */
+- (BOOL)hx_isSafe;
+
+/**
  由基于 NSArray 类型的 plist 数据, 创建并返回新的 NSArray
  
  @param plist   基于 NSArray 类型的 plist 数据

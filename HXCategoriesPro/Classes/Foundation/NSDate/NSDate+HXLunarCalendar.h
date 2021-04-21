@@ -15,27 +15,27 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  干支纪年
  */
-@property (nonatomic, readonly) NSString *hx_HE_Y_DateString;
+@property (nonatomic, readonly) NSString *hx_HE_Y;
 
 /**
  干支纪月
  */
-@property (nonatomic, readonly) NSString *hx_HE_M_DateString;
+@property (nonatomic, readonly) NSString *hx_HE_M;
 
 /**
  干支纪日
  */
-@property (nonatomic, readonly) NSString *hx_HE_D_DateString;
+@property (nonatomic, readonly) NSString *hx_HE_D;
 
 /**
  农历月
  */
-@property (nonatomic, readonly) NSString *hx_L_M_DateString;
+@property (nonatomic, readonly) NSString *hx_L_M;
 
 /**
  农历日
  */
-@property (nonatomic, readonly) NSString *hx_L_D_DateString;
+@property (nonatomic, readonly) NSString *hx_L_D;
 
 /**
  生肖
