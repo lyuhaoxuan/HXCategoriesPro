@@ -7,10 +7,10 @@ Pod::Spec.new do |s|
 TODO: HXCategoriesPro 适用于 iOS 和 macOS。
                        DESC
 
-  s.homepage         = 'https://github.com/confidenthaoxuan/HXCategoriesPro'
+  s.homepage         = 'https://github.com/lyuhaoxuan/HXCategoriesPro'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { '吕浩轩' => 'lyuhaoxuan@aliyun.com' }
-  s.source           = { :git => 'https://github.com/confidenthaoxuan/HXCategoriesPro.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/lyuhaoxuan/HXCategoriesPro.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '9.0'
   s.osx.deployment_target = '10.12'
