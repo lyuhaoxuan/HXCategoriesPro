@@ -23,6 +23,11 @@
     NSString *UUID = [NSString hx_UUID];
     
     NSLog(@"UUID:%@", UUID);
+    
+    NSLog(@"MIMEType:%@", @"/Users/lvhaoxuan/Desktop/截屏2021-05-19 14.36.07.png".MIMEType);
+    NSLog(@"MIMEType:%@", @"wav".MIMEType);
+    NSLog(@"MIMEType:%@", @".aac".MIMEType);
+    NSLog(@"MIMEType:%@", @"123.mp3".MIMEType);
 }
 
 - (void)didReceiveMemoryWarning

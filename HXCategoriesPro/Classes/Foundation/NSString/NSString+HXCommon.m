@@ -213,20 +213,26 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 }
 
 + (NSString *)mimeTypeForFileAtPath:(NSString *)path {
-    if (![[[NSFileManager alloc] init] fileExistsAtPath:path]) {
-        return nil;
-    }
+    return [path MIMEType];
+}
 
-    CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
-                                                            (__bridge CFStringRef)[path pathExtension],
-                                                            NULL);
-    CFStringRef MIMEType = UTTypeCopyPreferredTagWithClass (UTI, kUTTagClassMIMEType);
-    CFRelease(UTI);
-    if (!MIMEType) {
-        //application/octet-stream 任意的二进制数据类型
-        return @"application/octet-stream";
+- (NSString *)MIMEType {
+    NSString *extension = self.pathExtension;
+    if (!extension.hx_isSafe) {
+        if ([self hasPrefix:@"."]) {
+            extension = [self substringFromIndex:1];
+        } else {
+            extension = self;
+        }
     }
-    return (__bridge NSString *)(MIMEType);
+    
+    NSString *UTI = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL);
+    NSString *contentType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
+    if (!contentType) {
+        return @"application/octet-stream";
+    } else {
+        return contentType;
+    }
 }
 
 - (NSUInteger)caculateStringInt {

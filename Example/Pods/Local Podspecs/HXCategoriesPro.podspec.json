@@ -1,9 +1,9 @@
 {
   "name": "HXCategoriesPro",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "summary": "HXCategoriesPro.",
   "description": "TODO: HXCategoriesPro 适用于 iOS 和 macOS。",
-  "homepage": "https://github.com/confidenthaoxuan/HXCategoriesPro",
+  "homepage": "https://github.com/lyuhaoxuan/HXCategoriesPro",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,8 +12,8 @@
     "吕浩轩": "lyuhaoxuan@aliyun.com"
   },
   "source": {
-    "git": "https://github.com/confidenthaoxuan/HXCategoriesPro.git",
-    "tag": "1.0.2"
+    "git": "https://github.com/lyuhaoxuan/HXCategoriesPro.git",
+    "tag": "1.0.3"
   },
   "platforms": {
     "ios": "9.0",

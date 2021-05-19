@@ -34,6 +34,9 @@ typedef NS_ENUM(NSUInteger, HXRelation) {
 @property (readonly) unsigned long long hx_unsignedLongLongValue;
 @property (readonly) NSUInteger hx_unsignedIntegerValue;
 
+/// 获取 MIMEType
+@property (readonly, copy) NSString *MIMEType;
+
 /**
  判断字符串是否为空(安全字符串) 包括: nil, null, @"", @"\n", @"  "等
 
