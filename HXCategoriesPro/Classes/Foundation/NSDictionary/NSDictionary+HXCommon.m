@@ -105,6 +105,26 @@
     return nil;
 }
 
+- (NSString *)hx_jsonStringEncoded {
+    if ([NSJSONSerialization isValidJSONObject:self]) {
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:0 error:&error];
+        NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        if (!error) return json;
+    }
+    return nil;
+}
+
+- (NSString *)hx_jsonPrettyStringEncoded {
+    if ([NSJSONSerialization isValidJSONObject:self]) {
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        if (!error) return json;
+    }
+    return nil;
+}
+
 /// Get a number value from 'id'.
 static NSNumber *NSNumberFromID(id value) {
     static NSCharacterSet *dot;

@@ -100,6 +100,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable NSString *)hx_jsonPrettyString;
 
+/**
+ Convert dictionary to json string. return nil if an error occurs.
+ */
+- (nullable NSString *)hx_jsonStringEncoded;
+
+/**
+ Convert dictionary to json string formatted. return nil if an error occurs.
+ */
+- (nullable NSString *)hx_jsonPrettyStringEncoded;
+
 #pragma mark - Dictionary Value Getter
 ///=============================================================================
 /// @name Dictionary 的一些 Getter 扩展

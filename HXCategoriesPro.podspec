@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'HXCategoriesPro'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.summary          = 'HXCategoriesPro.'
 
   s.description      = <<-DESC
@@ -12,16 +12,8 @@ TODO: HXCategoriesPro 适用于 iOS 和 macOS。
   s.author           = { '吕浩轩' => 'lyuhaoxuan@aliyun.com' }
   s.source           = { :git => 'https://github.com/lyuhaoxuan/HXCategoriesPro.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '9.0'
-  s.osx.deployment_target = '10.12'
+  s.ios.deployment_target = '11.0'
+  s.osx.deployment_target = '10.13'
 
   s.source_files = 'HXCategoriesPro/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'HXCategoriesPro' => ['HXCategoriesPro/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
