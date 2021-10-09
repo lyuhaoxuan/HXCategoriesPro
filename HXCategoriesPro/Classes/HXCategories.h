@@ -61,5 +61,6 @@
 /// 硬件设备信息
 #import "NSObject+HXDevice.h"
 
+#import "HXSafeMutableArray.h"
 
 #endif /* HXCategories_h */

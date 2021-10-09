@@ -39,6 +39,7 @@
 #import "NSTimer+HXCommon.h"
 #import "HXCategories.h"
 #import "HXHeader.h"
+#import "HXSafeMutableArray.h"
 #import "NSButton+HXCommon.h"
 #import "NSObject+HXDevice.h"
 #import "NSImage+HXCommon.h"

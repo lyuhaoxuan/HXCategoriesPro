@@ -4,13 +4,5 @@ platform :ios, '9.0'
 
 target 'HXCategoriesPro_Example' do
   pod 'HXCategoriesPro', :path => '../'
-
-  target 'HXCategoriesPro_Tests' do
-    inherit! :search_paths
-
-    pod 'Specta'
-    pod 'Expecta'
-    pod 'FBSnapshotTestCase'
-    pod 'Expecta+Snapshots'
-  end
+  pod 'YYKit'
 end
