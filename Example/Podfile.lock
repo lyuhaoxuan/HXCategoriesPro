@@ -1,5 +1,5 @@
 PODS:
-  - HXCategoriesPro (1.0.3)
+  - HXCategoriesPro (1.0.5)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -17,7 +17,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HXCategoriesPro: d5e12446f2486c08a1912a7137ffdd5b6ad8ebcc
+  HXCategoriesPro: 67096c5d1bcb883800e2643d9974c6db2ca9e99c
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
 PODFILE CHECKSUM: 984d9207884073378cd4e6e66a3a1a2632305dcf

@@ -16,50 +16,50 @@
 /// @param class 类
 /// @param originalSelector 被替换的方法
 /// @param swizzledSelector 实际使用的方法
-static inline void hx_swizzleSelector(Class class, SEL originalSelector, SEL swizzledSelector) {
-    
-    Method originalMethod = class_getInstanceMethod(class, originalSelector);
-    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-    
-    BOOL didAddMethod = class_addMethod(class,
-                                        originalSelector,
-                                        method_getImplementation(swizzledMethod),
-                                        method_getTypeEncoding(swizzledMethod));
-    if (didAddMethod) {
-        class_replaceMethod(class,
-                            swizzledSelector,
-                            method_getImplementation(originalMethod),
-                            method_getTypeEncoding(originalMethod));
-    } else {
-        method_exchangeImplementations(originalMethod, swizzledMethod);
-    }
-}
+//static inline void hx_swizzleSelector(Class class, SEL originalSelector, SEL swizzledSelector) {
+//
+//    Method originalMethod = class_getInstanceMethod(class, originalSelector);
+//    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+//
+//    BOOL didAddMethod = class_addMethod(class,
+//                                        originalSelector,
+//                                        method_getImplementation(swizzledMethod),
+//                                        method_getTypeEncoding(swizzledMethod));
+//    if (didAddMethod) {
+//        class_replaceMethod(class,
+//                            swizzledSelector,
+//                            method_getImplementation(originalMethod),
+//                            method_getTypeEncoding(originalMethod));
+//    } else {
+//        method_exchangeImplementations(originalMethod, swizzledMethod);
+//    }
+//}
 
 /// NSArray 是一个类簇
-+ (void)load {
-    [super load];
-    
-    // 越界：初始化的空数组
-    hx_swizzleSelector(objc_getClass("__NSArray0"), @selector(objectAtIndex:), @selector(emptyObjectIndex:));
-
-    // 越界：初始化的非空不可变数组
-    hx_swizzleSelector(objc_getClass("__NSArrayI"), @selector(objectAtIndex:), @selector(safe_arrObjectIndex:));
-
-    // 越界：未初始化的可变数组和未初始化不可变数组
-    hx_swizzleSelector(objc_getClass("__NSPlaceholderArray"), @selector(objectAtIndex:), @selector(uninitIIndex:));
-
-    // 越界：初始化的可变数组
-    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(objectAtIndex:), @selector(safeObjectIndex:));
-
-    // 越界：可变数组
-    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(objectAtIndexedSubscript:), @selector(mutableArray_safe_objectAtIndexedSubscript:));
-
-    // 越界vs插入：可变数插入nil，或者插入的位置越界
-    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(insertObject:atIndex:), @selector(safeInsertObject:atIndex:));
-
-    // 插入：可变数插入nil
-    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(addObject:), @selector(safeAddObject:));
-}
+//+ (void)load {
+//    [super load];
+//
+//    // 越界：初始化的空数组
+//    hx_swizzleSelector(objc_getClass("__NSArray0"), @selector(objectAtIndex:), @selector(emptyObjectIndex:));
+//
+//    // 越界：初始化的非空不可变数组
+//    hx_swizzleSelector(objc_getClass("__NSArrayI"), @selector(objectAtIndex:), @selector(safe_arrObjectIndex:));
+//
+//    // 越界：未初始化的可变数组和未初始化不可变数组
+//    hx_swizzleSelector(objc_getClass("__NSPlaceholderArray"), @selector(objectAtIndex:), @selector(uninitIIndex:));
+//
+//    // 越界：初始化的可变数组
+//    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(objectAtIndex:), @selector(safeObjectIndex:));
+//
+//    // 越界：可变数组
+//    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(objectAtIndexedSubscript:), @selector(mutableArray_safe_objectAtIndexedSubscript:));
+//
+//    // 越界vs插入：可变数插入nil，或者插入的位置越界
+//    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(insertObject:atIndex:), @selector(safeInsertObject:atIndex:));
+//
+//    // 插入：可变数插入nil
+//    hx_swizzleSelector(objc_getClass("__NSArrayM"), @selector(addObject:), @selector(safeAddObject:));
+//}
 
 - (id)safe_arrObjectIndex:(NSInteger)index{
     if (index >= self.count || index < 0) {

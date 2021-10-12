@@ -8,13 +8,8 @@
 
 #import "HXViewController.h"
 #import <HXCategories.h>
-#import <YYKit.h>
 
 @interface HXViewController ()
-
-@property (nonatomic) HXThreadSafeArray *array;
-
-@property (atomic) NSMutableArray *tempAarray;
 
 @end
 

@@ -7,26 +7,25 @@
 
 #import "HXThreadSafeArray.h"
 #import "NSArray+HXCommon.h"
-#import <pthread/pthread.h>
+
 
 #define INIT(...) self = super.init; \
 if (!self) return nil; \
 __VA_ARGS__; \
 if (!_arr) return nil; \
-pthread_mutex_init(&_mutex, NULL); \
-pthread_mutex_init(&_mutex2, NULL); \
+_lock = dispatch_semaphore_create(1); \
 return self;
 
-#define LOCK(...) \
-pthread_mutex_lock(&_mutex); \
+#define LOCK(...) dispatch_semaphore_wait(_lock, DISPATCH_TIME_FOREVER); \
 __VA_ARGS__; \
-pthread_mutex_unlock(&_mutex);
+dispatch_semaphore_signal(_lock);
+
 
 @implementation HXThreadSafeArray{
     NSMutableArray *_arr;
-    pthread_mutex_t _mutex;
-    pthread_mutex_t _mutex2;
+    dispatch_semaphore_t _lock;
 }
+
 
 #pragma mark - Class Level
 + (instancetype)array {
@@ -38,11 +37,6 @@ pthread_mutex_unlock(&_mutex);
     return retVal;
 }
 
-#pragma private methods
--(void)dealloc {
-    pthread_mutex_destroy(&_mutex);
-    pthread_mutex_destroy(&_mutex2);
-}
 
 #pragma mark - init
 
@@ -339,11 +333,11 @@ pthread_mutex_unlock(&_mutex);
     if ([otherArray isKindOfClass:HXThreadSafeArray.class]) {
         HXThreadSafeArray *other = (id)otherArray;
         BOOL isEqual;
-        pthread_mutex_lock(&_mutex);
-        pthread_mutex_lock(&other->_mutex2);
+        dispatch_semaphore_wait(_lock, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(other->_lock, DISPATCH_TIME_FOREVER);
         isEqual = [_arr isEqualToArray:other->_arr];
-        pthread_mutex_unlock(&other->_mutex2);
-        pthread_mutex_unlock(&_mutex);
+        dispatch_semaphore_signal(other->_lock);
+        dispatch_semaphore_signal(_lock);
         return isEqual;
     }
     return NO;
@@ -373,11 +367,11 @@ pthread_mutex_unlock(&_mutex);
     if ([object isKindOfClass:HXThreadSafeArray.class]) {
         HXThreadSafeArray *other = object;
         BOOL isEqual;
-        pthread_mutex_lock(&_mutex);
-        pthread_mutex_lock(&other->_mutex2);
+        dispatch_semaphore_wait(_lock, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(other->_lock, DISPATCH_TIME_FOREVER);
         isEqual = [_arr isEqual:other->_arr];
-        pthread_mutex_unlock(&other->_mutex2);
-        pthread_mutex_unlock(&_mutex);
+        dispatch_semaphore_signal(other->_lock);
+        dispatch_semaphore_signal(_lock);
         return isEqual;
     }
     return NO;
