@@ -8,7 +8,7 @@
 
 #import "NSTextField+HXCommon.h"
 
-#if HX_MAC
+#if MAC
 #import "NSString+HXCommon.h"
 
 @implementation NSTextField (HXCommon)
@@ -16,9 +16,9 @@
 - (NSString *)placeholderOrStringValue {
     NSString *string = self.stringValue;
     NSString *placeholderString = self.cell.accessibilityPlaceholderValue;
-    if (![NSString hx_isEmpty:string]) {
+    if (![NSString isEmpty:string]) {
         return string;
-    } else if (![NSString hx_isEmpty:placeholderString]) {
+    } else if (![NSString isEmpty:placeholderString]) {
         string = placeholderString;
     }
     return string;

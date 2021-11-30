@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/30.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import "NSNumber+HXCommon.h"
@@ -11,8 +10,8 @@
 
 @implementation NSNumber (HXCommon)
 
-+ (NSNumber *)hx_numberWithString:(NSString *)string {
-    NSString *str = [[string hx_stringByTrim] lowercaseString];
++ (NSNumber *)numberWithString:(NSString *)string {
+    NSString *str = [[string stringByTrim] lowercaseString];
     if (!str || !str.length) {
         return nil;
     }

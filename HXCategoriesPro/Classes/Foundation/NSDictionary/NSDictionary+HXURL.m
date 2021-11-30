@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/6/2.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import "NSDictionary+HXURL.h"
@@ -37,7 +36,7 @@ NSString * HXPercentEscapedStringFromString(NSString *string) {
         }
         return escaped;
     } else {
-        return [string hx_encode];
+        return [string URLEntityEncode];
     }
 }
 
@@ -65,9 +64,9 @@ NSDictionary * HXDictionaryFromParametersString(NSString *parametersString) {
         }
         
         if (contents.count == 2) {
-            NSString *key = [contents hx_objectAtIndex:0];
-            NSString *value = [contents hx_objectAtIndex:1];
-            value = [value hx_urlDecode];
+            NSString *key = [contents objectAtIndex:0];
+            NSString *value = [contents objectAtIndex:1];
+            value = [value URLEntityDecode];
             if (key && value) {
                 [dict setObject:value forKey:key];
             }
@@ -82,7 +81,7 @@ NSDictionary * HXDictionaryFromParametersString(NSString *parametersString) {
 
 NSString * HXStringFromQueryParameters(NSDictionary *queryParameters, BOOL URLEncode) {
     
-    if ([NSDictionary hx_isEmpty:queryParameters]) return nil;
+    if ([NSDictionary isEmpty:queryParameters]) return nil;
     
     NSMutableArray *parts = [NSMutableArray array];
     [queryParameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
@@ -108,29 +107,29 @@ NSString * HXStringFromQueryParameters(NSDictionary *queryParameters, BOOL URLEn
 }
 
 NSString * HXURLEncode(NSString *URLString) {
-    if ([NSString hx_isEmpty:URLString]) return nil;
+    if ([NSString isEmpty:URLString]) return nil;
     
     NSString *h = [NSURL URLWithString:URLString].scheme;
-    if (![NSString hx_isEmpty:h]) {
+    if (![NSString isEmpty:h]) {
         URLString = [URLString substringFromIndex:h.length + 2];
         h = [h stringByAppendingString:@":/"];
     }
     NSString *newString;
     NSString *lastPathComponent = [URLString lastPathComponent];
     NSString *pathExtension = [lastPathComponent pathExtension];
-    if ([NSString hx_isEmpty:pathExtension]) {
+    if ([NSString isEmpty:pathExtension]) {
         NSCharacterSet *allowedCharacters = [NSCharacterSet URLQueryAllowedCharacterSet];
         URLString = [URLString stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
     } else {
         NSString *deletingLastPathComponent = [URLString stringByDeletingLastPathComponent];
         NSCharacterSet *allowedCharacters = [NSCharacterSet URLQueryAllowedCharacterSet];
         deletingLastPathComponent = [deletingLastPathComponent stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
-        lastPathComponent = [lastPathComponent hx_encode];
+        lastPathComponent = [lastPathComponent URLEntityEncode];
 
         newString = [deletingLastPathComponent stringByAppendingPathComponent:lastPathComponent];
     }
     
-    if (![NSString hx_isEmpty:h]) {
+    if (![NSString isEmpty:h]) {
         newString = [h stringByAppendingString:newString];
     }
     
@@ -139,11 +138,11 @@ NSString * HXURLEncode(NSString *URLString) {
 
 NSString * HXURLByAppendingQueryParameters(NSString *URLString, NSDictionary *parameters) {
     
-    if ([NSString hx_isEmpty:URLString]) return nil;
-    if ([NSDictionary hx_isEmpty:parameters]) return URLString;
+    if ([NSString isEmpty:URLString]) return nil;
+    if ([NSDictionary isEmpty:parameters]) return URLString;
         
     NSString *parametersString = HXStringFromQueryParameters(parameters, YES);
-    if ([NSString hx_isEmpty:parametersString]) {
+    if ([NSString isEmpty:parametersString]) {
         return [NSString stringWithFormat:@"%@", HXURLEncode(URLString)];
     } else {
         return [NSString stringWithFormat:@"%@?%@", HXURLEncode(URLString), parametersString];

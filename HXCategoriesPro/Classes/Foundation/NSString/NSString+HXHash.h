@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/11.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,179 +11,61 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (HXHash)
 
-/**
- MD2 NSData
- */
-@property (nullable, readonly) NSData *hx_MD2Data;
+@property (nullable, readonly) NSData *SHA1Data;        ///< SHA1 NSData
+@property (nullable, readonly) NSString *SHA1String;    ///< SHA1 NSString
 
-/**
- MD2 NSString
- */
-@property (nullable, readonly) NSString *hx_MD2String;
+@property (nullable, readonly) NSData *SHA224Data;      ///< SHA224 NSData
+@property (nullable, readonly) NSString *SHA224String;  ///< SHA224 NSString
 
-/**
- MD4 NSData
- */
-@property (nullable, readonly) NSData *hx_MD4Data;
+@property (nullable, readonly) NSData *SHA256Data;      ///< SHA256 NSData
+@property (nullable, readonly) NSString *SHA256String;  ///< SHA256 NSString
 
-/**
- MD4 NSString
- */
-@property (nullable, readonly) NSString *hx_MD4String;
+@property (nullable, readonly) NSData *SHA384Data;      ///< SHA384 NSData
+@property (nullable, readonly) NSString *SHA384String;  ///< SHA384 NSString
 
-/**
- MD5 NSData
- */
-@property (nullable, readonly) NSData *hx_MD5Data;
+@property (nullable, readonly) NSData *SHA512Data;      ///< SHA512 NSData
+@property (nullable, readonly) NSString *SHA512String;  ///< SHA512 NSString
 
-/**
- MD5 NSString
- */
-@property (nullable, readonly) NSString *hx_MD5String;
 
-/**
- SHA1 NSData
- */
-@property (nullable, readonly) NSData *hx_SHA1Data;
+/// 使用算法 SHA1 和 key, 返回一个小写的 NSString
+/// @param key hmac key
+- (nullable NSString *)hmacSHA1StringWithKey:(NSString *)key;
 
-/**
- SHA1 NSString
- */
-@property (nullable, readonly) NSString *hx_SHA1String;
+/// 使用算法 SHA1 和 key, 返回 NSData
+/// @param key hmac key
+- (nullable NSData *)hmacSHA1DataWithKey:(NSData *)key;
 
-/**
- SHA224 NSData
- */
-@property (nullable, readonly) NSData *hx_SHA224Data;
+/// 使用算法 SHA224 和 key, 返回一个小写的 NSString
+/// @param key hmac key
+- (nullable NSString *)hmacSHA224StringWithKey:(NSString *)key;
 
-/**
- SHA224 NSString
- */
-@property (nullable, readonly) NSString *hx_SHA224String;
+/// 使用算法 SHA224 和 key, 返回 NSData
+/// @param key hmac key
+- (nullable NSData *)hmacSHA224DataWithKey:(NSData *)key;
 
-/**
- SHA256 NSData
- */
-@property (nullable, readonly) NSData *hx_SHA256Data;
+/// 使用算法 SHA256 和 key, 返回一个小写的 NSString
+/// @param key hmac key
+- (nullable NSString *)hmacSHA256StringWithKey:(NSString *)key;
 
-/**
- SHA256 NSString
- */
-@property (nullable, readonly) NSString *hx_SHA256String;
+/// 使用算法 SHA256 和 key, 返回 NSData
+/// @param key hmac key
+- (nullable NSData *)hmacSHA256DataWithKey:(NSData *)key;
 
-/**
- SHA384 NSData
- */
-@property (nullable, readonly) NSData *hx_SHA384Data;
+/// 使用算法 SHA384 和 key, 返回一个小写的 NSString
+/// @param key hmac key
+- (nullable NSString *)hmacSHA384StringWithKey:(NSString *)key;
 
-/**
- SHA384 NSString
- */
-@property (nullable, readonly) NSString *hx_SHA384String;
+/// 使用算法 SHA384 和 key, 返回 NSData
+/// @param key hmac key
+- (nullable NSData *)hmacSHA384DataWithKey:(NSData *)key;
 
-/**
- SHA512 NSData
- */
-@property (nullable, readonly) NSData *hx_SHA512Data;
+/// 使用算法 SHA512 和 key, 返回一个小写的 NSString
+/// @param key hmac key
+- (nullable NSString *)hmacSHA512StringWithKey:(NSString *)key;
 
-/**
- SHA512 NSString
- */
-@property (nullable, readonly) NSString *hx_SHA512String;
-
-/**
- 使用算法 MD5 和 key, 返回一个小写的 NSString
- 
- @param key  hmac key
- */
-- (nullable NSString *)hx_hmacMD5StringWithKey:(NSString *)key;
-
-/**
- 使用算法 MD5 和 key, 返回 NSData
- 
- @param key hmac key.
- */
-- (nullable NSData *)hx_hmacMD5DataWithKey:(NSData *)key;
-
-/**
- 使用算法 SHA1 和 key, 返回一个小写的 NSString
- 
- @param key hmac key.
- */
-- (nullable NSString *)hx_hmacSHA1StringWithKey:(NSString *)key;
-
-/**
- 使用算法 SHA1 和 key, 返回 NSData
- 
- @param key hmac key.
- */
-- (nullable NSData *)hx_hmacSHA1DataWithKey:(NSData *)key;
-
-/**
- 使用算法 SHA224 和 key, 返回一个小写的 NSString
- 
- @param key hmac key.
- */
-- (nullable NSString *)hx_hmacSHA224StringWithKey:(NSString *)key;
-
-/**
- 使用算法 SHA224 和 key, 返回 NSData
- 
- @param key hmac key.
- */
-- (nullable NSData *)hx_hmacSHA224DataWithKey:(NSData *)key;
-
-/**
- 使用算法 SHA256 和 key, 返回一个小写的 NSString
- 
- @param key hmac key.
- */
-- (nullable NSString *)hx_hmacSHA256StringWithKey:(NSString *)key;
-
-/**
- 使用算法 SHA256 和 key, 返回 NSData
- 
- @param key hmac key.
- */
-- (nullable NSData *)hx_hmacSHA256DataWithKey:(NSData *)key;
-
-/**
- 使用算法 SHA384 和 key, 返回一个小写的 NSString
- 
- @param key hmac key.
- */
-- (nullable NSString *)hx_hmacSHA384StringWithKey:(NSString *)key;
-
-/**
- 使用算法 SHA384 和 key, 返回 NSData
- 
- @param key hmac key.
- */
-- (nullable NSData *)hx_hmacSHA384DataWithKey:(NSData *)key;
-
-/**
- 使用算法 SHA512 和 key, 返回一个小写的 NSString
- 
- @param key hmac key.
- */
-- (nullable NSString *)hx_hmacSHA512StringWithKey:(NSString *)key;
-
-/**
- 使用算法 SHA512 和 key, 返回 NSData
- 
- @param key hmac key.
- */
-- (nullable NSData *)hx_hmacSHA512DataWithKey:(NSData *)key;
-
-/**
- Returns a lowercase NSString for crc32 hash.
- */
-- (nullable NSString *)hx_crc32String;
-
-/**
- Returns crc32 hash.
- */
-- (uint32_t)hx_crc32;
+/// 使用算法 SHA512 和 key, 返回 NSData
+/// @param key hmac key
+- (nullable NSData *)hmacSHA512DataWithKey:(NSData *)key;
 
 @end
 

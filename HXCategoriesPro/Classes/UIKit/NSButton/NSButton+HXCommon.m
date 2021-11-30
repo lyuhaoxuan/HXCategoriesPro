@@ -8,7 +8,7 @@
 
 #import "NSButton+HXCommon.h"
 
-#if HX_MAC
+#if MAC
 
 #import "NSString+HXCommon.h"
 

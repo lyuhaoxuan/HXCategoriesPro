@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/6/4.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import "HXHeader.h"
@@ -17,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  有效格式: #RGB #RGBA #RRGGBB #RRGGBBAA 0xRGB ...
  这里 '#' 或 "0x" 不是必需的
  */
-#define HexColor(_hex_)   [UIColor hx_colorWithHexString:((__bridge NSString *)CFSTR(#_hex_))]
+#define HexColor(_hex_)   [UIColor colorWithHexString:((__bridge NSString *)CFSTR(#_hex_))]
 
 
 /*
@@ -47,53 +46,53 @@ NS_ASSUME_NONNULL_BEGIN
  RGB颜色空间中的 红色 分量值。
  这个属性的值是一个在`0.0`到`1.0`范围内的浮点数。
  */
-@property (nonatomic, readonly) CGFloat hx_red;
+@property (nonatomic, readonly) CGFloat red;
 
 /**
  RGB颜色空间中的 绿色 分量值。
  这个属性的值是一个在`0.0`到`1.0`范围内的浮点数。
  */
-@property (nonatomic, readonly) CGFloat hx_green;
+@property (nonatomic, readonly) CGFloat green;
 
 /**
  RGB颜色空间中的 蓝色 分量值。
  这个属性的值是一个在`0.0`到`1.0`范围内的浮点数。
  */
-@property (nonatomic, readonly) CGFloat hx_blue;
+@property (nonatomic, readonly) CGFloat blue;
 
 /**
  HSB颜色空间中的 色调 分量值。
  这个属性的值是一个在`0.0`到`1.0`范围内的浮点数。
  */
-@property (nonatomic, readonly) CGFloat hx_hue;
+@property (nonatomic, readonly) CGFloat hue;
 
 /**
  HSB颜色空间中的 饱和度 分量值。
  这个属性的值是一个在`0.0`到`1.0`范围内的浮点数。
  */
-@property (nonatomic, readonly) CGFloat hx_saturation;
+@property (nonatomic, readonly) CGFloat saturation;
 
 /**
  HSB颜色空间中的 亮度 分量值。
  这个属性的值是一个在`0.0`到`1.0`范围内的浮点数。
  */
-@property (nonatomic, readonly) CGFloat hx_brightness;
+@property (nonatomic, readonly) CGFloat brightness;
 
 /**
  alpha 值
  该属性的值是范围 0.0 到 1.0 的浮点数
  */
-@property (nonatomic, readonly) CGFloat hx_alpha;
+@property (nonatomic, readonly) CGFloat alpha;
 
 /**
  颜色空间
  */
-@property (nonatomic, readonly) CGColorSpaceModel hx_colorSpaceModel;
+@property (nonatomic, readonly) CGColorSpaceModel colorSpaceModel;
 
 /**
  颜色空间，string 形式
  */
-@property (nullable, nonatomic, readonly) NSString *hx_colorSpaceString;
+@property (nullable, nonatomic, readonly) NSString *colorSpaceString;
 
 
 
@@ -113,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return        NSColor 或 UIColor
  */
-+ (nullable UIColor *)hx_colorWithHexString:(NSString *)hexStr;
++ (nullable UIColor *)colorWithHexString:(NSString *)hexStr;
 
 /**
  NSColor 或 UIColor 转十六进制颜色字符串 (RGB, 小写)
@@ -123,7 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return 十六进制颜色字符串
  */
-- (nullable NSString *)hx_hexString;
+- (nullable NSString *)hexString;
 
 /**
  NSColor 或 UIColor 转十六进制颜色字符串 (RGBA, 小写)
@@ -133,7 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return 十六进制颜色字符串
  */
-- (nullable NSString *)hx_hexStringWithAlpha;
+- (nullable NSString *)hexStringWithAlpha;
 
 
 /**

@@ -3,61 +3,29 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/11.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import "NSString+HXEncrypt.h"
-#import "NSData+HXEncrypt.h"
-#import "NSData+HXBase64.h"
+#import "NSString+HXCommon.h"
+#import "NSData+HXCommon.h"
+#import "NSString+HXBase64.h"
 
 @implementation NSString (HXEncrypt)
 
--(NSString*)hx_encryptedWithAESUsingKey:(NSString*)key andIV:(NSData*)iv {
-    NSData *encrypted = [[self dataUsingEncoding:NSUTF8StringEncoding] hx_encryptedWithAESUsingKey:key andIV:iv];
-    NSString *encryptedString = [encrypted hx_base64EncodedString];
-    
-    return encryptedString;
+/// AES 加密
+/// @param key 长度一般为16（AES算法所能支持的密钥长度可以为128,192,256位（也即16，24，32个字节））
+/// @param iv  IV
+- (nullable NSString *)AES256EncryptWithKey:(NSString *)key iv:(nullable NSString *)iv {
+    NSData *encrypted = [[self dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:key.dataValue iv:iv.dataValue];
+    return encrypted.UTF8String;
 }
 
-- (NSString*)hx_decryptedWithAESUsingKey:(NSString*)key andIV:(NSData*)iv {
-    NSData *decrypted = [[NSData hx_dataWithBase64EncodedString:self] hx_decryptedWithAESUsingKey:key andIV:iv];
-    NSString *decryptedString = [[NSString alloc] initWithData:decrypted encoding:NSUTF8StringEncoding];
-    
-    return decryptedString;
+/// AES 解密
+/// @param key 长度一般为16（AES算法所能支持的密钥长度可以为128,192,256位（也即16，24，32个字节））
+/// @param iv  IV
+- (nullable NSString *)AES256DecryptWithkey:(NSString *)key iv:(nullable NSString *)iv {
+    NSData *encrypted = [[self dataUsingEncoding:NSUTF8StringEncoding] AES256DecryptWithkey:key.dataValue iv:iv.dataValue];
+    return encrypted.UTF8String;
 }
 
-- (NSString*)zd_decryptedWithAESUsingKey:(NSString*)key andIV:(NSData*)iv {
-    NSData *decrypted = [[NSData hx_dataWithBase64EncodedString:self] zd_decryptedWithAESUsingKey:key andIV:iv];
-    NSString *decryptedString = [[NSString alloc] initWithData:decrypted encoding:NSUTF8StringEncoding];
-    
-    return decryptedString;
-}
-
-- (NSString*)hx_encryptedWithDESUsingKey:(NSString*)key andIV:(NSData*)iv {
-    NSData *encrypted = [[self dataUsingEncoding:NSUTF8StringEncoding] hx_encryptedWithDESUsingKey:key andIV:iv];
-    NSString *encryptedString = [encrypted hx_base64EncodedString];
-    
-    return encryptedString;
-}
-
-- (NSString*)hx_decryptedWithDESUsingKey:(NSString*)key andIV:(NSData*)iv {
-    NSData *decrypted = [[NSData hx_dataWithBase64EncodedString:self] hx_decryptedWithDESUsingKey:key andIV:iv];
-    NSString *decryptedString = [[NSString alloc] initWithData:decrypted encoding:NSUTF8StringEncoding];
-    
-    return decryptedString;
-}
-
-- (NSString*)hx_encryptedWith3DESUsingKey:(NSString*)key andIV:(NSData*)iv {
-    NSData *encrypted = [[self dataUsingEncoding:NSUTF8StringEncoding] hx_encryptedWith3DESUsingKey:key andIV:iv];
-    NSString *encryptedString = [encrypted hx_base64EncodedString];
-    
-    return encryptedString;
-}
-
-- (NSString*)hx_decryptedWith3DESUsingKey:(NSString*)key andIV:(NSData*)iv {
-    NSData *decrypted = [[NSData hx_dataWithBase64EncodedString:self] hx_decryptedWith3DESUsingKey:key andIV:iv];
-    NSString *decryptedString = [[NSString alloc] initWithData:decrypted encoding:NSUTF8StringEncoding];
-    
-    return decryptedString;
-}
 @end

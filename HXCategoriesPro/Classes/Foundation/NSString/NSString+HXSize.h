@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/9.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -20,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param width   约束宽度
  @return        高度
  */
-- (CGFloat)hx_heightWithFont:(nullable UIFont *)font constrainedToWidth:(CGFloat)width;
+- (CGFloat)heightWithFont:(nullable UIFont *)font constrainedToWidth:(CGFloat)width;
 
 /**
  计算文字的宽度
@@ -29,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param height  约束高度
  @return        宽度
  */
-- (CGFloat)hx_widthWithFont:(nullable UIFont *)font constrainedToHeight:(CGFloat)height;
+- (CGFloat)widthWithFont:(nullable UIFont *)font constrainedToHeight:(CGFloat)height;
 
 /**
  计算文字的大小
@@ -38,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param width   约束宽度
  @return        size
  */
-- (CGSize)hx_sizeWithFont:(nullable UIFont *)font constrainedToWidth:(CGFloat)width;
+- (CGSize)sizeWithFont:(nullable UIFont *)font constrainedToWidth:(CGFloat)width;
 
 /**
  计算文字的大小
@@ -47,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param height  约束高度
  @return        size
  */
-- (CGSize)hx_sizeWithFont:(nullable UIFont *)font constrainedToHeight:(CGFloat)height;
+- (CGSize)sizeWithFont:(nullable UIFont *)font constrainedToHeight:(CGFloat)height;
 
 @end
 

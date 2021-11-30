@@ -8,7 +8,7 @@
 
 #import "NSImage+HXCommon.h"
 
-#if HX_MAC
+#if MAC
 
 #import "NSArray+HXCommon.h"
 
@@ -17,7 +17,7 @@
 /**
  * 保持四周一定区域像素不拉伸，将图像扩散到一定的大小
  */
-- (NSImage *)hx_stretchableImageWithSize:(NSSize)size edgeInsets:(NSEdgeInsets)insets
+- (NSImage *)stretchableImageWithSize:(NSSize)size edgeInsets:(NSEdgeInsets)insets
 {
     void (^makeAreas)(NSRect, NSRect *, NSRect *, NSRect *, NSRect *, NSRect *, NSRect *, NSRect *, NSRect *, NSRect *) = ^(NSRect srcRect, NSRect *tl, NSRect *tc, NSRect *tr, NSRect *ml, NSRect *mc, NSRect *mr, NSRect *bl, NSRect *bc, NSRect *br) {
         CGFloat w = NSWidth(srcRect);//60
@@ -78,15 +78,15 @@
     NSImage *resultImg = [[NSImage alloc] initWithSize:rect.size];
     [resultImg lockFocus];
     NSDrawNinePartImage(rect,
-                        [partImgs hx_objectAtIndex:0],
-                        [partImgs hx_objectAtIndex:1],
-                        [partImgs hx_objectAtIndex:2],
-                        [partImgs hx_objectAtIndex:3],
-                        [partImgs hx_objectAtIndex:4],
-                        [partImgs hx_objectAtIndex:5],
-                        [partImgs hx_objectAtIndex:6],
-                        [partImgs hx_objectAtIndex:7],
-                        [partImgs hx_objectAtIndex:8],
+                        [partImgs objectAtIndex:0],
+                        [partImgs objectAtIndex:1],
+                        [partImgs objectAtIndex:2],
+                        [partImgs objectAtIndex:3],
+                        [partImgs objectAtIndex:4],
+                        [partImgs objectAtIndex:5],
+                        [partImgs objectAtIndex:6],
+                        [partImgs objectAtIndex:7],
+                        [partImgs objectAtIndex:8],
                         NSCompositingOperationSourceOver, 1, NO);
     [resultImg unlockFocus];
     return resultImg;
@@ -96,7 +96,7 @@
 /**
  * 保持leftWidth,rightWidth这左右一定区域不拉伸，将图片宽度拉伸到(leftWidth+middleWidth+rightWidth)
  */
-- (NSImage *)hx_stretchableImageWithLeftCapWidth:(float)leftWidth middleWidth:(float)middleWidth rightCapWidth:(float)rightWidth
+- (NSImage *)stretchableImageWithLeftCapWidth:(float)leftWidth middleWidth:(float)middleWidth rightCapWidth:(float)rightWidth
 {
     // Calculate the new images dimensions
     float imageWidth = leftWidth + middleWidth + rightWidth;

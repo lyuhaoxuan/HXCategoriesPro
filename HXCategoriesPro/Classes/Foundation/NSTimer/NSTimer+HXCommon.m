@@ -3,32 +3,47 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/11.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import "NSTimer+HXCommon.h"
 
 @implementation NSTimer (HXCommon)
 
--(void)hx_pauseTimer {
+-(void)pauseTimer {
     if (![self isValid]) {
         return ;
     }
     [self setFireDate:[NSDate distantFuture]];
 }
 
--(void)hx_resumeTimer {
+-(void)resumeTimer {
     if (![self isValid]) {
         return ;
     }
     [self setFireDate:[NSDate date]];
 }
 
-- (void)hx_resumeTimerAfterTimeInterval:(NSTimeInterval)interval {
+- (void)resumeTimerAfterTimeInterval:(NSTimeInterval)interval {
     if (![self isValid]) {
         return ;
     }
     [self setFireDate:[NSDate dateWithTimeIntervalSinceNow:interval]];
+}
+
+
++ (void)_hx_ExecBlock:(NSTimer *)timer {
+    if ([timer userInfo]) {
+        void (^block)(NSTimer *timer) = (void (^)(NSTimer *timer))[timer userInfo];
+        block(timer);
+    }
+}
+
++ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats {
+    return [NSTimer scheduledTimerWithTimeInterval:seconds target:self selector:@selector(_hx_ExecBlock:) userInfo:[block copy] repeats:repeats];
+}
+
++ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats {
+    return [NSTimer timerWithTimeInterval:seconds target:self selector:@selector(_hx_ExecBlock:) userInfo:[block copy] repeats:repeats];
 }
 
 @end

@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/9.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -18,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return 随机 UUID
  */
-+ (NSString *)hx_UUID;
++ (NSString *)UUID;
 
 /**
  毫秒时间戳
@@ -26,17 +25,17 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return 毫秒时间戳
  */
-+ (NSString *)hx_timeStamp;
++ (NSString *)timeStamp;
 
 /**
  时间戳转时间字符串
- 例如: 1443066826371 -> 2015-09-24 11:53:46
+ 例如: 1443066826371 -> 2015-09-24T11:53:46Z
  @param timeStamp 例：'1443066826371'
- @param format 例：'yyy-MM-dd HH:mm:ss'
+ @param format 例：'yyy-MM-dd'T'HH:mm:ssZ'
 
  @return 时间字符串
 */
-+ (NSString *)hx_timeStampToString:(NSString *)timeStamp format:(NSString *)format;
++ (NSString *)timeStampToString:(NSString *)timeStamp format:(NSString *)format;
 
 @end
 

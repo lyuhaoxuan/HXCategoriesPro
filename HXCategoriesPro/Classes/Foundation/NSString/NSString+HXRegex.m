@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/11.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import "NSString+HXRegex.h"
@@ -11,104 +10,107 @@
 @implementation NSString (HXRegex)
 
 #pragma mark - 正则相关
-- (BOOL)hx_isValidateByRegex:(NSString *)regex {
+- (BOOL)isValidateByRegex:(NSString *)regex {
     NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
     return [pre evaluateWithObject:self];
 }
 
-#pragma mark -
-
 //手机号有效性
-- (BOOL)hx_isMobileNumber {
-    NSString *regex = @"^(1)[0-9]{10}$";
-    return [self hx_isValidateByRegex:regex];
+- (BOOL)isMobileNumber {
+    NSString *mobile = [self stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (mobile.length != 11) {
+        return NO;
+    } else {
+        NSString *regex = @"(13\\d|14[5-9]|15[^4\\D]|16[2567]|17[^9\\D]|18\\d|19[^4\\D])\\d{8}";
+        return [mobile isValidateByRegex:regex];
+    }
 }
 
 //邮箱
-- (BOOL)hx_isEmailAddress {
+- (BOOL)isEmailAddress {
     NSString *regex = @"[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
 //身份证号
-- (BOOL)hx_simpleVerifyIdentityCardNum {
+- (BOOL)simpleVerifyIdentityCardNum {
     NSString *regex = @"^(\\d{6})(\\d{4})(\\d{2})(\\d{2})(\\d{3})([0-9]|X)$";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
 //车牌
-- (BOOL)hx_isCarNumber {
+- (BOOL)isCarNumber {
     //车牌号:辽B-DE829 深圳、珠海的港澳车牌号码:粤Z-J499港
     NSString *regex = @"^[\u4e00-\u9fff]{1}[a-zA-Z]{1}[-][a-zA-Z_0-9]{4}[a-zA-Z_0-9_\u4e00-\u9fff]$";//其中\u4e00-\u9fa5表示unicode编码中汉字已编码部分，\u9fa5-\u9fff是保留部分，将来可能会添加
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_isMacAddress {
+- (BOOL)isMacAddress {
     NSString * regex = @"([A-Fa-f\\d]{2}:){5}[A-Fa-f\\d]{2}";
-    return  [self hx_isValidateByRegex:regex];
+    return  [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_isValidUrl {
+- (BOOL)isValidUrl {
     NSString *regex = @"^((http)|(https))+:[^\\s]+\\.[^\\s]*$";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_isValidChinese {
+- (BOOL)isValidChinese {
     NSString *regex = @"^[\u4e00-\u9fa5]+$";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_isBlankSpace {
+- (BOOL)isBlankSpace {
     NSString *regex = @"\n\\s*\r";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_isInteger {
+- (BOOL)isInteger {
     NSString *regex = @"^-?[1-9]\\d*$";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_isPositiveInteger {
+- (BOOL)isPositiveInteger {
     NSString *regex = @"^[1-9]\\d*$";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_isNegativeInteger {
+- (BOOL)isNegativeInteger {
     NSString *regex = @"^-[1-9]\\d*$";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_Non_PositiveInteger {
+- (BOOL)Non_PositiveInteger {
     NSString *regex = @"^-[1-9]\\d*|0$";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_Non_NegativeInteger {
+- (BOOL)Non_NegativeInteger {
     NSString *regex = @"^[1-9]\\d*|0$";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_PositiveFloat {
+- (BOOL)PositiveFloat {
     NSString *regex = @"^[1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*$";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_NegativeFloat {
+- (BOOL)NegativeFloat {
     NSString *regex = @"^-[1-9]\\d*\\.\\d*|-0\\.\\d*[1-9]\\d*$";
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_isValidPostalcode {
+- (BOOL)isValidPostalcode {
     NSString *postalRegex = @"[1-9]\\d{5}(?!\\d)";
-    return [self hx_isValidateByRegex:postalRegex];
+    return [self isValidateByRegex:postalRegex];
 }
 
-- (BOOL)hx_isValidTaxNo {
+- (BOOL)isValidTaxNo {
     NSString *taxNoRegex = @"[0-9]\\d{13}([0-9]|X)$";
-    return [self hx_isValidateByRegex:taxNoRegex];
+    return [self isValidateByRegex:taxNoRegex];
 }
 
-- (BOOL)hx_isValidWithMinLenth:(NSInteger)minLenth
+- (BOOL)isValidWithMinLenth:(NSInteger)minLenth
                       maxLenth:(NSInteger)maxLenth
                 containChinese:(BOOL)containChinese
            firstCannotBeDigtal:(BOOL)firstCannotBeDigtal {
@@ -118,10 +120,10 @@
     NSString *first = firstCannotBeDigtal ? @"^[a-zA-Z_]" : @"";
     
     NSString *regex = [NSString stringWithFormat:@"%@[%@A-Za-z0-9_]{%d,%d}", first, hanzi, (int)(minLenth-1), (int)(maxLenth-1)];
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
-- (BOOL)hx_isValidWithMinLenth:(NSInteger)minLenth
+- (BOOL)isValidWithMinLenth:(NSInteger)minLenth
                       maxLenth:(NSInteger)maxLenth
                 containChinese:(BOOL)containChinese
                  containDigtal:(BOOL)containDigtal
@@ -136,12 +138,12 @@
     NSString *letterRegex = containLetter ? @"(?=(.*[a-zA-Z].*){1})" : @"";
     NSString *characterRegex = [NSString stringWithFormat:@"(?:%@[%@A-Za-z0-9%@]+)", first, hanzi, containOtherCharacter ? containOtherCharacter : @""];
     NSString *regex = [NSString stringWithFormat:@"%@%@%@%@", lengthRegex, digtalRegex, letterRegex, characterRegex];
-    return [self hx_isValidateByRegex:regex];
+    return [self isValidateByRegex:regex];
 }
 
 #pragma mark - 算法相关
 //精确的身份证号码有效性检测
-- (BOOL)hx_accurateVerifyIDCardNumber {
+- (BOOL)accurateVerifyIDCardNumber {
     NSString *value = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     int length =0;
@@ -245,7 +247,7 @@
  *  2，将奇位乘积的个十位全部相加，再加上所有偶数位上的数字
  *  3，将加法和加上校验位能被 10 整除。
  */
-- (BOOL)hx_bankCardluhmCheck {
+- (BOOL)bankCardluhmCheck {
     NSString * lastNum = [[self substringFromIndex:(self.length-1)] copy];//取出最后一位
     NSString * forwardNum = [[self substringToIndex:(self.length -1)] copy];//前15或18位
     
@@ -302,7 +304,7 @@
     return (luhmTotal%10 ==0)?YES:NO;
 }
 
-- (BOOL)hx_isIPAddress {
+- (BOOL)isIPAddress {
     NSString *regex = [NSString stringWithFormat:@"^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$"];
     NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
     BOOL rc = [pre evaluateWithObject:self];
@@ -325,7 +327,7 @@
 }
 
 // 从右往左查找数字位数
-- (NSString *)hx_checkingResult {
+- (NSString *)checkingResult {
     NSError *error;
     NSString *regexRight = @"[0-9]+$";
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexRight options:NSRegularExpressionCaseInsensitive error:&error];

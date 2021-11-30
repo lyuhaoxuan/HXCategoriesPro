@@ -3,12 +3,11 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/30.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import "NSString+HXCommon.h"
 #import "NSNumber+HXCommon.h"
-#import "NSData+HXEncode.h"
+#import "NSData+HXCommon.h"
 #import "NSArray+HXCommon.h"
 
 #if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
@@ -25,43 +24,43 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 
 @implementation NSString (HXCommon)
-- (char)hx_charValue {
-    return self.hx_numberValue.charValue;
+- (char)charValue {
+    return self.numberValue.charValue;
 }
 
-- (unsigned char)hx_unsignedCharValue {
-    return self.hx_numberValue.unsignedCharValue;
+- (unsigned char)unsignedCharValue {
+    return self.numberValue.unsignedCharValue;
 }
 
-- (short)hx_shortValue {
-    return self.hx_numberValue.shortValue;
+- (short)shortValue {
+    return self.numberValue.shortValue;
 }
 
-- (unsigned short)hx_unsignedShortValue {
-    return self.hx_numberValue.unsignedShortValue;
+- (unsigned short)unsignedShortValue {
+    return self.numberValue.unsignedShortValue;
 }
 
-- (unsigned int)hx_unsignedIntValue {
-    return self.hx_numberValue.unsignedIntValue;
+- (unsigned int)unsignedIntValue {
+    return self.numberValue.unsignedIntValue;
 }
 
-- (long)hx_longValue {
-    return self.hx_numberValue.longValue;
+- (long)longValue {
+    return self.numberValue.longValue;
 }
 
-- (unsigned long)hx_unsignedLongValue {
-    return self.hx_numberValue.unsignedLongValue;
+- (unsigned long)unsignedLongValue {
+    return self.numberValue.unsignedLongValue;
 }
 
-- (unsigned long long)hx_unsignedLongLongValue {
-    return self.hx_numberValue.unsignedLongLongValue;
+- (unsigned long long)unsignedLongLongValue {
+    return self.numberValue.unsignedLongLongValue;
 }
 
-- (NSUInteger)hx_unsignedIntegerValue {
-    return self.hx_numberValue.unsignedIntegerValue;
+- (NSUInteger)unsignedIntegerValue {
+    return self.numberValue.unsignedIntegerValue;
 }
 
-- (BOOL)hx_isSafe {
+- (BOOL)isSafe {
     if (!self || ![self isKindOfClass:[NSString class]] || self.length == 0) {
         return NO;
     }
@@ -76,15 +75,15 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     return NO;
 }
 
-+ (BOOL)hx_isEmpty:(NSString *)string {
-    return !string.hx_isSafe;
++ (BOOL)isEmpty:(NSString *)string {
+    return !string.isSafe;
 }
 
-+ (NSString *)hx_stringFromFileSize:(NSUInteger)byteCount {
++ (NSString *)stringFromFileSize:(NSUInteger)byteCount {
     return [self convertDataSize:byteCount diskMode:NO];
 }
 
-+ (NSString *)hx_stringFromDiskSize:(NSUInteger)byteCount {
++ (NSString *)stringFromDiskSize:(NSUInteger)byteCount {
     return [self convertDataSize:byteCount diskMode:YES];
 }
 
@@ -118,7 +117,7 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     return [NSString stringWithFormat:@"%.2f %@", dataSize / size, sizeUnit];
 }
 
-+ (NSString *)hx_getRandomString {
++ (NSString *)getRandomString {
     NSMutableString *randomString = [NSMutableString stringWithCapacity:kRandomLength];
     for (int i = 0; i < kRandomLength; i++) {
         [randomString appendFormat: @"%C", [kRandomAlphabet characterAtIndex:arc4random_uniform((u_int32_t)[kRandomAlphabet length])]];
@@ -126,7 +125,7 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     return randomString;
 }
 
-- (NSString *)hx_stringByTrim {
+- (NSString *)stringByTrim {
     NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     return [self stringByTrimmingCharactersInSet:set];
 }
@@ -140,23 +139,23 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     return result;
 }
 
-- (NSNumber *)hx_numberValue {
-    return [NSNumber hx_numberWithString:self];
+- (NSNumber *)numberValue {
+    return [NSNumber numberWithString:self];
 }
 
-- (NSData *)hx_dataValue {
+- (NSData *)dataValue {
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSRange)hx_rangeOfAll {
+- (NSRange)rangeOfAll {
     return NSMakeRange(0, self.length);
 }
 
-- (id)hx_jsonValueDecoded {
-    return [[self hx_dataValue] hx_jsonValueDecoded];
+- (id)jsonValueDecoded {
+    return [[self dataValue] jsonValueDecoded];
 }
 
-- (BOOL)hx_isAllNum {
+- (BOOL)isAllNum {
     unichar c;
     for (int i = 0; i < self.length; i++) {
         c = [self characterAtIndex:i];
@@ -167,9 +166,9 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     return YES;
 }
 
-- (HXRelation)hx_compareVesion:(NSString *)targetVersion {
+- (HXRelation)compareVesion:(NSString *)targetVersion {
     
-    if ([NSString hx_isEmpty:self] || [NSString hx_isEmpty:targetVersion]) {
+    if ([NSString isEmpty:self] || [NSString isEmpty:targetVersion]) {
         return Unordered;
     }
     
@@ -178,8 +177,8 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     
     NSInteger count = oldArray.count >= intentArray.count ? oldArray.count : intentArray.count;
     for (int i = 0; i < count; i++) {
-        NSString *str1 = [intentArray hx_objectAtIndex:i];
-        NSString *str2 = [oldArray hx_objectAtIndex:i];
+        NSString *str1 = [intentArray objectAtIndex:i];
+        NSString *str2 = [oldArray objectAtIndex:i];
         if (!str1) str1 = @"0";
         if (!str2) str2 = @"0";
         
@@ -192,9 +191,9 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     return Equal;
 }
 
-- (NSString *)hx_handleURL {
+- (NSString *)handleURL {
     NSString *str = self;
-    if (![NSString hx_isEmpty:str]) {
+    if (![NSString isEmpty:str]) {
         if ([str hasPrefix:@"http://"]) {
             str = [str stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"];
         }
@@ -202,7 +201,7 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     return str;
 }
 
-+ (NSString *)hx_stringNamed:(NSString *)name {
++ (NSString *)stringNamed:(NSString *)name {
     NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@""];
     NSString *str = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
     if (!str) {
@@ -218,7 +217,7 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 - (NSString *)MIMEType {
     NSString *extension = self.pathExtension;
-    if (!extension.hx_isSafe) {
+    if (!extension.isSafe) {
         if ([self hasPrefix:@"."]) {
             extension = [self substringFromIndex:1];
         } else {

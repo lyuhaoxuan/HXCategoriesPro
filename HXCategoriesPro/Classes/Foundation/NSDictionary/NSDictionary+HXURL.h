@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/6/2.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

@@ -8,7 +8,7 @@
 
 #import "HXHeader.h"
 
-#if HX_MAC
+#if MAC
 
 NS_ASSUME_NONNULL_BEGIN
 

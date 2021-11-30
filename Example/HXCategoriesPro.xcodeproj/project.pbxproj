@@ -18,6 +18,9 @@
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		D20E72A82750A434000A28E7 /* MyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D20E72A72750A434000A28E7 /* MyModel.m */; };
+		D20E72AA2750A52F000A28E7 /* PropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = D20E72A92750A52F000A28E7 /* PropertyList.plist */; };
+		D20E72AC2750A581000A28E7 /* Json.json in Resources */ = {isa = PBXBuildFile; fileRef = D20E72AB2750A581000A28E7 /* Json.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,11 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8F2C79FE93C63D2FE0F47788 /* Pods-HXCategoriesPro_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HXCategoriesPro_Example.debug.xcconfig"; path = "Target Support Files/Pods-HXCategoriesPro_Example/Pods-HXCategoriesPro_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		AD1AE59AF4A78C4838513105 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		D20E72A62750A434000A28E7 /* MyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyModel.h; sourceTree = "<group>"; };
+		D20E72A72750A434000A28E7 /* MyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyModel.m; sourceTree = "<group>"; };
+		D20E72A92750A52F000A28E7 /* PropertyList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PropertyList.plist; sourceTree = "<group>"; };
+		D20E72AB2750A581000A28E7 /* Json.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Json.json; sourceTree = "<group>"; };
+		D2398F53274F2962009D68A2 /* HXCategoriesPro_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HXCategoriesPro_Example.entitlements; sourceTree = "<group>"; };
 		D38B881ADAF2914F698FB810 /* Pods_HXCategoriesPro_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HXCategoriesPro_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -71,6 +79,7 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
+				D2398F53274F2962009D68A2 /* HXCategoriesPro_Example.entitlements */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for HXCategoriesPro */,
 				6003F58C195388D20070C39A /* Frameworks */,
@@ -106,8 +115,12 @@
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* HXViewController.h */,
 				6003F5A6195388D20070C39A /* HXViewController.m */,
+				D20E72A62750A434000A28E7 /* MyModel.h */,
+				D20E72A72750A434000A28E7 /* MyModel.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				D20E72A92750A52F000A28E7 /* PropertyList.plist */,
+				D20E72AB2750A581000A28E7 /* Json.json */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			name = "Example for HXCategoriesPro";
@@ -168,7 +181,8 @@
 				ORGANIZATIONNAME = "吕浩轩";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = Z3FBZ8Z36G;
+						DevelopmentTeam = HTW6ZG346Z;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -197,7 +211,9 @@
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				D20E72AC2750A581000A28E7 /* Json.json in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				D20E72AA2750A52F000A28E7 /* PropertyList.plist in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +273,7 @@
 				6003F59E195388D20070C39A /* HXAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* HXViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				D20E72A82750A434000A28E7 /* MyModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,13 +407,20 @@
 			baseConfigurationReference = 8F2C79FE93C63D2FE0F47788 /* Pods-HXCategoriesPro_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Z3FBZ8Z36G;
+				CODE_SIGN_ENTITLEMENTS = HXCategoriesPro_Example.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HTW6ZG346Z;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HXCategoriesPro/HXCategoriesPro-Prefix.pch";
 				INFOPLIST_FILE = "HXCategoriesPro/HXCategoriesPro-Info.plist";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lvhaoxuan.HXCategoriesPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};
@@ -407,13 +431,20 @@
 			baseConfigurationReference = 0211E2612A8EAB16F7ED3F59 /* Pods-HXCategoriesPro_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Z3FBZ8Z36G;
+				CODE_SIGN_ENTITLEMENTS = HXCategoriesPro_Example.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HTW6ZG346Z;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HXCategoriesPro/HXCategoriesPro-Prefix.pch";
 				INFOPLIST_FILE = "HXCategoriesPro/HXCategoriesPro-Info.plist";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lvhaoxuan.HXCategoriesPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};

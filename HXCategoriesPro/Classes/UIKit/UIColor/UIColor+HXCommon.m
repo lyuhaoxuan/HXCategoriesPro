@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/6/4.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import "UIColor+HXCommon.h"
@@ -15,7 +14,7 @@ static BOOL hexStrToRGBA(NSString *str, CGFloat *r, CGFloat *g, CGFloat *b, CGFl
 
 @implementation UIColor (HXCommon)
 
-+ (instancetype)hx_colorWithHexString:(NSString *)hexStr {
++ (instancetype)colorWithHexString:(NSString *)hexStr {
     CGFloat r, g, b, a;
     if (hexStrToRGBA(hexStr, &r, &g, &b, &a)) {
         return [UIColor colorWithRed:r green:g blue:b alpha:a];
@@ -23,15 +22,15 @@ static BOOL hexStrToRGBA(NSString *str, CGFloat *r, CGFloat *g, CGFloat *b, CGFl
     return nil;
 }
 
-- (NSString *)hx_hexString {
-    return [self hx_hexStringWithAlpha:NO];
+- (NSString *)hexString {
+    return [self hexStringWithAlpha:NO];
 }
 
-- (NSString *)hx_hexStringWithAlpha {
-    return [self hx_hexStringWithAlpha:YES];
+- (NSString *)hexStringWithAlpha {
+    return [self hexStringWithAlpha:YES];
 }
 
-- (NSString *)hx_hexStringWithAlpha:(BOOL)withAlpha {
+- (NSString *)hexStringWithAlpha:(BOOL)withAlpha {
     CGColorRef color = self.CGColor;
     size_t count = CGColorGetNumberOfComponents(color);
     const CGFloat *components = CGColorGetComponents(color);
@@ -49,56 +48,56 @@ static BOOL hexStrToRGBA(NSString *str, CGFloat *r, CGFloat *g, CGFloat *b, CGFl
     
     if (hex && withAlpha) {
         hex = [hex stringByAppendingFormat:@"%02lx",
-               (unsigned long)(self.hx_alpha * 255.0 + 0.5)];
+               (unsigned long)(self.alpha * 255.0 + 0.5)];
     }
     return hex;
 }
 
-- (CGFloat)hx_red {
+- (CGFloat)red {
     CGFloat r = 0, g, b, a;
     [self getRed:&r green:&g blue:&b alpha:&a];
     return r;
 }
 
-- (CGFloat)hx_green {
+- (CGFloat)green {
     CGFloat r, g = 0, b, a;
     [self getRed:&r green:&g blue:&b alpha:&a];
     return g;
 }
 
-- (CGFloat)hx_blue {
+- (CGFloat)blue {
     CGFloat r, g, b = 0, a;
     [self getRed:&r green:&g blue:&b alpha:&a];
     return b;
 }
 
-- (CGFloat)hx_alpha {
+- (CGFloat)alpha {
     return CGColorGetAlpha(self.CGColor);
 }
 
-- (CGFloat)hx_hue {
+- (CGFloat)hue {
     CGFloat h = 0, s, b, a;
     [self getHue:&h saturation:&s brightness:&b alpha:&a];
     return h;
 }
 
-- (CGFloat)hx_saturation {
+- (CGFloat)saturation {
     CGFloat h, s = 0, b, a;
     [self getHue:&h saturation:&s brightness:&b alpha:&a];
     return s;
 }
 
-- (CGFloat)hx_brightness {
+- (CGFloat)brightness {
     CGFloat h, s, b = 0, a;
     [self getHue:&h saturation:&s brightness:&b alpha:&a];
     return b;
 }
 
-- (CGColorSpaceModel)hx_colorSpaceModel {
+- (CGColorSpaceModel)colorSpaceModel {
     return CGColorSpaceGetModel(CGColorGetColorSpace(self.CGColor));
 }
 
-- (NSString *)hx_colorSpaceString {
+- (NSString *)colorSpaceString {
     CGColorSpaceModel model =  CGColorSpaceGetModel(CGColorGetColorSpace(self.CGColor));
     switch (model) {
         case kCGColorSpaceModelUnknown:
@@ -137,7 +136,7 @@ static inline NSUInteger hexStrToInt(NSString *str) {
 }
 
 static BOOL hexStrToRGBA(NSString *str, CGFloat *r, CGFloat *g, CGFloat *b, CGFloat *a) {
-    str = [[str hx_stringByTrim] uppercaseString];
+    str = [[str stringByTrim] uppercaseString];
     if ([str hasPrefix:@"#"]) {
         str = [str substringFromIndex:1];
     } else if ([str hasPrefix:@"0X"]) {
@@ -171,13 +170,13 @@ static BOOL hexStrToRGBA(NSString *str, CGFloat *r, CGFloat *g, CGFloat *b, CGFl
 + (BOOL)detectedColor1:(UIColor *)color1 color2:(UIColor *)color2 {
 
     CGFloat red1, red2, green1, green2, blue1, blue2;
-    red1 = color1.hx_red;
-    green1 = color1.hx_green;
-    blue1 = color1.hx_blue;
+    red1 = color1.red;
+    green1 = color1.green;
+    blue1 = color1.blue;
     
-    red2 = color2.hx_red;
-    green2 = color2.hx_green;
-    blue2 = color2.hx_blue;
+    red2 = color2.red;
+    green2 = color2.green;
+    blue2 = color2.blue;
     
     float difference = pow(pow((red1 - red2), 2) + pow((green1 - green2), 2) + pow((blue1 - blue2), 2), 0.5);
     

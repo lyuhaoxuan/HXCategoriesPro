@@ -3,21 +3,18 @@
 //  LHX
 //
 //  Created by 吕浩轩 on 2018/6/14.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #ifndef HXCategories_h
 #define HXCategories_h
 
+#import "HXMacro.h"
+
 /* Foundation */
 #import "NSObject+HXCommon.h"
-#import "NSObject+HXCopy.h"
+#import "NSObject+Model.h"
 
-#import "NSData+HXAPNSToken.h"
-#import "NSData+HXBase64.h"
-#import "NSData+HXEncode.h"
-#import "NSData+HXEncrypt.h"
-#import "NSData+HXHash.h"
+#import "NSData+HXCommon.h"
 
 #import "NSString+HXBase64.h"
 #import "NSString+HXEncrypt.h"
@@ -28,7 +25,6 @@
 #import "NSString+HXSize.h"
 #import "NSString+HXURLEncode.h"
 #import "NSString+HXUUID.h"
-#import "NSString+HXXML.h"
 #import "NSString+HXCommon.h"
 
 #import "NSNumber+HXCommon.h"
@@ -36,7 +32,6 @@
 #import "NSTimer+HXCommon.h"
 
 #import "NSDate+HXCommon.h"
-#import "NSDate+HXLunarCalendar.h"
 
 #import "NSArray+HXCommon.h"
 
@@ -63,5 +58,6 @@
 
 #import "HXThreadSafeArray.h"
 #import "HXThreadSafeDictionary.h"
+#import "HXTimer.h"
 
 #endif /* HXCategories_h */

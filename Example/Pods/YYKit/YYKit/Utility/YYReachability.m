@@ -115,7 +115,7 @@ static void YYReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
 - (YYReachabilityWWANStatus)wwanStatus {
     if (!self.networkInfo) return YYReachabilityWWANStatusNone;
-    NSString *status = self.networkInfo.currentRadioAccessTechnology;
+    NSString *status = self.networkInfo.serviceCurrentRadioAccessTechnology;
     if (!status) return YYReachabilityWWANStatusNone;
     static NSDictionary *dic;
     static dispatch_once_t onceToken;

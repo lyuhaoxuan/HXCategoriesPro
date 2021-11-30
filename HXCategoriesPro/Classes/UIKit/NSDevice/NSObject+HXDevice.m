@@ -7,7 +7,7 @@
 //
 
 #import "NSObject+HXDevice.h"
-#if HX_MAC
+#if MAC
 
 @implementation NSObject (HXDevice)
 

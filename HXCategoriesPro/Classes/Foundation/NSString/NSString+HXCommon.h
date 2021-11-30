@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/30.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -24,15 +23,15 @@ typedef NS_ENUM(NSUInteger, HXRelation) {
 /// 像 NSNumber 一样, 使用 NSString
 ///=============================================================================
 
-@property (readonly) char hx_charValue;
-@property (readonly) unsigned char hx_unsignedCharValue;
-@property (readonly) short hx_shortValue;
-@property (readonly) unsigned short hx_unsignedShortValue;
-@property (readonly) unsigned int hx_unsignedIntValue;
-@property (readonly) long hx_longValue;
-@property (readonly) unsigned long hx_unsignedLongValue;
-@property (readonly) unsigned long long hx_unsignedLongLongValue;
-@property (readonly) NSUInteger hx_unsignedIntegerValue;
+@property (readonly) char charValue;
+@property (readonly) unsigned char unsignedCharValue;
+@property (readonly) short shortValue;
+@property (readonly) unsigned short unsignedShortValue;
+@property (readonly) unsigned int unsignedIntValue;
+@property (readonly) long longValue;
+@property (readonly) unsigned long unsignedLongValue;
+@property (readonly) unsigned long long unsignedLongLongValue;
+@property (readonly) NSUInteger unsignedIntegerValue;
 
 /// 获取 MIMEType
 @property (readonly, copy) NSString *MIMEType;
@@ -43,14 +42,14 @@ typedef NS_ENUM(NSUInteger, HXRelation) {
  @param string 字符串
  @return 空 --> YES,  非空 --> NO
  */
-+ (BOOL)hx_isEmpty:(nullable NSString *)string;
++ (BOOL)isEmpty:(nullable NSString *)string;
 
 /**
  判断字符串是否安全 包括: nil, null, @"", @"\n", @"  "等
 
  @return 安全 --> YES,  不安全 --> NO
  */
-- (BOOL)hx_isSafe;
+- (BOOL)isSafe;
 
 /**
  以1024作单位转换数据大小为 KB MB GB 等格式
@@ -58,7 +57,7 @@ typedef NS_ENUM(NSUInteger, HXRelation) {
  @param byteCount 大小
  @return 可能为 @""
  */
-+ (NSString *)hx_stringFromFileSize:(NSUInteger)byteCount;
++ (NSString *)stringFromFileSize:(NSUInteger)byteCount;
 
 /**
  以1000作单位转换数据大小为 KB MB GB 等格式
@@ -66,43 +65,43 @@ typedef NS_ENUM(NSUInteger, HXRelation) {
  @param byteCount 大小
  @return 可能为 @""
  */
-+ (NSString *)hx_stringFromDiskSize:(NSUInteger)byteCount;
++ (NSString *)stringFromDiskSize:(NSUInteger)byteCount;
 
 /**
  生成随机字符。（可更改参数：长4位，字符表'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'）
 
  @return 随机字符
  */
-+ (NSString *)hx_getRandomString;
++ (NSString *)getRandomString;
 
 /** 去除头部和尾部的空白字符(空格和换行)。 */
-- (NSString *)hx_stringByTrim;
+- (NSString *)stringByTrim;
 
 /** 移除结尾的子字符串 */
 - (NSString *)removeLastSubString:(NSString *)string;
 
 /** 尝试解析这个字符串并返回一个NSNumber */
-- (nullable NSNumber *)hx_numberValue;
+- (nullable NSNumber *)numberValue;
 
 /** NSString 转 NSData (UTF-8) */
-- (NSData *)hx_dataValue;
+- (NSData *)dataValue;
 
 /** 返回 NSMakeRange(0, self.length). */
-- (NSRange)hx_rangeOfAll;
+- (NSRange)rangeOfAll;
 
 /**
  将 NSString 解码成 NSDictionary/NSArray, 如果发生错, 返回 nil
  
  例如: NSString: @"{"name":"a","count":2}"  => NSDictionary: @{@"name":@"a",@"count":@2}
  */
-- (nullable id)hx_jsonValueDecoded;
+- (nullable id)jsonValueDecoded;
 
 /**
  判断字符是否为纯数字
 
  @return YES or NO
  */
-- (BOOL)hx_isAllNum;
+- (BOOL)isAllNum;
 
 /**
  比较版本号大
@@ -110,12 +109,12 @@ typedef NS_ENUM(NSUInteger, HXRelation) {
  @param targetVersion 比较目标版本 eg: 3.2.0
  @return 0:大于、1:小于、2:等于、3:无序（失败）
  */
-- (HXRelation)hx_compareVesion:(NSString *)targetVersion;
+- (HXRelation)compareVesion:(NSString *)targetVersion;
 
 /**
  处理URL，将 http:// 加上 s
  */
-- (NSString *)hx_handleURL;
+- (NSString *)handleURL;
 
 /**
  从 mainBundle 中创建 NSString (类似于 [UIImage imageNamed:])
@@ -124,7 +123,7 @@ typedef NS_ENUM(NSUInteger, HXRelation) {
  
  @return 以UTF-8字符编码形式从文件创建一个新的字符串
  */
-+ (nullable NSString *)hx_stringNamed:(NSString *)name;
++ (nullable NSString *)stringNamed:(NSString *)name;
 
 /// 获取 MIMEType
 /// @param path 文件路径

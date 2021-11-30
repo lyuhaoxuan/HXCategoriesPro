@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/11.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -89,67 +88,67 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param regex 正则表达式
  */
-- (BOOL)hx_isValidateByRegex:(NSString *)regex;
+- (BOOL)isValidateByRegex:(NSString *)regex;
 
 /** 纯汉字 */
-- (BOOL)hx_isValidChinese;
+- (BOOL)isValidChinese;
 
 /** 匹配空白行 */
-- (BOOL)hx_isBlankSpace;
+- (BOOL)isBlankSpace;
 
 /** 匹配整数 */
-- (BOOL)hx_isInteger;
+- (BOOL)isInteger;
 
 /** 匹配正整数 */
-- (BOOL)hx_isPositiveInteger;
+- (BOOL)isPositiveInteger;
 
 /** 匹配负整数 */
-- (BOOL)hx_isNegativeInteger;
+- (BOOL)isNegativeInteger;
 
 /** 匹配非正整数 */
-- (BOOL)hx_Non_PositiveInteger;
+- (BOOL)Non_PositiveInteger;
 
 /** 匹配非负整数 */
-- (BOOL)hx_Non_NegativeInteger;
+- (BOOL)Non_NegativeInteger;
 
 /** 匹配正浮点数 */
-- (BOOL)hx_PositiveFloat;
+- (BOOL)PositiveFloat;
 
 /** 匹配负浮点数 */
-- (BOOL)hx_NegativeFloat;
+- (BOOL)NegativeFloat;
 
 /** IP地址有效性 */
-- (BOOL)hx_isIPAddress;
+- (BOOL)isIPAddress;
 
 /** Mac地址有效性 */
-- (BOOL)hx_isMacAddress;
+- (BOOL)isMacAddress;
 
 /** 网址有效性 */
-- (BOOL)hx_isValidUrl;
+- (BOOL)isValidUrl;
 
 /** 手机号有效性 */
-- (BOOL)hx_isMobileNumber;
+- (BOOL)isMobileNumber;
 
 /** 邮箱的有效性 */
-- (BOOL)hx_isEmailAddress;
+- (BOOL)isEmailAddress;
 
 /** 简单的身份证有效性 */
-- (BOOL)hx_simpleVerifyIdentityCardNum;
+- (BOOL)simpleVerifyIdentityCardNum;
 
 /** 精确的身份证号码有效性检测 */
-- (BOOL)hx_accurateVerifyIDCardNumber;
+- (BOOL)accurateVerifyIDCardNumber;
 
 /** 车牌号的有效性 */
-- (BOOL)hx_isCarNumber;
+- (BOOL)isCarNumber;
 
 /** 银行卡的有效性 */
-- (BOOL)hx_bankCardluhmCheck;
+- (BOOL)bankCardluhmCheck;
 
 /** 邮政编码 */
-- (BOOL)hx_isValidPostalcode;
+- (BOOL)isValidPostalcode;
 
 /** 工商税号 */
-- (BOOL)hx_isValidTaxNo;
+- (BOOL)isValidTaxNo;
 
 /**
  是否符合最小长度、最长长度，是否包含中文,首字母是否可以为数字
@@ -160,7 +159,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param firstCannotBeDigtal     首字母不能为数字
  @return                        正则验证成功返回YES, 否则返回NO
  */
-- (BOOL)hx_isValidWithMinLenth:(NSInteger)minLenth
+- (BOOL)isValidWithMinLenth:(NSInteger)minLenth
                       maxLenth:(NSInteger)maxLenth
                 containChinese:(BOOL)containChinese
            firstCannotBeDigtal:(BOOL)firstCannotBeDigtal;
@@ -177,7 +176,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param firstCannotBeDigtal     首字母不能为数字
  @return                        正则验证成功返回YES, 否则返回NO
  */
-- (BOOL)hx_isValidWithMinLenth:(NSInteger)minLenth
+- (BOOL)isValidWithMinLenth:(NSInteger)minLenth
                       maxLenth:(NSInteger)maxLenth
                 containChinese:(BOOL)containChinese
                  containDigtal:(BOOL)containDigtal
@@ -186,7 +185,7 @@ NS_ASSUME_NONNULL_BEGIN
            firstCannotBeDigtal:(BOOL)firstCannotBeDigtal;
 
 /// 从右往左查找数字位数，并返回
-- (NSString *)hx_checkingResult;
+- (NSString *)checkingResult;
 
 @end
 

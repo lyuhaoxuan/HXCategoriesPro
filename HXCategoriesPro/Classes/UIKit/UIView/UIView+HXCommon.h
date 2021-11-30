@@ -19,7 +19,7 @@
 @property (nonatomic) CGPoint origin;  ///< Shortcut for frame.origin.
 @property (nonatomic) CGSize  size;    ///< Shortcut for frame.size.
 
-#if HX_MAC
+#if MAC
 /// 加载 xib 的 View
 + (instancetype)initFromXib;
 #endif

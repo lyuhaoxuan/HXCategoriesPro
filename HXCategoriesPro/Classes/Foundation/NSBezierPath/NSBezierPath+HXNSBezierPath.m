@@ -7,17 +7,17 @@
 //
 
 #import "NSBezierPath+HXNSBezierPath.h"
-#if HX_MAC
+#if MAC
 #import <objc/objc-runtime.h>
 
 @implementation NSBezierPath (HXNSBezierPath)
 
-+ (NSBezierPath *)hx_bezierPathWithRoundedRect:(CGRect)rect cornerRadius:(CGFloat)cornerRadius
++ (NSBezierPath *)bezierPathWithRoundedRect:(CGRect)rect cornerRadius:(CGFloat)cornerRadius
 {
     return [NSBezierPath bezierPathWithRoundedRect:rect xRadius:cornerRadius yRadius:cornerRadius];
 }
 
-+ (NSBezierPath *)hx_bezierPathWithRoundedRect:(CGRect)rect byRoundingCorners:(HXRectCorner)corners cornerRadii:(CGSize)cornerRadii
++ (NSBezierPath *)bezierPathWithRoundedRect:(CGRect)rect byRoundingCorners:(HXRectCorner)corners cornerRadii:(CGSize)cornerRadii
 {
     CGMutablePathRef path = CGPathCreateMutable();
     
@@ -63,14 +63,14 @@
     CGPathCloseSubpath(path);
     
     NSBezierPath *result = [NSBezierPath bezierPath];
-    [result setHx_CGPath:path];
+    [result setCGPath:path];
     CGPathRelease(path);
     
     return result;
 }
 
 
-+ (NSBezierPath *)hx_bezierPathWithArcCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise
++ (NSBezierPath *)bezierPathWithArcCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise
 {
     NSBezierPath *path = [NSBezierPath bezierPath];
     [path appendBezierPathWithArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
@@ -78,26 +78,26 @@
 }
 
 
-+ (NSBezierPath *)hx_bezierPathWithCGPath:(CGPathRef)inPath
++ (NSBezierPath *)bezierPathWithCGPath:(CGPathRef)inPath
 {
     NSBezierPath *path = [NSBezierPath bezierPath];
-    [path setHx_CGPath:inPath];
+    [path setCGPath:inPath];
     return path;
 }
 
-- (void)hx_appendPath:(NSBezierPath *)bezierPath {
+- (void)appendPath:(NSBezierPath *)bezierPath {
     [self appendBezierPath:bezierPath];
 }
 
-- (void)hx_addLineToPoint:(CGPoint)point {
+- (void)addLineToPoint:(CGPoint)point {
     [self lineToPoint:point];
 }
 
-- (void)hx_addCurveToPoint:(CGPoint)endPoint controlPoint1:(CGPoint)controlPoint1 controlPoint2:(CGPoint)controlPoint2 {
+- (void)addCurveToPoint:(CGPoint)endPoint controlPoint1:(CGPoint)controlPoint1 controlPoint2:(CGPoint)controlPoint2 {
     [self curveToPoint:endPoint controlPoint1:controlPoint1 controlPoint2:controlPoint2];
 }
 
-- (void)hx_addQuadCurveToPoint:(CGPoint)QP2 controlPoint:(CGPoint)QP1
+- (void)addQuadCurveToPoint:(CGPoint)QP2 controlPoint:(CGPoint)QP1
 {
     // See http://fontforge.sourceforge.net/bezier.html
     
@@ -120,13 +120,13 @@
 }
 
 
-- (void)hx_addArcWithCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise
+- (void)addArcWithCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise
 {
     [self appendBezierPathWithArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
 }
 
 
-- (void)hx_applyTransform:(CGAffineTransform)transform
+- (void)applyTransform:(CGAffineTransform)transform
 {
     NSAffineTransform *nsTransform = [NSAffineTransform transform];
     
@@ -140,7 +140,7 @@
 }
 
 
-- (void)hx_fillWithBlendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
+- (void)fillWithBlendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
 {
     CGContextRef context = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
     CGContextSaveGState(context);
@@ -154,7 +154,7 @@
 }
 
 
-- (void)hx_strokeWithBlendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
+- (void)strokeWithBlendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
 {
     CGContextRef context = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
     CGContextSaveGState(context);
@@ -182,7 +182,7 @@ static void sPathApplier(void *info, const CGPathElement *element)
             break;
             
         case kCGPathElementAddQuadCurveToPoint:
-            [path hx_addQuadCurveToPoint: element->points[1]
+            [path addQuadCurveToPoint: element->points[1]
                          controlPoint: element->points[0]];
             
             break;
@@ -200,14 +200,14 @@ static void sPathApplier(void *info, const CGPathElement *element)
     }
 }
 
-- (void)setHx_CGPath:(CGPathRef)hx_CGPath {
+- (void)setCGPath:(CGPathRef)CGPath {
     [self removeAllPoints];
-    if (CGPathIsEmpty(hx_CGPath)) return;
+    if (CGPathIsEmpty(CGPath)) return;
     
-    CGPathApply(hx_CGPath, (__bridge void *)self, sPathApplier);
+    CGPathApply(CGPath, (__bridge void *)self, sPathApplier);
 }
 
-- (CGPathRef)hx_CGPath
+- (CGPathRef)CGPath
 {
     CGMutablePathRef path = CGPathCreateMutable();
     NSPoint p[3];
@@ -240,19 +240,19 @@ static void sPathApplier(void *info, const CGPathElement *element)
     if (elementCount > 0 && !closed)  CGPathCloseSubpath(path);
     
     CGPathRef immutablePath = CGPathCreateCopy(path);
-    objc_setAssociatedObject(self, "hx_CGPath", (__bridge id)immutablePath, OBJC_ASSOCIATION_RETAIN);
+    objc_setAssociatedObject(self, "CGPath", (__bridge id)immutablePath, OBJC_ASSOCIATION_RETAIN);
     CGPathRelease(immutablePath);
     
     CGPathRelease(path);
     
-    return (__bridge CGPathRef)objc_getAssociatedObject(self, "hx_CGPath");
+    return (__bridge CGPathRef)objc_getAssociatedObject(self, "CGPath");
 }
 
-- (void)setHx_usesEvenOddFillRule:(BOOL)hx_usesEvenOddFillRule {
-    [self setWindingRule:hx_usesEvenOddFillRule ? NSEvenOddWindingRule : NSNonZeroWindingRule];
+- (void)setusesEvenOddFillRule:(BOOL)usesEvenOddFillRule {
+    [self setWindingRule:usesEvenOddFillRule ? NSEvenOddWindingRule : NSNonZeroWindingRule];
 }
 
-- (BOOL)hx_usesEvenOddFillRule
+- (BOOL)usesEvenOddFillRule
 {
     return [self windingRule] == NSEvenOddWindingRule;
 }

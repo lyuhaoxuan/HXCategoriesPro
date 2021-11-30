@@ -238,23 +238,23 @@ dispatch_semaphore_signal(_lock);
 #pragma mark - custom methods for NSDictionary(HXCommon)
 
 - (NSDictionary *)entriesForKeys:(NSArray *)keys {
-    LOCK(NSDictionary * dic = [_dic hx_entriesForKeys:keys]) return dic;
+    LOCK(NSDictionary * dic = [_dic entriesForKeys:keys]) return dic;
 }
 
 - (NSString *)jsonStringEncoded {
-    LOCK(NSString * s = [_dic hx_jsonStringEncoded]) return s;
+    LOCK(NSString * s = [_dic jsonStringEncoded]) return s;
 }
 
 - (NSString *)jsonPrettyStringEncoded {
-    LOCK(NSString * s = [_dic hx_jsonPrettyStringEncoded]) return s;
+    LOCK(NSString * s = [_dic jsonPrettyStringEncoded]) return s;
 }
 
 - (id)popObjectForKey:(id)aKey {
-    LOCK(id o = [_dic hx_popObjectForKey:aKey]) return o;
+    LOCK(id o = [_dic popObjectForKey:aKey]) return o;
 }
 
 - (NSDictionary *)popEntriesForKeys:(NSArray *)keys {
-    LOCK(NSDictionary * d = [_dic hx_popEntriesForKeys:keys]) return d;
+    LOCK(NSDictionary * d = [_dic popEntriesForKeys:keys]) return d;
 }
 
 @end

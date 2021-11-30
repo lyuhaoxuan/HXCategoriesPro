@@ -384,39 +384,39 @@ dispatch_semaphore_signal(_lock);
 #pragma mark - custom methods for NSArray(HXCommon)
 
 - (id)randomObject {
-    LOCK(id o = [_arr hx_randomObject]) return o;
+    LOCK(id o = [_arr randomObject]) return o;
 }
 
 - (void)removeFirstObject {
-    LOCK([_arr hx_removeFirstObject]);
+    LOCK([_arr removeFirstObject]);
 }
 
 - (id)popFirstObject {
-    LOCK(id o = [_arr hx_popFirstObject]) return o;
+    LOCK(id o = [_arr popFirstObject]) return o;
 }
 
 - (id)popLastObject {
-    LOCK(id o = [_arr hx_popLastObject]) return o;
+    LOCK(id o = [_arr popLastObject]) return o;
 }
 
 - (void)appendObjects:(NSArray *)objects {
-    LOCK([_arr hx_appendObjects:objects]);
+    LOCK([_arr appendObjects:objects]);
 }
 
 - (void)prependObjects:(NSArray *)objects {
-    LOCK([_arr hx_prependObjects:objects]);
+    LOCK([_arr prependObjects:objects]);
 }
 
 - (void)insertObjects:(NSArray *)objects atIndex:(NSUInteger)index {
-    LOCK([_arr hx_insertObjects:objects atIndex:index]);
+    LOCK([_arr insertObjects:objects atIndex:index]);
 }
 
 - (void)reverse {
-    LOCK([_arr hx_reverse]);
+    LOCK([_arr reverse]);
 }
 
 - (void)shuffle {
-    LOCK([_arr hx_shuffle]);
+    LOCK([_arr shuffle]);
 }
 
 @end

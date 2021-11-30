@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/11.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -17,19 +16,19 @@ NS_ASSUME_NONNULL_BEGIN
  
  - 例如: '&' 变成 '&amp;'. 这只会覆盖表格中的字符
  - A.2.2 of http://www.w3.org/TR/xhtml1/dtds.html#a_dtd_Special_characters
- - 如果你有一个 ASCII 或 非编码网页，请使用 hx_stringByEscapingAsciiHTML
+ - 如果你有一个 ASCII 或 非编码网页，请使用 stringByEscapingAsciiHTML
  
  */
-- (nullable NSString *)hx_stringByEscapingForHTML;
+- (nullable NSString *)stringByEscapingForHTML;
 
 /**
  使用 ASCII 编码所有HTML实体
  
  - 例如: '&' 变成 '&amp;'
- - 如果你有一个 Unicode 编码 (UTF16 或 UTF8)，请使用 hx_stringByEscapingForHTML
+ - 如果你有一个 Unicode 编码 (UTF16 或 UTF8)，请使用 stringByEscapingForHTML
 
  */
-- (nullable NSString *)hx_stringByEscapingForAsciiHTML;
+- (nullable NSString *)stringByEscapingForAsciiHTML;
 
 /**
  解码HTML实体
@@ -38,17 +37,17 @@ NS_ASSUME_NONNULL_BEGIN
  - Handles &#32; and &#x32; cases as well
  
  */
-- (nullable NSString *)hx_stringByUnescapingFromHTML;
+- (nullable NSString *)stringByUnescapingFromHTML;
 
 /**
  用<br />标签替换换行符。
  */
-- (nullable NSString *)hx_stringWithNewLinesAsBRs;
+- (nullable NSString *)stringWithNewLinesAsBRs;
 
 /**
  从字符串中删除 换行符 和 空格。
  */
-- (nullable NSString *)hx_stringByRemovingNewLinesAndWhitespace;
+- (nullable NSString *)stringByRemovingNewLinesAndWhitespace;
 
 /**
  Wrap plain URLs in <a href="..." class="linkified">...</a>
@@ -60,17 +59,17 @@ NS_ASSUME_NONNULL_BEGIN
  - Adapted from http://regexlib.com/REDetails.aspx?regexp_id=96
 
  */
-- (nullable NSString *)hx_stringByLinkifyingURLs;
+- (nullable NSString *)stringByLinkifyingURLs;
 
 /**
- DEPRECIATED - 请使用 hx_stringByConvertingHTMLToPlainText
+ DEPRECIATED - 请使用 stringByConvertingHTMLToPlainText
  */
-- (nullable NSString *)hx_stringByStrippingTags __attribute__((deprecated));
+- (nullable NSString *)stringByStrippingTags __attribute__((deprecated));
 
 /**
  将 HTML 转换为纯文本
  */
-- (nullable NSString *)hx_stringByConvertingHTMLToPlainText;
+- (nullable NSString *)stringByConvertingHTMLToPlainText;
 
 @end
 

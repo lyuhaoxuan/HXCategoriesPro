@@ -13,39 +13,39 @@
 // Seems like TARGET_OS_MAC is always defined (on all platforms).
 // To determine if we are running on macOS, use TARGET_OS_OSX in Xcode 8
 #if TARGET_OS_OSX
-    #define HX_MAC 1
+    #define MAC 1
 #else
-    #define HX_MAC 0
+    #define MAC 0
 #endif
 
 // iOS and tvOS are very similar, UIKit exists on both platforms
 // Note: watchOS also has UIKit, but it's very limited
 #if TARGET_OS_IOS || TARGET_OS_TV
-    #define HX_UIKIT 1
+    #define UIKIT 1
 #else
-    #define HX_UIKIT 0
+    #define UIKIT 0
 #endif
 
 #if TARGET_OS_IOS
-    #define HX_IOS 1
+    #define IOS 1
 #else
-    #define HX_IOS 0
+    #define IOS 0
 #endif
 
 #if TARGET_OS_TV
-    #define HX_TV 1
+    #define TV 1
 #else
-    #define HX_TV 0
+    #define TV 0
 #endif
 
 #if TARGET_OS_WATCH
-    #define HX_WATCH 1
+    #define WATCH 1
 #else
-    #define HX_WATCH 0
+    #define WATCH 0
 #endif
 
 
-#if HX_MAC
+#if MAC
     #import <Cocoa/Cocoa.h>
     #ifndef UIImage
         #define UIImage NSImage
@@ -66,10 +66,10 @@
         #define UIFont NSFont
     #endif
 #else
-    #if HX_UIKIT
+    #if UIKIT
         #import <UIKit/UIKit.h>
     #endif
-    #if HX_WATCH
+    #if WATCH
         #import <WatchKit/WatchKit.h>
         #ifndef UIView
             #define UIView WKInterfaceObject

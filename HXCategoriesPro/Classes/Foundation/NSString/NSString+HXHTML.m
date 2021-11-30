@@ -3,7 +3,6 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/5/11.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import "NSString+HXHTML.h"
@@ -11,11 +10,11 @@
 typedef struct {
     __unsafe_unretained NSString *escapeSequence;
     unichar uchar;
-} HX_HTMLEscapeMap;
+} HTMLEscapeMap;
 
 // Taken from http://www.w3.org/TR/xhtml1/dtds.html#a_dtd_Special_characters
 // Ordered by uchar lowest to highest for bsearching
-static HX_HTMLEscapeMap hx_gAsciiHTMLEscapeMap[] = {
+static HTMLEscapeMap gAsciiHTMLEscapeMap[] = {
     // A.2.2. Special characters
     { @"&quot;", 34 },
     { @"&amp;", 38 },
@@ -299,7 +298,7 @@ static HX_HTMLEscapeMap hx_gAsciiHTMLEscapeMap[] = {
 
 // Taken from http://www.w3.org/TR/xhtml1/dtds.html#a_dtd_Special_characters
 // This is table A.2.2 Special Characters
-static HX_HTMLEscapeMap hx_gUnicodeHTMLEscapeMap[] = {
+static HTMLEscapeMap gUnicodeHTMLEscapeMap[] = {
     // C0 Controls and Basic Latin
     { @"&quot;", 34 },
     { @"&amp;", 38 },
@@ -344,9 +343,9 @@ static HX_HTMLEscapeMap hx_gUnicodeHTMLEscapeMap[] = {
 
 
 // Utility function for Bsearching table above
-static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
+static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
     const unichar *uchar = (const unichar*)ucharVoid;
-    const HX_HTMLEscapeMap *map = (const HX_HTMLEscapeMap*)mapVoid;
+    const HTMLEscapeMap *map = (const HTMLEscapeMap*)mapVoid;
     int val;
     if (*uchar > map->uchar) {
         val = 1;
@@ -361,7 +360,7 @@ static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 @implementation NSString (HXHTML)
 #pragma --mark GTM method
 
-- (NSString *)hx_stringByEscapingHTMLUsingTable:(HX_HTMLEscapeMap*)table
+- (NSString *)stringByEscapingHTMLUsingTable:(HTMLEscapeMap*)table
                                          ofSize:(NSUInteger)size
                                 escapingUnicode:(BOOL)escapeUnicode {
     NSUInteger length = [self length];
@@ -400,9 +399,9 @@ static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
     NSUInteger buffer2Length = 0;
     
     for (NSUInteger i = 0; i < length; ++i) {
-        HX_HTMLEscapeMap *val = bsearch(&buffer[i], table,
-                                        size / sizeof(HX_HTMLEscapeMap),
-                                        sizeof(HX_HTMLEscapeMap), HX_EscapeMapCompare);
+        HTMLEscapeMap *val = bsearch(&buffer[i], table,
+                                        size / sizeof(HTMLEscapeMap),
+                                        sizeof(HTMLEscapeMap), EscapeMapCompare);
         if (val || (escapeUnicode && buffer[i] > 127)) {
             if (buffer2Length) {
                 CFStringAppendCharacters((CFMutableStringRef)finalString,
@@ -430,19 +429,19 @@ static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
     return finalString;
 }
 
-- (NSString *)hx_stringByEscapingForHTML {
-    return [self hx_stringByEscapingHTMLUsingTable:hx_gUnicodeHTMLEscapeMap
-                                            ofSize:sizeof(hx_gUnicodeHTMLEscapeMap)
+- (NSString *)stringByEscapingForHTML {
+    return [self stringByEscapingHTMLUsingTable:gUnicodeHTMLEscapeMap
+                                            ofSize:sizeof(gUnicodeHTMLEscapeMap)
                                    escapingUnicode:NO];
 } // gtm_stringByEscapingHTML
 
-- (NSString *)hx_stringByEscapingForAsciiHTML {
-    return [self hx_stringByEscapingHTMLUsingTable:hx_gAsciiHTMLEscapeMap
-                                            ofSize:sizeof(hx_gAsciiHTMLEscapeMap)
+- (NSString *)stringByEscapingForAsciiHTML {
+    return [self stringByEscapingHTMLUsingTable:gAsciiHTMLEscapeMap
+                                            ofSize:sizeof(gAsciiHTMLEscapeMap)
                                    escapingUnicode:YES];
 } // gtm_stringByEscapingAsciiHTML
 
-- (NSString *)hx_stringByUnescapingFromHTML {
+- (NSString *)stringByUnescapingFromHTML {
     
     NSRange range = NSMakeRange(0, [self length]);
     NSRange subrange = [self rangeOfString:@"&" options:NSBackwardsSearch range:range];
@@ -495,9 +494,9 @@ static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
                 }
             } else {
                 // "standard" sequences
-                for (unsigned i = 0; i < sizeof(hx_gAsciiHTMLEscapeMap) / sizeof(HX_HTMLEscapeMap); ++i) {
-                    if ([escapeString isEqualToString:hx_gAsciiHTMLEscapeMap[i].escapeSequence]) {
-                        [finalString replaceCharactersInRange:escapeRange withString:[NSString stringWithCharacters:&hx_gAsciiHTMLEscapeMap[i].uchar length:1]];
+                for (unsigned i = 0; i < sizeof(gAsciiHTMLEscapeMap) / sizeof(HTMLEscapeMap); ++i) {
+                    if ([escapeString isEqualToString:gAsciiHTMLEscapeMap[i].escapeSequence]) {
+                        [finalString replaceCharactersInRange:escapeRange withString:[NSString stringWithCharacters:&gAsciiHTMLEscapeMap[i].uchar length:1]];
                         break;
                     }
                 }
@@ -509,7 +508,7 @@ static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 
 
 #pragma --mark MWFeedParser method
-- (NSString *)hx_stringWithNewLinesAsBRs {
+- (NSString *)stringWithNewLinesAsBRs {
     @autoreleasepool {
         // Strange New lines:
         //    Next Line, U+0085
@@ -562,7 +561,7 @@ static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
 }
 
 
-- (NSString *)hx_stringByRemovingNewLinesAndWhitespace {
+- (NSString *)stringByRemovingNewLinesAndWhitespace {
     @autoreleasepool {
         
         // Strange New lines:
@@ -604,7 +603,7 @@ static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
     }
 }
 
-- (NSString *)hx_stringByLinkifyingURLs {
+- (NSString *)stringByLinkifyingURLs {
     if (!NSClassFromString(@"NSRegularExpression")) return self;
     @autoreleasepool {
         NSString *pattern = @"(?<!=\")\\b((http|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%%&amp;:/~\\+#]*[\\w\\-\\@?^=%%&amp;/~\\+#])?)";
@@ -615,7 +614,7 @@ static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
     }
 }
 
-- (NSString *)hx_stringByStrippingTags {
+- (NSString *)stringByStrippingTags {
     @autoreleasepool {
         
         // Find first & and short-cut if we can
@@ -673,7 +672,7 @@ static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
         }
         
         // Remove multi-spaces and line breaks
-        finalString = [result hx_stringByRemovingNewLinesAndWhitespace];
+        finalString = [result stringByRemovingNewLinesAndWhitespace];
         
         // Cleanup
         
@@ -683,7 +682,7 @@ static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
     }
 }
 
-- (NSString *)hx_stringByConvertingHTMLToPlainText {
+- (NSString *)stringByConvertingHTMLToPlainText {
     @autoreleasepool {
         // Character sets
         NSCharacterSet *stopCharacters = [NSCharacterSet characterSetWithCharactersInString:[NSString stringWithFormat:@"< \t\n\r%C%C%C%C", (unichar)0x0085, (unichar)0x000C, (unichar)0x2028, (unichar)0x2029]];
@@ -769,7 +768,7 @@ static int HX_EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
         // Cleanup
         
         // Decode HTML entities and return
-        NSString *retString = [result hx_stringByUnescapingFromHTML];
+        NSString *retString = [result stringByUnescapingFromHTML];
         
         // Return
         return retString;

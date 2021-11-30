@@ -3,41 +3,40 @@
 //  LHX.
 //
 //  Created by 吕浩轩 on 2018/6/4.
-//  Copyright © 2019年 LHX. All rights reserved.
 //
 
 #import "UIApplication+HXCommon.h"
 
 @implementation UIApplication (HXCommon)
 
-- (NSURL *)hx_documentURL {
+- (NSURL *)documentURL {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-- (NSString *)hx_documentPath {
+- (NSString *)documentPath {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
 }
 
-- (NSURL *)hx_libraryURL {
+- (NSURL *)libraryURL {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-- (NSString *)hx_libraryPath {
+- (NSString *)libraryPath {
     return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
 }
 
-- (NSURL *)hx_cacheURL {
+- (NSURL *)cacheURL {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-- (NSString *)hx_cachePath {
+- (NSString *)cachePath {
     return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
 }
 
-- (NSString *)hx_applicationSize {
-    NSUInteger docSize   =  [self hx_sizeOfFolder:[self hx_documentPath]];
-    NSUInteger libSize   =  [self hx_sizeOfFolder:[self hx_libraryPath]];
-    NSUInteger cacheSize =  [self hx_sizeOfFolder:[self hx_cachePath]];
+- (NSString *)applicationSize {
+    NSUInteger docSize   =  [self sizeOfFolder:[self documentPath]];
+    NSUInteger libSize   =  [self sizeOfFolder:[self libraryPath]];
+    NSUInteger cacheSize =  [self sizeOfFolder:[self cachePath]];
     
     NSUInteger total = docSize + libSize + cacheSize;
     
@@ -45,7 +44,7 @@
     return folderSizeStr;
 }
 
--(NSUInteger)hx_sizeOfFolder:(NSString *)folderPath
+-(NSUInteger)sizeOfFolder:(NSString *)folderPath
 {
     NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:folderPath error:nil];
     NSEnumerator *contentsEnumurator = [contents objectEnumerator];
@@ -60,19 +59,19 @@
     return folderSize;
 }
 
-- (NSString *)hx_appBundleName {
+- (NSString *)appBundleName {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
 }
 
-- (NSString *)hx_appBundleID {
+- (NSString *)appBundleID {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
 }
 
-- (NSString *)hx_appVersion {
+- (NSString *)appVersion {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 }
 
-- (NSString *)hx_appBuildVersion {
+- (NSString *)appBuildVersion {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
 

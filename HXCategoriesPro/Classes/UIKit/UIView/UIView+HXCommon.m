@@ -11,7 +11,7 @@
 
 @implementation UIView (HXCommon)
 
-#if HX_MAC
+#if MAC
 + (instancetype)initFromXib {
     NSString *className = [self className];
     Class ViewClass = NSClassFromString(className);
