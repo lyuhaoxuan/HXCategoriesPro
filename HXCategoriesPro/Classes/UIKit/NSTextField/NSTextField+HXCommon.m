@@ -16,9 +16,9 @@
 - (NSString *)placeholderOrStringValue {
     NSString *string = self.stringValue;
     NSString *placeholderString = self.cell.accessibilityPlaceholderValue;
-    if (![NSString isEmpty:string]) {
+    if (string.isSafe) {
         return string;
-    } else if (![NSString isEmpty:placeholderString]) {
+    } else if (placeholderString.isSafe) {
         string = placeholderString;
     }
     return string;

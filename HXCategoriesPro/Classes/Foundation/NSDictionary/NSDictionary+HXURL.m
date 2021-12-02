@@ -7,37 +7,11 @@
 
 #import "NSDictionary+HXURL.h"
 #import "NSArray+HXCommon.h"
-#import "NSString+HXURLEncode.h"
 #import "NSString+HXCommon.h"
 #import "NSDictionary+HXCommon.h"
 
 NSString * HXPercentEscapedStringFromString(NSString *string) {
-    if ([string respondsToSelector:@selector(stringByAddingPercentEncodingWithAllowedCharacters:)]) {
-        
-        static NSString * const kAFCharactersGeneralDelimitersToEncode = @":#[]@";
-        static NSString * const kAFCharactersSubDelimitersToEncode = @"!$&'()*+,;=";
-        
-        NSMutableCharacterSet * allowedCharacterSet = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
-        [allowedCharacterSet removeCharactersInString:[kAFCharactersGeneralDelimitersToEncode stringByAppendingString:kAFCharactersSubDelimitersToEncode]];
-        static NSUInteger const batchSize = 50;
-        
-        NSUInteger index = 0;
-        NSMutableString *escaped = @"".mutableCopy;
-        
-        while (index < string.length) {
-            NSUInteger length = MIN(string.length - index, batchSize);
-            NSRange range = NSMakeRange(index, length);
-            range = [string rangeOfComposedCharacterSequencesForRange:range];
-            NSString *substring = [string substringWithRange:range];
-            NSString *encoded = [substring stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
-            [escaped appendString:encoded];
-            
-            index += range.length;
-        }
-        return escaped;
-    } else {
-        return [string URLEntityEncode];
-    }
+    return [string URLEncode];
 }
 
 NSDictionary * HXDictionaryFromParametersString(NSString *parametersString) {
@@ -81,7 +55,7 @@ NSDictionary * HXDictionaryFromParametersString(NSString *parametersString) {
 
 NSString * HXStringFromQueryParameters(NSDictionary *queryParameters, BOOL URLEncode) {
     
-    if ([NSDictionary isEmpty:queryParameters]) return nil;
+    if (!queryParameters.isSafe) return nil;
     
     NSMutableArray *parts = [NSMutableArray array];
     [queryParameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
@@ -107,17 +81,17 @@ NSString * HXStringFromQueryParameters(NSDictionary *queryParameters, BOOL URLEn
 }
 
 NSString * HXURLEncode(NSString *URLString) {
-    if ([NSString isEmpty:URLString]) return nil;
+    if (!URLString.isSafe) return nil;
     
     NSString *h = [NSURL URLWithString:URLString].scheme;
-    if (![NSString isEmpty:h]) {
+    if (h.isSafe) {
         URLString = [URLString substringFromIndex:h.length + 2];
         h = [h stringByAppendingString:@":/"];
     }
     NSString *newString;
     NSString *lastPathComponent = [URLString lastPathComponent];
     NSString *pathExtension = [lastPathComponent pathExtension];
-    if ([NSString isEmpty:pathExtension]) {
+    if (!pathExtension.isSafe) {
         NSCharacterSet *allowedCharacters = [NSCharacterSet URLQueryAllowedCharacterSet];
         URLString = [URLString stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
     } else {
@@ -129,7 +103,7 @@ NSString * HXURLEncode(NSString *URLString) {
         newString = [deletingLastPathComponent stringByAppendingPathComponent:lastPathComponent];
     }
     
-    if (![NSString isEmpty:h]) {
+    if (h.isSafe) {
         newString = [h stringByAppendingString:newString];
     }
     
@@ -138,11 +112,11 @@ NSString * HXURLEncode(NSString *URLString) {
 
 NSString * HXURLByAppendingQueryParameters(NSString *URLString, NSDictionary *parameters) {
     
-    if ([NSString isEmpty:URLString]) return nil;
-    if ([NSDictionary isEmpty:parameters]) return URLString;
+    if (!URLString.isSafe) return nil;
+    if (!parameters.isSafe) return URLString;
         
     NSString *parametersString = HXStringFromQueryParameters(parameters, YES);
-    if ([NSString isEmpty:parametersString]) {
+    if (!parametersString.isSafe) {
         return [NSString stringWithFormat:@"%@", HXURLEncode(URLString)];
     } else {
         return [NSString stringWithFormat:@"%@?%@", HXURLEncode(URLString), parametersString];

@@ -11,27 +11,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDate (HXCommon)
 
-@property (nonatomic, readonly) NSCalendar *calendar;        ///< 日历
-@property (nonatomic, readonly) NSTimeZone *timeZone;        ///< 时区
-@property (nonatomic, readonly) NSInteger era;               ///< 纪元？
-@property (nonatomic, readonly) NSInteger year;              ///< 年
-@property (nonatomic, readonly) NSInteger month;             ///< 月 (1~12)
-@property (nonatomic, readonly) NSInteger day;               ///< 日 (1~31)
-@property (nonatomic, readonly) NSInteger hour;              ///< 时 (0~23)
-@property (nonatomic, readonly) NSInteger minute;            ///< 分 (0~59)
-@property (nonatomic, readonly) NSInteger second;            ///< 秒 (0~59)
-@property (nonatomic, readonly) NSInteger nanosecond;        ///< 纳秒
-@property (nonatomic, readonly) NSInteger weekday;           ///< 星期 (1~7)，1 是:星期日。注意：与 firstWeekday 无关
-@property (nonatomic, readonly) NSInteger weekdayOrdinal;    ///< 当前月的第几个"星期几" (1~5)，例如：5月的第二个星期日是母亲节
-@property (nonatomic, readonly) NSInteger weekOfMonth;       ///< 当前月的第几周 (1~5)
-@property (nonatomic, readonly) NSInteger weekOfYear;        ///< 当前年的第几周 (1~53)
-@property (nonatomic, readonly) NSInteger yearForWeekOfYear; ///< 当前周属于哪一年
-@property (nonatomic, readonly) NSInteger quarter;           ///< 刻？季度?
-@property (nonatomic, readonly) BOOL isLeapMonth;            ///< 闰月
-@property (nonatomic, readonly) BOOL isLeapYear;             ///< 闰年
-@property (nonatomic, readonly) BOOL isYesterday;            ///< 昨天
-@property (nonatomic, readonly) BOOL isToday;                ///< 今天
-@property (nonatomic, readonly) BOOL isTomorrow;             ///< 明天
+@property (readonly) NSCalendar *calendar;        ///< 日历
+@property (readonly) NSTimeZone *timeZone;        ///< 时区
+@property (readonly) NSInteger era;               ///< 纪元？
+@property (readonly) NSInteger year;              ///< 年
+@property (readonly) NSInteger month;             ///< 月 (1~12)
+@property (readonly) NSInteger day;               ///< 日 (1~31)
+@property (readonly) NSInteger hour;              ///< 时 (0~23)
+@property (readonly) NSInteger minute;            ///< 分 (0~59)
+@property (readonly) NSInteger second;            ///< 秒 (0~59)
+@property (readonly) NSInteger nanosecond;        ///< 纳秒
+@property (readonly) NSInteger weekday;           ///< 星期 (1~7)，1 是:星期日。注意：与 firstWeekday 无关
+@property (readonly) NSInteger weekdayOrdinal;    ///< 当前月的第几个"星期几" (1~5)，例如：5月的第二个星期日是母亲节
+@property (readonly) NSInteger weekOfMonth;       ///< 当前月的第几周 (1~5)
+@property (readonly) NSInteger weekOfYear;        ///< 当前年的第几周 (1~53)
+@property (readonly) NSInteger yearForWeekOfYear; ///< 当前周属于哪一年
+@property (readonly) NSInteger quarter;           ///< 刻？季度?
+@property (readonly) BOOL isLeapMonth;            ///< 闰月
+@property (readonly) BOOL isLeapYear;             ///< 闰年
+@property (readonly) BOOL isYesterday;            ///< 昨天
+@property (readonly) BOOL isToday;                ///< 今天
+@property (readonly) BOOL isTomorrow;             ///< 明天
 
 
 /// NSDate 后移相应的年数
@@ -64,6 +64,38 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #pragma mark - Date Format
+
+/// 给定 ISO8601 格式化的字符串解析出 NSDate
+/// @param string ISO8601 格式的时间字符串
+///  ISO8601 format example:
+///  2011-01-26T19:06:43Z
+///  2011-01-11T11:11:11+0000
+///  2010-07-09T16:13:30+12:00
++ (instancetype)dateWithISOFormatString:(NSString *)string;
+
+/// 时间字符串自动解析出 NSDate <<< 竭尽所能的解析 >>>
+/// @param string       时间字符（🌰 2011-01-26T19:06:43Z）
++ (instancetype)dateWithString:(NSString *)string;
+
+/// 给定格式化的字符串解析出 NSDate
+/// @param string   时间字符
+/// @param format       格式化
++ (instancetype)dateWithString:(NSString *)string format:(NSString *)format;
+
+/// 给定格式化的字符串解析出 NSDate
+/// @param string   时间字符串
+/// @param format       格式化
+/// @param timeZone     时区
+/// @param locale       语言环境
++ (instancetype)dateWithString:(NSString *)string
+                        format:(NSString *)format
+                      timeZone:(nullable NSTimeZone *)timeZone
+                        locale:(nullable NSLocale *)locale;
+
+/// 以 ISO8601 格式返回表示此 NSDate 的字符串
+/// e.g. "2010-07-09T16:13:30+12:00"
+- (nullable NSString *)ISOFormatString;
+
 /// NSDate 的格式化字符串
 /// see http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_Patterns
 /// @param format   格式化 e.g. @"yyyy-MM-dd HH:mm:ss"
@@ -77,37 +109,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString *)stringWithFormat:(NSString *)format
                                timeZone:(nullable NSTimeZone *)timeZone
                                  locale:(nullable NSLocale *)locale;
-
-/// 以 ISO8601 格式返回表示此 NSDate 的字符串
-/// e.g. "2010-07-09T16:13:30+12:00"
-- (nullable NSString *)stringWithISOFormat;
-
-/// 时间字符串解析出 NSDate (尽力了)
-/// @param string       时间字符
-+ (NSDate *)dateWithString:(NSString *)string;
-
-/// 给定格式化的字符串解析出 NSDate
-/// @param string   时间字符
-/// @param format       格式化
-+ (nullable NSDate *)dateWithString:(NSString *)string format:(NSString *)format;
-
-/// 给定格式化的字符串解析出 NSDate
-/// @param string   时间字符串
-/// @param format       格式化
-/// @param timeZone     时区
-/// @param locale       语言环境
-+ (nullable NSDate *)dateWithString:(NSString *)string
-                             format:(NSString *)format
-                           timeZone:(nullable NSTimeZone *)timeZone
-                             locale:(nullable NSLocale *)locale;
-
-/// 给定 ISO8601 格式化的字符串解析出 NSDate
-/// @param string ISO8601 格式的时间字符串
-///  ISO8601 format example:
-///  2011-01-26T19:06:43Z
-///  2011-01-11T11:11:11+0000
-///  2010-07-09T16:13:30+12:00
-+ (nullable NSDate *)dateWithISOFormatString:(NSString *)string;
 
 @end
 

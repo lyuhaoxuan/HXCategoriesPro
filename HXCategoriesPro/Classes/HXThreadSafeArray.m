@@ -387,6 +387,10 @@ dispatch_semaphore_signal(_lock);
     LOCK(id o = [_arr randomObject]) return o;
 }
 
+- (id)objectOrNilAtIndex:(NSUInteger)index {
+    LOCK(id o = [_arr objectOrNilAtIndex:index]) return o;
+}
+
 - (void)removeFirstObject {
     LOCK([_arr removeFirstObject]);
 }

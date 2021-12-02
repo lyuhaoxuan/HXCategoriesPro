@@ -65,6 +65,9 @@
     #ifndef UIFont
         #define UIFont NSFont
     #endif
+    #ifndef UIEdgeInsets
+        #define UIEdgeInsets NSEdgeInsets
+    #endif
 #else
     #if UIKIT
         #import <UIKit/UIKit.h>

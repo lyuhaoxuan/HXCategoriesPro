@@ -83,109 +83,57 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (HXRegex)
 
-/**
- 正则相关
+@property (readonly) BOOL isBlankSpace;                 ///< 匹配空白行
+@property (readonly) BOOL isInteger;                    ///< 匹配整数
+@property (readonly) BOOL isPositiveInteger;            ///< 匹配正整数
+@property (readonly) BOOL isNegativeInteger;            ///< 匹配负整数
+@property (readonly) BOOL Non_PositiveInteger;          ///< 匹配非正整数
+@property (readonly) BOOL Non_NegativeInteger;          ///< 匹配非负整数
+@property (readonly) BOOL PositiveFloat;                ///< 匹配正浮点数
+@property (readonly) BOOL NegativeFloat;                ///< 匹配负浮点数
+@property (readonly) BOOL isIPAddress;                  ///< IP地址有效性
+@property (readonly) BOOL isMacAddress;                 ///< MAC地址有效性
+@property (readonly) BOOL isValidUrl;                   ///< 网址有效性
+@property (readonly) BOOL isMobileNumber;               ///< 手机号有效性
+@property (readonly) BOOL isEmailAddress;               ///< 邮箱的有效性
+@property (readonly) BOOL isStrongPassword;             ///< "强"密码的有效性, (参考：长度 8~16，必须包含大小写字母和数字)
+@property (readonly) BOOL simpleVerifyIdentityCardNum;  ///< 简单的身份证有效性
+@property (readonly) BOOL accurateVerifyIDCardNumber;   ///< 精确的身份证号码有效性检测
+@property (readonly) BOOL isCarNumber;                  ///< 车牌号的有效性
+@property (readonly) BOOL bankCardluhmCheck;            ///< 银行卡的有效性
+@property (readonly) BOOL isValidPostalcode;            ///< 邮政编码
+@property (readonly) BOOL isValidTaxNo;                 ///< 工商税号
+@property (readonly) BOOL isValidChinese;               ///< 纯汉字
 
- @param regex 正则表达式
- */
+/// 正则相关
+/// @param regex 正则表达式
 - (BOOL)isValidateByRegex:(NSString *)regex;
 
-/** 纯汉字 */
-- (BOOL)isValidChinese;
-
-/** 匹配空白行 */
-- (BOOL)isBlankSpace;
-
-/** 匹配整数 */
-- (BOOL)isInteger;
-
-/** 匹配正整数 */
-- (BOOL)isPositiveInteger;
-
-/** 匹配负整数 */
-- (BOOL)isNegativeInteger;
-
-/** 匹配非正整数 */
-- (BOOL)Non_PositiveInteger;
-
-/** 匹配非负整数 */
-- (BOOL)Non_NegativeInteger;
-
-/** 匹配正浮点数 */
-- (BOOL)PositiveFloat;
-
-/** 匹配负浮点数 */
-- (BOOL)NegativeFloat;
-
-/** IP地址有效性 */
-- (BOOL)isIPAddress;
-
-/** Mac地址有效性 */
-- (BOOL)isMacAddress;
-
-/** 网址有效性 */
-- (BOOL)isValidUrl;
-
-/** 手机号有效性 */
-- (BOOL)isMobileNumber;
-
-/** 邮箱的有效性 */
-- (BOOL)isEmailAddress;
-
-/** 简单的身份证有效性 */
-- (BOOL)simpleVerifyIdentityCardNum;
-
-/** 精确的身份证号码有效性检测 */
-- (BOOL)accurateVerifyIDCardNumber;
-
-/** 车牌号的有效性 */
-- (BOOL)isCarNumber;
-
-/** 银行卡的有效性 */
-- (BOOL)bankCardluhmCheck;
-
-/** 邮政编码 */
-- (BOOL)isValidPostalcode;
-
-/** 工商税号 */
-- (BOOL)isValidTaxNo;
-
-/**
- 是否符合最小长度、最长长度，是否包含中文,首字母是否可以为数字
-
- @param minLenth                账号最小长度
- @param maxLenth                账号最长长度
- @param containChinese          是否包含中文
- @param firstCannotBeDigtal     首字母不能为数字
- @return                        正则验证成功返回YES, 否则返回NO
- */
+/// 是否符合最小长度、最长长度，是否包含中文,首字母是否可以为数字
+/// @param minLenth            账号最小长度
+/// @param maxLenth            账号最长长度
+/// @param containChinese      是否包含中文
+/// @param firstCannotBeDigtal 首字母不能为数字
 - (BOOL)isValidWithMinLenth:(NSInteger)minLenth
-                      maxLenth:(NSInteger)maxLenth
-                containChinese:(BOOL)containChinese
-           firstCannotBeDigtal:(BOOL)firstCannotBeDigtal;
+                   maxLenth:(NSInteger)maxLenth
+             containChinese:(BOOL)containChinese
+        firstCannotBeDigtal:(BOOL)firstCannotBeDigtal;
 
-/**
- 是否符合最小长度、最长长度，是否包含中文,数字，字母，其他字符，首字母是否可以为数字
-
- @param minLenth                账号最小长度
- @param maxLenth                账号最长长度
- @param containChinese          是否包含中文
- @param containDigtal           包含数字
- @param containLetter           包含字母
- @param containOtherCharacter   其他字符
- @param firstCannotBeDigtal     首字母不能为数字
- @return                        正则验证成功返回YES, 否则返回NO
- */
+/// 是否符合最小长度、最长长度，是否包含中文,数字，字母，其他字符，首字母是否可以为数字
+/// @param minLenth              账号最小长度
+/// @param maxLenth              账号最长长度
+/// @param containChinese        是否包含中文
+/// @param containDigtal         包含数字
+/// @param containLetter         包含字母
+/// @param containOtherCharacter 其他字符
+/// @param firstCannotBeDigtal   首字母不能为数字
 - (BOOL)isValidWithMinLenth:(NSInteger)minLenth
-                      maxLenth:(NSInteger)maxLenth
-                containChinese:(BOOL)containChinese
-                 containDigtal:(BOOL)containDigtal
-                 containLetter:(BOOL)containLetter
-         containOtherCharacter:(NSString *)containOtherCharacter
-           firstCannotBeDigtal:(BOOL)firstCannotBeDigtal;
-
-/// 从右往左查找数字位数，并返回
-- (NSString *)checkingResult;
+                   maxLenth:(NSInteger)maxLenth
+             containChinese:(BOOL)containChinese
+              containDigtal:(BOOL)containDigtal
+              containLetter:(BOOL)containLetter
+      containOtherCharacter:(NSString *)containOtherCharacter
+        firstCannotBeDigtal:(BOOL)firstCannotBeDigtal;
 
 @end
 

@@ -21,7 +21,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    NSString *UUID = [NSString UUID];
+    NSData *UUID = [[NSString UUID] dataValue];
     
     NSLog(@"UUID:%@", UUID);
     
@@ -40,7 +40,7 @@
     NSData *data = [[NSData alloc] initWithContentsOfFile:jsonPath];
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     
-    NSString *dateString = [[NSDate date] stringWithISOFormat];
+    NSString *dateString = [[NSDate date] ISOFormatString];
     NSDate *date = [NSDate dateWithString:@"2022-05-07T07:39:18Z"];
     
     NSLog(@"weekday         %ld", [date weekday]);

@@ -6,105 +6,75 @@
 //
 
 #import "NSData+HXCommon.h"
-#include <CommonCrypto/CommonCrypto.h>
+#import <zconf.h>
 
 @implementation NSData (HXCommon)
 
-- (NSString *)SHA1String {
-    unsigned char result[CC_SHA1_DIGEST_LENGTH];
-    CC_SHA1(self.bytes, (CC_LONG)self.length, result);
-    NSMutableString *hash = [NSMutableString
-                             stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
-    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
-        [hash appendFormat:@"%02x", result[i]];
-    }
-    return hash;
-}
+- (NSString *)MD5_string { return [self stringWithAlg:kCCHmacAlgMD5]; }
+- (NSString *)SHA1_string { return [self stringWithAlg:kCCHmacAlgSHA1]; }
+- (NSString *)SHA224_string { return [self stringWithAlg:kCCHmacAlgSHA224]; }
+- (NSString *)SHA256_string { return [self stringWithAlg:kCCHmacAlgSHA256]; }
+- (NSString *)SHA384_string { return [self stringWithAlg:kCCHmacAlgSHA384]; }
+- (NSString *)SHA512_string { return [self stringWithAlg:kCCHmacAlgSHA512]; }
 
-- (NSData *)SHA1Data {
-    unsigned char bytes[CC_SHA1_DIGEST_LENGTH];
-    CC_SHA1(self.bytes, (CC_LONG)self.length, bytes);
-    return [NSData dataWithBytes:bytes length:CC_SHA1_DIGEST_LENGTH];
-}
+- (NSData *)MD5_data { return [self dataWithAlg:kCCHmacAlgMD5]; }
+- (NSData *)SHA1_data { return [self dataWithAlg:kCCHmacAlgSHA1]; }
+- (NSData *)SHA224_data { return [self dataWithAlg:kCCHmacAlgSHA224]; }
+- (NSData *)SHA256_data { return [self dataWithAlg:kCCHmacAlgSHA256]; }
+- (NSData *)SHA384_data { return [self dataWithAlg:kCCHmacAlgSHA384]; }
+- (NSData *)SHA512_data { return [self dataWithAlg:kCCHmacAlgSHA512]; }
 
-- (NSString *)SHA224String {
-    unsigned char result[CC_SHA224_DIGEST_LENGTH];
-    CC_SHA224(self.bytes, (CC_LONG)self.length, result);
-    NSMutableString *hash = [NSMutableString
-                             stringWithCapacity:CC_SHA224_DIGEST_LENGTH * 2];
-    for (int i = 0; i < CC_SHA224_DIGEST_LENGTH; i++) {
-        [hash appendFormat:@"%02x", result[i]];
-    }
-    return hash;
-}
-
-- (NSData *)SHA224Data {
-    unsigned char result[CC_SHA224_DIGEST_LENGTH];
-    CC_SHA224(self.bytes, (CC_LONG)self.length, result);
-    return [NSData dataWithBytes:result length:CC_SHA224_DIGEST_LENGTH];
-}
-
-- (NSString *)SHA256String {
-    unsigned char result[CC_SHA256_DIGEST_LENGTH];
-    CC_SHA256(self.bytes, (CC_LONG)self.length, result);
-    NSMutableString *hash = [NSMutableString
-                             stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
-    for (int i = 0; i < CC_SHA256_DIGEST_LENGTH; i++) {
-        [hash appendFormat:@"%02x", result[i]];
-    }
-    return hash;
-}
-
-- (NSData *)SHA256Data {
-    unsigned char bytes[CC_SHA256_DIGEST_LENGTH];
-    CC_SHA256(self.bytes, (CC_LONG)self.length, bytes);
-    return [NSData dataWithBytes:bytes length:CC_SHA256_DIGEST_LENGTH];
-}
-
-- (NSString *)SHA384String {
-    unsigned char result[CC_SHA384_DIGEST_LENGTH];
-    CC_SHA384(self.bytes, (CC_LONG)self.length, result);
-    NSMutableString *hash = [NSMutableString
-                             stringWithCapacity:CC_SHA384_DIGEST_LENGTH * 2];
-    for (int i = 0; i < CC_SHA384_DIGEST_LENGTH; i++) {
-        [hash appendFormat:@"%02x", result[i]];
-    }
-    return hash;
-}
-
-- (NSData *)SHA384Data {
-    unsigned char result[CC_SHA384_DIGEST_LENGTH];
-    CC_SHA384(self.bytes, (CC_LONG)self.length, result);
-    return [NSData dataWithBytes:result length:CC_SHA384_DIGEST_LENGTH];
-}
-
-- (NSString *)SHA512String {
-    unsigned char result[CC_SHA512_DIGEST_LENGTH];
-    CC_SHA512(self.bytes, (CC_LONG)self.length, result);
-    NSMutableString *hash = [NSMutableString
-                             stringWithCapacity:CC_SHA512_DIGEST_LENGTH * 2];
-    for (int i = 0; i < CC_SHA512_DIGEST_LENGTH; i++) {
-        [hash appendFormat:@"%02x", result[i]];
-    }
-    return hash;
-}
-
-- (NSData *)SHA512Data {
-    unsigned char bytes[CC_SHA512_DIGEST_LENGTH];
-    CC_SHA512(self.bytes, (CC_LONG)self.length, bytes);
-    return [NSData dataWithBytes:bytes length:CC_SHA512_DIGEST_LENGTH];
-}
-
-- (NSString *)hmacStringUsingAlg:(CCHmacAlgorithm)alg withKey:(NSString *)key {
-    size_t size;
+- (size_t)size_t_alg:(CCHmacAlgorithm)alg {
     switch (alg) {
-        case kCCHmacAlgSHA1:   size = CC_SHA1_DIGEST_LENGTH;   break;
-        case kCCHmacAlgSHA224: size = CC_SHA224_DIGEST_LENGTH; break;
-        case kCCHmacAlgSHA256: size = CC_SHA256_DIGEST_LENGTH; break;
-        case kCCHmacAlgSHA384: size = CC_SHA384_DIGEST_LENGTH; break;
-        case kCCHmacAlgSHA512: size = CC_SHA512_DIGEST_LENGTH; break;
+        case kCCHmacAlgMD5:    return CC_MD5_DIGEST_LENGTH;
+        case kCCHmacAlgSHA1:   return CC_SHA1_DIGEST_LENGTH;
+        case kCCHmacAlgSHA224: return CC_SHA224_DIGEST_LENGTH;
+        case kCCHmacAlgSHA256: return CC_SHA256_DIGEST_LENGTH;
+        case kCCHmacAlgSHA384: return CC_SHA384_DIGEST_LENGTH;
+        case kCCHmacAlgSHA512: return CC_SHA512_DIGEST_LENGTH;
+        default:               return CC_SHA1_DIGEST_LENGTH;
+    }
+}
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (NSString *)stringWithAlg:(CCHmacAlgorithm)alg {
+    size_t size = [self size_t_alg:alg];
+    unsigned char result[size];
+    switch (alg) {
+        case kCCHmacAlgMD5:    CC_MD5(self.bytes, (CC_LONG)self.length, result);    break;
+        case kCCHmacAlgSHA1:   CC_SHA1(self.bytes, (CC_LONG)self.length, result);   break;
+        case kCCHmacAlgSHA224: CC_SHA224(self.bytes, (CC_LONG)self.length, result); break;
+        case kCCHmacAlgSHA256: CC_SHA256(self.bytes, (CC_LONG)self.length, result); break;
+        case kCCHmacAlgSHA384: CC_SHA384(self.bytes, (CC_LONG)self.length, result); break;
+        case kCCHmacAlgSHA512: CC_SHA512(self.bytes, (CC_LONG)self.length, result); break;
         default: return nil;
     }
+    NSMutableString *hash = [NSMutableString stringWithCapacity:size * 2];
+    for (int i = 0; i < size; i++) {
+        [hash appendFormat:@"%02x", result[i]];
+    }
+    return hash;
+}
+
+- (NSData *)dataWithAlg:(CCHmacAlgorithm)alg {
+    size_t size = [self size_t_alg:alg];
+    unsigned char result[size];
+    switch (alg) {
+        case kCCHmacAlgMD5:    CC_MD5(self.bytes, (CC_LONG)self.length, result);    break;
+        case kCCHmacAlgSHA1:   CC_SHA1(self.bytes, (CC_LONG)self.length, result);   break;
+        case kCCHmacAlgSHA224: CC_SHA224(self.bytes, (CC_LONG)self.length, result); break;
+        case kCCHmacAlgSHA256: CC_SHA256(self.bytes, (CC_LONG)self.length, result); break;
+        case kCCHmacAlgSHA384: CC_SHA384(self.bytes, (CC_LONG)self.length, result); break;
+        case kCCHmacAlgSHA512: CC_SHA512(self.bytes, (CC_LONG)self.length, result); break;
+        default: return nil;
+    }
+    return [NSData dataWithBytes:result length:size];
+}
+#pragma clang diagnostic pop
+
+- (NSString *)hmacStringUsingAlg:(CCHmacAlgorithm)alg key:(NSString *)key {
+    size_t size = [self size_t_alg:alg];
     unsigned char result[size];
     const char *cKey = [key cStringUsingEncoding:NSUTF8StringEncoding];
     CCHmac(alg, cKey, strlen(cKey), self.bytes, self.length, result);
@@ -115,60 +85,21 @@
     return hash;
 }
 
-- (NSData *)hmacDataUsingAlg:(CCHmacAlgorithm)alg withKey:(NSData *)key {
-    
-    size_t size;
-    switch (alg) {
-        case kCCHmacAlgSHA1:   size = CC_SHA1_DIGEST_LENGTH;   break;
-        case kCCHmacAlgSHA224: size = CC_SHA224_DIGEST_LENGTH; break;
-        case kCCHmacAlgSHA256: size = CC_SHA256_DIGEST_LENGTH; break;
-        case kCCHmacAlgSHA384: size = CC_SHA384_DIGEST_LENGTH; break;
-        case kCCHmacAlgSHA512: size = CC_SHA512_DIGEST_LENGTH; break;
-        default: return nil;
-    }
+- (NSData *)hmacDataUsingAlg:(CCHmacAlgorithm)alg key:(NSData *)key {
+    size_t size = [self size_t_alg:alg];
     unsigned char result[size];
     CCHmac(alg, [key bytes], key.length, self.bytes, self.length, result);
     return [NSData dataWithBytes:result length:size];
 }
 
-- (NSString *)hmacSHA1StringWithKey:(NSString *)key {
-    return [self hmacStringUsingAlg:kCCHmacAlgSHA1 withKey:key];
+- (NSString *)crc32String {
+    uLong result = crc32_z(0, self.bytes, (z_size_t)self.length);
+    return [NSString stringWithFormat:@"%08x", (uint32_t)result];
 }
 
-- (NSData *)hmacSHA1DataWithKey:(NSData *)key {
-    return [self hmacDataUsingAlg:kCCHmacAlgSHA1 withKey:key];
-}
-
-- (NSString *)hmacSHA224StringWithKey:(NSString *)key {
-    return [self hmacStringUsingAlg:kCCHmacAlgSHA224 withKey:key];
-}
-
-- (NSData *)hmacSHA224DataWithKey:(NSData *)key {
-    return [self hmacDataUsingAlg:kCCHmacAlgSHA224 withKey:key];
-}
-
-- (NSString *)hmacSHA256StringWithKey:(NSString *)key {
-    return [self hmacStringUsingAlg:kCCHmacAlgSHA256 withKey:key];
-}
-
-- (NSData *)hmacSHA256DataWithKey:(NSData *)key {
-    return [self hmacDataUsingAlg:kCCHmacAlgSHA256 withKey:key];
-}
-
-- (NSString *)hmacSHA384StringWithKey:(NSString *)key {
-    return [self hmacStringUsingAlg:kCCHmacAlgSHA384 withKey:key];
-}
-
-- (NSData *)hmacSHA384DataWithKey:(NSData *)key {
-    return [self hmacDataUsingAlg:kCCHmacAlgSHA384 withKey:key];
-}
-
-- (NSString *)hmacSHA512StringWithKey:(NSString *)key {
-    return [self hmacStringUsingAlg:kCCHmacAlgSHA512 withKey:key];
-}
-
-- (NSData *)hmacSHA512DataWithKey:(NSData *)key {
-    return [self hmacDataUsingAlg:kCCHmacAlgSHA512 withKey:key];
+- (uint32_t)crc32 {
+    uLong result = crc32_z(0, self.bytes, (z_size_t)self.length);
+    return (uint32_t)result;
 }
 
 - (NSData *)AES256EncryptWithKey:(NSData *)key iv:(NSData *)iv {
@@ -256,6 +187,22 @@
     return result;
 }
 
+- (NSData *)base64EncodedData {
+    return [self base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength | NSDataBase64EncodingEndLineWithLineFeed];
+}
+
+- (NSData *)base64DecodedData {
+    return [[NSData alloc] initWithBase64EncodedData:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
+}
+
+- (NSString *)base64EncodedString {
+    return [self base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength | NSDataBase64EncodingEndLineWithLineFeed];
+}
+
+- (NSString *)base64DecodedString {
+    return self.base64DecodedData.UTF8String;
+}
+
 + (NSData *)dataWithHexString:(NSString *)hexStr {
     hexStr = [hexStr stringByReplacingOccurrencesOfString:@" " withString:@""];
     hexStr = [hexStr lowercaseString];
@@ -277,105 +224,6 @@
     }
     free(buf);
     return result;
-}
-
-static const char base64EncodingTable[64]
-= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-static const short base64DecodingTable[256] = {
-    -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -2,  -1,  -1, -2, -2,
-    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
-    -1, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, 62,  -2,  -2, -2, 63,
-    52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -2, -2,  -2,  -2, -2, -2,
-    -2, 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10,  11,  12, 13, 14,
-    15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -2,  -2,  -2, -2, -2,
-    -2, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,  37,  38, 39, 40,
-    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -2,  -2,  -2, -2, -2,
-    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
-    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
-    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
-    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
-    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
-    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
-    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2,
-    -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2
-};
-
-- (NSString *)base64EncodedString {
-    NSUInteger length = self.length;
-    if (length == 0)
-        return @"";
-    
-    NSUInteger out_length = ((length + 2) / 3) * 4;
-    uint8_t *output = malloc(((out_length + 2) / 3) * 4);
-    if (output == NULL)
-        return nil;
-    
-    const char *input = self.bytes;
-    NSInteger i, value;
-    for (i = 0; i < length; i += 3) {
-        value = 0;
-        for (NSInteger j = i; j < i + 3; j++) {
-            value <<= 8;
-            if (j < length) {
-                value |= (0xFF & input[j]);
-            }
-        }
-        NSInteger index = (i / 3) * 4;
-        output[index + 0] = base64EncodingTable[(value >> 18) & 0x3F];
-        output[index + 1] = base64EncodingTable[(value >> 12) & 0x3F];
-        output[index + 2] = ((i + 1) < length)
-        ? base64EncodingTable[(value >> 6) & 0x3F]
-        : '=';
-        output[index + 3] = ((i + 2) < length)
-        ? base64EncodingTable[(value >> 0) & 0x3F]
-        : '=';
-    }
-    
-    NSString *base64 = [[NSString alloc] initWithBytes:output
-                                                length:out_length
-                                              encoding:NSASCIIStringEncoding];
-    free(output);
-    return base64;
-}
-
-+ (NSData *)dataWithBase64EncodedString:(NSString *)base64EncodedString {
-    NSInteger length = base64EncodedString.length;
-    const char *string = [base64EncodedString cStringUsingEncoding:NSASCIIStringEncoding];
-    if (string  == NULL)
-        return nil;
-    
-    while (length > 0 && string[length - 1] == '=')
-        length--;
-    
-    NSInteger outputLength = length * 3 / 4;
-    NSMutableData *data = [NSMutableData dataWithLength:outputLength];
-    if (data == nil)
-        return nil;
-    if (length == 0)
-        return data;
-    
-    uint8_t *output = data.mutableBytes;
-    NSInteger inputPoint = 0;
-    NSInteger outputPoint = 0;
-    while (inputPoint < length) {
-        char i0 = string[inputPoint++];
-        char i1 = string[inputPoint++];
-        char i2 = inputPoint < length ? string[inputPoint++] : 'A';
-        char i3 = inputPoint < length ? string[inputPoint++] : 'A';
-        
-        output[outputPoint++] = (base64DecodingTable[i0] << 2)
-        | (base64DecodingTable[i1] >> 4);
-        if (outputPoint < outputLength) {
-            output[outputPoint++] = ((base64DecodingTable[i1] & 0xf) << 4)
-            | (base64DecodingTable[i2] >> 2);
-        }
-        if (outputPoint < outputLength) {
-            output[outputPoint++] = ((base64DecodingTable[i2] & 0x3) << 6)
-            | base64DecodingTable[i3];
-        }
-    }
-    
-    return data;
 }
 
 - (id)jsonValueDecoded {

@@ -6,6 +6,7 @@
 //
 
 #import "NSObject+HXCommon.h"
+#import "HXHeader.h"
 #import "HXMacro.h"
 #import <objc/objc.h>
 #import <objc/runtime.h>
@@ -242,9 +243,12 @@ return @(ret); \
                 } else if (strcmp(type, @encode(NSRange)) == 0) {
                     NSRange arg = va_arg(args, NSRange);
                     [inv setArgument:&arg atIndex:index];
+                    NSOffsetRect(NSMakeRect(0, 0, 0, 0), 0, 0);
+#if !MAC
                 } else if (strcmp(type, @encode(UIOffset)) == 0) {
                     UIOffset arg = va_arg(args, UIOffset);
                     [inv setArgument:&arg atIndex:index];
+#endif
                 } else if (strcmp(type, @encode(UIEdgeInsets)) == 0) {
                     UIEdgeInsets arg = va_arg(args, UIEdgeInsets);
                     [inv setArgument:&arg atIndex:index];
@@ -305,7 +309,7 @@ else if (size <= 4 * _size_ ) { \
                  */
                 struct dummy {char tmp;};
                 for (int i = 0; i < size; i++) va_arg(args, struct dummy);
-                NSLog(@"YYKit performSelectorWithArgs unsupported type:%s (%lu bytes)",
+                NSLog(@"HXCategories performSelectorWithArgs unsupported type:%s (%lu bytes)",
                       [sig getArgumentTypeAtIndex:index],(unsigned long)size);
             }
 #undef case_size

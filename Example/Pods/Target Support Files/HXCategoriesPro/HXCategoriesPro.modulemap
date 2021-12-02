@@ -1,6 +1,0 @@
-framework module HXCategoriesPro {
-  umbrella header "HXCategoriesPro-umbrella.h"
-
-  export *
-  module * { export * }
-}

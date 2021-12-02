@@ -16,16 +16,11 @@
 
 #import "NSData+HXCommon.h"
 
-#import "NSString+HXBase64.h"
-#import "NSString+HXEncrypt.h"
-#import "NSString+HXHash.h"
+#import "NSString+HXCommon.h"
 #import "NSString+HXHTML.h"
 #import "NSString+HXPinyin.h"
 #import "NSString+HXRegex.h"
 #import "NSString+HXSize.h"
-#import "NSString+HXURLEncode.h"
-#import "NSString+HXUUID.h"
-#import "NSString+HXCommon.h"
 
 #import "NSNumber+HXCommon.h"
 

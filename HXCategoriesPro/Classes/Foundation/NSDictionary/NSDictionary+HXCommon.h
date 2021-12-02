@@ -12,14 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSDictionary (HXCommon)
 
 /**
- 判断 NSDictionary 是否为空
-
- @param dic dic description
- @return 空 --> YES,  非空 --> NO
- */
-+ (BOOL)isEmpty:(nullable NSDictionary *)dic;
-
-/**
  判断 NSDictionary 是否安全
 
  @return 安全 --> YES,  不安全 --> NO

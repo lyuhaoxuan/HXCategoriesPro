@@ -11,10 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSArray (HXCommon)
 
-/// 判断 NSArray 是否为空
-/// @param array 需要判断的数组
-+ (BOOL)isEmpty:(nullable NSArray *)array;
-
 /// 判断 NSArray 是否安全
 - (BOOL)isSafe;
 
@@ -35,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 随机返回一个对象
 - (nullable id)randomObject;
 
+/// 返回位于索引处的对象，越界时返回 nil。不会抛出异常
+/// @param index 索引
+- (nullable id)objectOrNilAtIndex:(NSUInteger)index;
+
 /// 将对象转换为 json 字符串. 如果发生错误, 则返回 nil
 /// 包括: NSString/NSNumber/NSDictionary/NSArray
 - (nullable NSString *)jsonStringEncoded;
@@ -43,7 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString *)jsonPrettyStringEncoded;
 
 @end
-
 
 
 @interface NSMutableArray (HXCommon)

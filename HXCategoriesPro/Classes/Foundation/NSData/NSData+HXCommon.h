@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#include <CommonCrypto/CommonCrypto.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -13,50 +14,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Hash
 
-@property (nullable, readonly) NSString *SHA1String;
-@property (nullable, readonly) NSData *SHA1Data;
+@property (nullable, readonly) NSString * MD5_string;       ///< MD5 NSString
+@property (nullable, readonly) NSString * SHA1_string;      ///< SHA1 NSString
+@property (nullable, readonly) NSString * SHA224_string;    ///< SHA224 NSString
+@property (nullable, readonly) NSString * SHA256_string;    ///< SHA256 NSString
+@property (nullable, readonly) NSString * SHA384_string;    ///< SHA384 NSString
+@property (nullable, readonly) NSString * SHA512_string;    ///< SHA512 NSString
 
-@property (nullable, readonly) NSString *SHA224String;
-@property (nullable, readonly) NSData *SHA224Data;
+@property (nullable, readonly) NSData   * MD5_data;
+@property (nullable, readonly) NSData   * SHA1_data;        ///< SHA1 NSData
+@property (nullable, readonly) NSData   * SHA224_data;      ///< SHA224 NSData
+@property (nullable, readonly) NSData   * SHA256_data;      ///< SHA256 NSData
+@property (nullable, readonly) NSData   * SHA384_data;      ///< SHA384 NSData
+@property (nullable, readonly) NSData   * SHA512_data;      ///< SHA512 NSData
 
-@property (nullable, readonly) NSString *SHA256String;
-@property (nullable, readonly) NSData *SHA256Data;
+- (NSString *)hmacStringUsingAlg:(CCHmacAlgorithm)alg key:(NSString *)key;
 
-@property (nullable, readonly) NSString *SHA384String;
-@property (nullable, readonly) NSData *SHA384Data;
+- (NSData *)hmacDataUsingAlg:(CCHmacAlgorithm)alg key:(NSData *)key;
 
-@property (nullable, readonly) NSString *SHA512String;
-@property (nullable, readonly) NSData *SHA512Data;
+- (NSString *)crc32String;
 
-/// 使用算法 SHA1 和 key, 返回一个小写的 NSString
-- (NSString *)hmacSHA1StringWithKey:(NSString *)key;
-
-/// 使用算法 SHA1 和 key, 返回 NSData
-- (NSData *)hmacSHA1DataWithKey:(NSData *)key;
-
-/// 使用算法 SHA224 和 key, 返回一个小写的 NSString
-- (NSString *)hmacSHA224StringWithKey:(NSString *)key;
-
-/// 使用算法 SHA224 和 key, 返回 NSData
-- (NSData *)hmacSHA224DataWithKey:(NSData *)key;
-
-/// 使用算法 SHA256 和 key, 返回一个小写的 NSString
-- (NSString *)hmacSHA256StringWithKey:(NSString *)key;
-
-/// 使用算法 SHA256 和 key, 返回 NSData
-- (NSData *)hmacSHA256DataWithKey:(NSData *)key;
-
-/// 使用算法 SHA384 和 key, 返回一个小写的 NSString
-- (NSString *)hmacSHA384StringWithKey:(NSString *)key;
-
-/// 使用算法 SHA384 和 key, 返回 NSData
-- (NSData *)hmacSHA384DataWithKey:(NSData *)key;
-
-/// 使用算法 SHA521 和 key, 返回一个小写的 NSString
-- (NSString *)hmacSHA512StringWithKey:(NSString *)key;
-
-/// 使用算法 SHA512 和 key, 返回 NSData
-- (NSData *)hmacSHA512DataWithKey:(NSData *)key;
+- (uint32_t)crc32;
 
 
 #pragma mark - Encrypt and Decrypt
@@ -74,27 +52,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Encode and decode
 
-/// NSData 转成 UTF8 字符串
-- (nullable NSString *)UTF8String;
-
-/// NSData 转成 十六进制
-- (nullable NSString *)hexString;
-
-/// 十六进制 转成 NSData
-/// @param hexString 数据
-+ (nullable NSData *)dataWithHexString:(NSString *)hexString;
-
-/// NSData 转 Base64
-- (nullable NSString *)base64EncodedString;
-
-/// Base64 转 NSData
-/// @param base64EncodedString 数据
-+ (nullable NSData *)dataWithBase64EncodedString:(NSString *)base64EncodedString;
-
-/// 返回 NSDictionary 或 NSArray
-- (nullable id)jsonValueDecoded;
+@property (nullable, readonly) NSString * UTF8String;            ///< NSData 转成 UTF8 字符串
+@property (nullable, readonly) NSString * hexString;             ///< NSData 转成 十六进制
+@property (nullable, readonly) NSData   * base64EncodedData;     ///< NSData 编码 Base64
+@property (nullable, readonly) NSData   * base64DecodedData;     ///< NSData 解码 Base64
+@property (nullable, readonly) NSString * base64EncodedString;   ///< NSData 编码 Base64
+@property (nullable, readonly) NSString * base64DecodedString;   ///< NSData 解码 Base64
+@property (nullable, readonly) id         jsonValueDecoded;      ///< 返回 NSDictionary 或 NSArray
 
 #pragma mark - Others
+
 /// 创建文件 Data
 /// @param name 文件名字
 + (nullable NSData *)dataNamed:(NSString *)name;

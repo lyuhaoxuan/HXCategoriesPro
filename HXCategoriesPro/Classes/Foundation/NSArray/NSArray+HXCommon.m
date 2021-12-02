@@ -18,10 +18,6 @@
     return YES;
 }
 
-+ (BOOL)isEmpty:(NSArray *)array {
-    return !array.isSafe;
-}
-
 + (NSArray *)arrayWithPlistData:(NSData *)plist {
     if (!plist) return nil;
     NSArray *array = [NSPropertyListSerialization propertyListWithData:plist options:NSPropertyListImmutable format:NULL error:NULL];

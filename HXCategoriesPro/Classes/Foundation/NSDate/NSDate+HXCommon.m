@@ -92,7 +92,7 @@
     return [formatter stringFromDate:self];
 }
 
-- (NSString *)stringWithISOFormat {
+- (NSString *)ISOFormatString {
     static NSISO8601DateFormatter *formatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

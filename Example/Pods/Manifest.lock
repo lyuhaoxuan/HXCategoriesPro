@@ -1,25 +1,16 @@
 PODS:
-  - HXCategoriesPro (1.0.5)
-  - YYKit (1.0.9):
-    - YYKit/no-arc (= 1.0.9)
-  - YYKit/no-arc (1.0.9)
+  - HXCategoriesPro (1.1.0)
 
 DEPENDENCIES:
   - HXCategoriesPro (from `../`)
-  - YYKit
-
-SPEC REPOS:
-  trunk:
-    - YYKit
 
 EXTERNAL SOURCES:
   HXCategoriesPro:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HXCategoriesPro: 67096c5d1bcb883800e2643d9974c6db2ca9e99c
-  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  HXCategoriesPro: cb5f2e1e417e0409e00d188ae45380869ad9dcbb
 
-PODFILE CHECKSUM: 984d9207884073378cd4e6e66a3a1a2632305dcf
+PODFILE CHECKSUM: d85a917372d2bf7b3bcb2c006369756023e28842
 
-COCOAPODS: 1.11.1
+COCOAPODS: 1.11.2

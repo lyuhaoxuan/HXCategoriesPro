@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03D2B1802758C2BF00A485E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2B17F2758C2BF00A485E5 /* AppDelegate.m */; };
+		03D2B1832758C2BF00A485E5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2B1822758C2BF00A485E5 /* ViewController.m */; };
+		03D2B1852758C2C100A485E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D2B1842758C2C100A485E5 /* Assets.xcassets */; };
+		03D2B1882758C2C100A485E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03D2B1862758C2C100A485E5 /* Main.storyboard */; };
+		03D2B18A2758C2C100A485E5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2B1892758C2C100A485E5 /* main.m */; };
 		59BD63E72CED45FFF63810C8 /* Pods_HXCategoriesPro_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38B881ADAF2914F698FB810 /* Pods_HXCategoriesPro_Example.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -21,10 +26,20 @@
 		D20E72A82750A434000A28E7 /* MyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D20E72A72750A434000A28E7 /* MyModel.m */; };
 		D20E72AA2750A52F000A28E7 /* PropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = D20E72A92750A52F000A28E7 /* PropertyList.plist */; };
 		D20E72AC2750A581000A28E7 /* Json.json in Resources */ = {isa = PBXBuildFile; fileRef = D20E72AB2750A581000A28E7 /* Json.json */; };
+		E579CFE8226A59D70DBBB1F3 /* Pods_macApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79C9F1628675D9EEDBC4683B /* Pods_macApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0211E2612A8EAB16F7ED3F59 /* Pods-HXCategoriesPro_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HXCategoriesPro_Example.release.xcconfig"; path = "Target Support Files/Pods-HXCategoriesPro_Example/Pods-HXCategoriesPro_Example.release.xcconfig"; sourceTree = "<group>"; };
+		03D2B17C2758C2BF00A485E5 /* macApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D2B17E2758C2BF00A485E5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		03D2B17F2758C2BF00A485E5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		03D2B1812758C2BF00A485E5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		03D2B1822758C2BF00A485E5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		03D2B1842758C2C100A485E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		03D2B1872758C2C100A485E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		03D2B1892758C2C100A485E5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		03D2B18B2758C2C100A485E5 /* macApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macApp.entitlements; sourceTree = "<group>"; };
 		23590DFD9DE4384C47131B57 /* HXCategoriesPro.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = HXCategoriesPro.podspec; path = ../HXCategoriesPro.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6003F58A195388D20070C39A /* HXCategoriesPro_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HXCategoriesPro_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -41,18 +56,29 @@
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		64EDD3B611E861E118877C22 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		79C9F1628675D9EEDBC4683B /* Pods_macApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8F2C79FE93C63D2FE0F47788 /* Pods-HXCategoriesPro_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HXCategoriesPro_Example.debug.xcconfig"; path = "Target Support Files/Pods-HXCategoriesPro_Example/Pods-HXCategoriesPro_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		AD1AE59AF4A78C4838513105 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		BCB1A2C3D8F878DD067223DC /* Pods-macApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macApp.release.xcconfig"; path = "Target Support Files/Pods-macApp/Pods-macApp.release.xcconfig"; sourceTree = "<group>"; };
 		D20E72A62750A434000A28E7 /* MyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyModel.h; sourceTree = "<group>"; };
 		D20E72A72750A434000A28E7 /* MyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyModel.m; sourceTree = "<group>"; };
 		D20E72A92750A52F000A28E7 /* PropertyList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PropertyList.plist; sourceTree = "<group>"; };
 		D20E72AB2750A581000A28E7 /* Json.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Json.json; sourceTree = "<group>"; };
 		D2398F53274F2962009D68A2 /* HXCategoriesPro_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HXCategoriesPro_Example.entitlements; sourceTree = "<group>"; };
 		D38B881ADAF2914F698FB810 /* Pods_HXCategoriesPro_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HXCategoriesPro_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA584718ACC1D657CA0284B3 /* Pods-macApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macApp.debug.xcconfig"; path = "Target Support Files/Pods-macApp/Pods-macApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		03D2B1792758C2BF00A485E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E579CFE8226A59D70DBBB1F3 /* Pods_macApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F587195388D20070C39A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -67,11 +93,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03D2B17D2758C2BF00A485E5 /* macApp */ = {
+			isa = PBXGroup;
+			children = (
+				03D2B17E2758C2BF00A485E5 /* AppDelegate.h */,
+				03D2B17F2758C2BF00A485E5 /* AppDelegate.m */,
+				03D2B1812758C2BF00A485E5 /* ViewController.h */,
+				03D2B1822758C2BF00A485E5 /* ViewController.m */,
+				03D2B1842758C2C100A485E5 /* Assets.xcassets */,
+				03D2B1862758C2C100A485E5 /* Main.storyboard */,
+				03D2B1892758C2C100A485E5 /* main.m */,
+				03D2B18B2758C2C100A485E5 /* macApp.entitlements */,
+			);
+			path = macApp;
+			sourceTree = "<group>";
+		};
 		069BC5EEA49DA507AD3CD483 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				8F2C79FE93C63D2FE0F47788 /* Pods-HXCategoriesPro_Example.debug.xcconfig */,
 				0211E2612A8EAB16F7ED3F59 /* Pods-HXCategoriesPro_Example.release.xcconfig */,
+				FA584718ACC1D657CA0284B3 /* Pods-macApp.debug.xcconfig */,
+				BCB1A2C3D8F878DD067223DC /* Pods-macApp.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -82,6 +125,7 @@
 				D2398F53274F2962009D68A2 /* HXCategoriesPro_Example.entitlements */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for HXCategoriesPro */,
+				03D2B17D2758C2BF00A485E5 /* macApp */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				069BC5EEA49DA507AD3CD483 /* Pods */,
@@ -92,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				6003F58A195388D20070C39A /* HXCategoriesPro_Example.app */,
+				03D2B17C2758C2BF00A485E5 /* macApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +148,7 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				D38B881ADAF2914F698FB810 /* Pods_HXCategoriesPro_Example.framework */,
+				79C9F1628675D9EEDBC4683B /* Pods_macApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -151,6 +197,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		03D2B17B2758C2BF00A485E5 /* macApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D2B18E2758C2C100A485E5 /* Build configuration list for PBXNativeTarget "macApp" */;
+			buildPhases = (
+				2554466EC2E5B5FD0679AD4D /* [CP] Check Pods Manifest.lock */,
+				03D2B1782758C2BF00A485E5 /* Sources */,
+				03D2B1792758C2BF00A485E5 /* Frameworks */,
+				03D2B17A2758C2BF00A485E5 /* Resources */,
+				2A447A853865857BF5FA9268 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = macApp;
+			productName = macApp;
+			productReference = 03D2B17C2758C2BF00A485E5 /* macApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 		6003F589195388D20070C39A /* HXCategoriesPro_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "HXCategoriesPro_Example" */;
@@ -180,6 +245,10 @@
 				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "吕浩轩";
 				TargetAttributes = {
+					03D2B17B2758C2BF00A485E5 = {
+						CreatedOnToolsVersion = 13.1;
+						ProvisioningStyle = Automatic;
+					};
 					6003F589195388D20070C39A = {
 						DevelopmentTeam = HTW6ZG346Z;
 						ProvisioningStyle = Automatic;
@@ -200,11 +269,21 @@
 			projectRoot = "";
 			targets = (
 				6003F589195388D20070C39A /* HXCategoriesPro_Example */,
+				03D2B17B2758C2BF00A485E5 /* macApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		03D2B17A2758C2BF00A485E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D2B1852758C2C100A485E5 /* Assets.xcassets in Resources */,
+				03D2B1882758C2C100A485E5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F588195388D20070C39A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -243,6 +322,46 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		2554466EC2E5B5FD0679AD4D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-macApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2A447A853865857BF5FA9268 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-macApp/Pods-macApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/HXCategoriesPro-macOS/HXCategoriesPro.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HXCategoriesPro.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-macApp/Pods-macApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2C853251F9AADCCCF0D65583 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -250,13 +369,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HXCategoriesPro_Example/Pods-HXCategoriesPro_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/HXCategoriesPro/HXCategoriesPro.framework",
-				"${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework",
+				"${BUILT_PRODUCTS_DIR}/HXCategoriesPro-iOS/HXCategoriesPro.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HXCategoriesPro.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -266,6 +383,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		03D2B1782758C2BF00A485E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D2B1832758C2BF00A485E5 /* ViewController.m in Sources */,
+				03D2B18A2758C2C100A485E5 /* main.m in Sources */,
+				03D2B1802758C2BF00A485E5 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F586195388D20070C39A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -280,6 +407,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		03D2B1862758C2C100A485E5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				03D2B1872758C2C100A485E5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		6003F596195388D20070C39A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -299,6 +434,75 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		03D2B18C2758C2C100A485E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA584718ACC1D657CA0284B3 /* Pods-macApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = macApp/macApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2021 吕浩轩. All rights reserved.";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lvhaoxuan.macApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		03D2B18D2758C2C100A485E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCB1A2C3D8F878DD067223DC /* Pods-macApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = macApp/macApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2021 吕浩轩. All rights reserved.";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lvhaoxuan.macApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
 		6003F5BD195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -453,6 +657,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		03D2B18E2758C2C100A485E5 /* Build configuration list for PBXNativeTarget "macApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D2B18C2758C2C100A485E5 /* Debug */,
+				03D2B18D2758C2C100A485E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6003F585195388D10070C39A /* Build configuration list for PBXProject "HXCategoriesPro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

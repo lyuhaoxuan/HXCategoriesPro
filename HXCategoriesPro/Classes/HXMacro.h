@@ -8,7 +8,6 @@
 #ifndef HXMacro_h
 #define HXMacro_h
 
-#import <UIKit/UIKit.h>
 #import <sys/time.h>
 #import <pthread.h>
 

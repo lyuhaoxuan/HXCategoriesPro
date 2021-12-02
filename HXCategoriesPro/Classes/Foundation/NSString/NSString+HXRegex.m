@@ -32,6 +32,12 @@
     return [self isValidateByRegex:regex];
 }
 
+//"强"密码的有效性, (参考：长度 8~16，必须包含大小写字母和数字)
+- (BOOL)isStrongPassword {
+    NSString *regex = @"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[!-~¥€£•]{8,16}$";
+    return [self isValidateByRegex:regex];
+}
+
 //身份证号
 - (BOOL)simpleVerifyIdentityCardNum {
     NSString *regex = @"^(\\d{6})(\\d{4})(\\d{2})(\\d{2})(\\d{3})([0-9]|X)$";
@@ -324,15 +330,6 @@
     }
     
     return NO;
-}
-
-// 从右往左查找数字位数
-- (NSString *)checkingResult {
-    NSError *error;
-    NSString *regexRight = @"[0-9]+$";
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexRight options:NSRegularExpressionCaseInsensitive error:&error];
-    NSTextCheckingResult *result = [regex firstMatchInString:self options:0 range:NSMakeRange(0, [self length])];
-    return [self substringWithRange:result.range];
 }
 
 @end

@@ -12,6 +12,8 @@
 
 @implementation NSBezierPath (HXNSBezierPath)
 
+@dynamic usesEvenOddFillRule;
+
 + (NSBezierPath *)bezierPathWithRoundedRect:(CGRect)rect cornerRadius:(CGFloat)cornerRadius
 {
     return [NSBezierPath bezierPathWithRoundedRect:rect xRadius:cornerRadius yRadius:cornerRadius];

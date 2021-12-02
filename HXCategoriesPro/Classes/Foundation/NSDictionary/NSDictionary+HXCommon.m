@@ -17,10 +17,6 @@
     return YES;
 }
 
-+ (BOOL)isEmpty:(NSDictionary *)dic {
-    return !dic.isSafe;
-}
-
 + (NSDictionary *)dictionaryWithPlistData:(NSData *)plist {
     if (!plist) return nil;
     NSDictionary *dictionary = [NSPropertyListSerialization propertyListWithData:plist options:NSPropertyListImmutable format:NULL error:NULL];
