@@ -48,6 +48,8 @@
 
 #import "NSImage+HXCommon.h"
 
+#import "CALayer+HXCommon.h"
+
 /// 硬件设备信息
 #import "NSObject+HXDevice.h"
 

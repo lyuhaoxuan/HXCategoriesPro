@@ -38,6 +38,7 @@
 #import "NSTextField+HXCommon.h"
 #import "UIApplication+HXCommon.h"
 #import "UIColor+HXCommon.h"
+#import "CALayer+HXCommon.h"
 #import "UIView+HXCommon.h"
 
 FOUNDATION_EXPORT double HXCategoriesProVersionNumber;
