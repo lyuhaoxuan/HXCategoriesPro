@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSData   * SHA384_data;          ///< SHA384 NSData
 @property (readonly) NSData   * SHA512_data;          ///< SHA512 NSData
 
-/// 使用算法 和 key, 返回一个小写的 NSString
+/// 使用算法 和 key, 返回一个大写的 NSString
 /// @param alg MD5/SHA1/SHA224/SHA256/SHA384/SHA512
 /// @param key hmac key
 - (nullable NSString *)hmacStringUsingAlg:(CCHmacAlgorithm)alg key:(NSString *)key;

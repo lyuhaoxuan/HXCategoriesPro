@@ -256,10 +256,7 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 }
 
 + (NSString *)UUID {
-    CFUUIDRef uuid = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, uuid);
-    CFRelease(uuid);
-    return (__bridge_transfer NSString *)string;
+    return [NSUUID UUID].UUIDString;
 }
 
 + (NSString *)timeStamp {

@@ -52,7 +52,7 @@
     }
     NSMutableString *hash = [NSMutableString stringWithCapacity:size * 2];
     for (int i = 0; i < size; i++) {
-        [hash appendFormat:@"%02x", result[i]];
+        [hash appendFormat:@"%02X", result[i]];
     }
     return hash;
 }
@@ -80,7 +80,7 @@
     CCHmac(alg, cKey, strlen(cKey), self.bytes, self.length, result);
     NSMutableString *hash = [NSMutableString stringWithCapacity:size * 2];
     for (int i = 0; i < size; i++) {
-        [hash appendFormat:@"%02x", result[i]];
+        [hash appendFormat:@"%02X", result[i]];
     }
     return hash;
 }

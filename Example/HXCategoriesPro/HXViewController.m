@@ -57,11 +57,23 @@
     SWAP(aaa, bb);
     NSLog(@"model:%@", [model.date stringWithFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"]);
     
-    
-    
-    
     NSString * result = @"http://demo.demo.com/demo?{userToken:按时发斯蒂芬}";
     NSLog(@"result: = %@",result.URLEntityEncode);
+    
+
+    NSString *strName = [[UIDevice currentDevice] name];
+    NSLog(@"设备名称：%@", strName);//e.g. "My iPhone"
+    NSString *strModel = [[UIDevice currentDevice] model];
+    NSLog(@"设备模式：%@", strModel);// e.g. @"iPhone", @"iPod touch"
+    
+    NSString *strSysName = [[UIDevice currentDevice] systemName];
+    NSLog(@"系统名称：%@", strSysName);// e.g. @"iOS"
+    
+    NSString *strSysVersion = [[UIDevice currentDevice] systemVersion];
+    NSLog(@"系统版本号：%@", strSysVersion);// e.g. @"4.0"
+    
+    NSLog(@"machineModelName: %@", [[UIDevice currentDevice] machineModelName]);
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,5 +81,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

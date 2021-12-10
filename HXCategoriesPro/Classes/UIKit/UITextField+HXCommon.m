@@ -1,18 +1,17 @@
 //
-//  NSTextField+HXCommon.m
+//  UITextField+HXCommon.m
 //  LHX
 //
 //  Created by 吕浩轩 on 2018/12/21.
 //  Copyright © 2019 LHX. All rights reserved.
 //
 
-#import "NSTextField+HXCommon.h"
-
-#if MAC
+#import "UITextField+HXCommon.h"
 #import "NSString+HXCommon.h"
 
-@implementation NSTextField (HXCommon)
+@implementation UITextField (HXCommon)
 
+#if MAC
 - (NSString *)placeholderOrStringValue {
     NSString *string = self.stringValue;
     NSString *placeholderString = self.cell.accessibilityPlaceholderValue;
@@ -45,5 +44,20 @@
     return [super performKeyEquivalent:event];
 }
 
-@end
+#else
+
+- (void)selectAllText {
+    UITextRange *range = [self textRangeFromPosition:self.beginningOfDocument toPosition:self.endOfDocument];
+    [self setSelectedTextRange:range];
+}
+
+- (void)setSelectedRange:(NSRange)range {
+    UITextPosition *beginning = self.beginningOfDocument;
+    UITextPosition *startPosition = [self positionFromPosition:beginning offset:range.location];
+    UITextPosition *endPosition = [self positionFromPosition:beginning offset:NSMaxRange(range)];
+    UITextRange *selectionRange = [self textRangeFromPosition:startPosition toPosition:endPosition];
+    [self setSelectedTextRange:selectionRange];
+}
 #endif
+
+@end

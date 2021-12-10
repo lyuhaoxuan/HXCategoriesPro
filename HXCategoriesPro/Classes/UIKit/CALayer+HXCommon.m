@@ -6,9 +6,10 @@
 //
 
 #import "CALayer+HXCommon.h"
+#import "HXCGUtilities.h"
 
 @implementation CALayer (HXCommon)
-#if !MAC
+#if IOS
 - (UIImage *)snapshotImage {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -276,11 +277,15 @@
     self.transform = d;
 }
 
-#if MAC
-- (void)addFadeAnimationWithDuration:(NSTimeInterval)duration curve:(CAMediaTimingFunctionName)curve {
-    if (duration <= 0) return;
-    NSString *mediaFunction = curve;
-#else
+#if IOS
+- (UIViewContentMode)contentMode {
+    return HXCAGravityToUIViewContentMode(self.contentsGravity);
+}
+
+- (void)setContentMode:(UIViewContentMode)contentMode {
+    self.contentsGravity = HXUIViewContentModeToCAGravity(contentMode);
+}
+
 - (void)addFadeAnimationWithDuration:(NSTimeInterval)duration curve:(UIViewAnimationCurve)curve {
     if (duration <= 0) return;
     NSString *mediaFunction;
@@ -301,17 +306,21 @@
             mediaFunction = kCAMediaTimingFunctionLinear;
         } break;
     }
+#else
+- (void)addFadeAnimationWithDuration:(NSTimeInterval)duration curve:(CAMediaTimingFunctionName)curve {
+    if (duration <= 0) return;
+    NSString *mediaFunction = curve;
 #endif
 
     CATransition *transition = [CATransition animation];
     transition.duration = duration;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:mediaFunction];
     transition.type = kCATransitionFade;
-    [self addAnimation:transition forKey:@"yykit.fade"];
+    [self addAnimation:transition forKey:@"HXKit.fade"];
 }
 
 - (void)removePreviousFadeAnimation {
-    [self removeAnimationForKey:@"yykit.fade"];
+    [self removeAnimationForKey:@"HXKit.fade"];
 }
 
 @end

@@ -243,7 +243,7 @@ return @(ret); \
                 } else if (strcmp(type, @encode(NSRange)) == 0) {
                     NSRange arg = va_arg(args, NSRange);
                     [inv setArgument:&arg atIndex:index];
-#if !MAC
+#if IOS
                 } else if (strcmp(type, @encode(UIOffset)) == 0) {
                     UIOffset arg = va_arg(args, UIOffset);
                     [inv setArgument:&arg atIndex:index];

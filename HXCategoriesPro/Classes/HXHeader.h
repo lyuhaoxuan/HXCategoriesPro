@@ -18,9 +18,15 @@
     #define MAC 0
 #endif
 
+#if TARGET_OS_IOS
+    #define IOS 1
+#else
+    #define IOS 0
+#endif
+
 // iOS and tvOS are very similar, UIKit exists on both platforms
 // Note: watchOS also has UIKit, but it's very limited
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_IOS
     #define UIKIT 1
 #else
     #define UIKIT 0
@@ -68,6 +74,13 @@
     #ifndef UIEdgeInsets
         #define UIEdgeInsets NSEdgeInsets
     #endif
+    #ifndef UITextField
+        #define UITextField NSTextField
+    #endif
+    #ifndef UIDevice
+        #define UIDevice HXDevice
+    #endif
+
 #else
     #if UIKIT
         #import <UIKit/UIKit.h>

@@ -13,9 +13,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSString *uuid = [NSString UUID];
 
+    NSLog(@"%@", [UIDevice currentDevice].name);
+    NSLog(@"%@", [UIDevice currentDevice].model);
+    NSLog(@"%@", [UIDevice currentDevice].systemName);
+    NSLog(@"%@", [UIDevice currentDevice].systemVersion);
+    NSLog(@"%@", [UIDevice currentDevice].systemBuildVersion);
+    NSLog(@"%@", [UIDevice currentDevice].UUID);
+    NSLog(@"%@", [UIDevice currentDevice].serialNumber);
+    
     // Do any additional setup after loading the view.
 }
 

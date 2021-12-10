@@ -21,7 +21,7 @@
     if (mobile.length != 11) {
         return NO;
     } else {
-        NSString *regex = @"(13\\d|14[5-9]|15[^4\\D]|16[2567]|17[^9\\D]|18\\d|19[^4\\D])\\d{8}";
+        NSString *regex = @"^(13\\d|14[5-9]|15[^4\\D]|16[2567]|17[^9\\D]|18\\d|19[^4\\D])\\d{8}$";
         return [mobile isValidateByRegex:regex];
     }
 }

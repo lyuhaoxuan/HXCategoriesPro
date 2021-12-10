@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CALayer (HXCommon)
 
-#if !MAC
+#if IOS
 /**
  Take snapshot without transform, image's size equals to bounds.
  */
@@ -69,16 +69,21 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic) CGFloat transformDepth;
 
+#if IOS
+/**
+ Wrapper for `contentsGravity` property.
+ */
+@property (nonatomic) UIViewContentMode contentMode;
+
 /**
  Add a fade animation to layer's contents when the contents is changed.
  
  @param duration Animation duration
  @param curve    Animation curve.
  */
-#if MAC
-- (void)addFadeAnimationWithDuration:(NSTimeInterval)duration curve:(CAMediaTimingFunctionName)curve;
-#else
 - (void)addFadeAnimationWithDuration:(NSTimeInterval)duration curve:(UIViewAnimationCurve)curve;
+#else
+- (void)addFadeAnimationWithDuration:(NSTimeInterval)duration curve:(CAMediaTimingFunctionName)curve;
 #endif
 
 /**
