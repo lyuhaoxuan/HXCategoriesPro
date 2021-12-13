@@ -58,7 +58,7 @@
     NSLog(@"model:%@", [model.date stringWithFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"]);
     
     NSString * result = @"http://demo.demo.com/demo?{userToken:按时发斯蒂芬}";
-    NSLog(@"result: = %@",result.URLEntityEncode);
+    NSLog(@"result: = %@",result.URLEncode);
     
 
     NSString *strName = [[UIDevice currentDevice] name];
@@ -72,7 +72,7 @@
     NSString *strSysVersion = [[UIDevice currentDevice] systemVersion];
     NSLog(@"系统版本号：%@", strSysVersion);// e.g. @"4.0"
     
-    NSLog(@"machineModelName: %@", [[UIDevice currentDevice] machineModelName]);
+    NSLog(@"machineModelName: %@", [[UIDevice currentDevice] ipAddressCell]);
 
 }
 

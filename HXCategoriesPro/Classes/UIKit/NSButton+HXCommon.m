@@ -8,28 +8,23 @@
 
 #import "NSButton+HXCommon.h"
 
-#if MAC
+#if HX_MAC
 
 #import "NSString+HXCommon.h"
 
 @implementation NSButton (HXCommon)
 
-- (void)setTitleTextColor:(NSColor *)newColor {
+- (void)setTitleColor:(NSColor *)titleColor {
     
-    if (!newColor || !self.attributedTitle) {
-        return;
-    }
-    
-    NSString *text = self.attributedTitle.string;
-    if (!text || text.length == 0 || ![text isKindOfClass:[NSString class]]) {
-        return;
-    }
-    
+    if (!titleColor || !self.attributedTitle) return;
+    if (!self.attributedTitle.string.isSafe) return;
+
     NSMutableAttributedString *newTitle = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedTitle];
-    [newTitle addAttribute:NSForegroundColorAttributeName value:newColor range:NSMakeRange(0, newTitle.length)];
+    [newTitle addAttribute:NSForegroundColorAttributeName value:titleColor range:NSMakeRange(0, newTitle.length)];
     
-    self.attributedTitle = newTitle;
+    self.attributedTitle = [newTitle copy];
 }
 
 @end
+
 #endif

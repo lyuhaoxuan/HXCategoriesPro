@@ -47,7 +47,7 @@ CGFloat HXScreenScale(void) {
     static CGFloat scale;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-#if MAC
+#if HX_MAC
         scale = [NSScreen mainScreen].backingScaleFactor;
 #else
         scale = [UIScreen mainScreen].scale;
@@ -60,7 +60,7 @@ CGSize HXScreenSize(void) {
     static CGSize size;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-#if MAC
+#if HX_MAC
         size = [NSScreen mainScreen].frame.size; // 还要关注 visibleFrame
 #else
         size = [UIScreen mainScreen].bounds.size;
@@ -140,7 +140,7 @@ CGAffineTransform HXCGAffineTransformGetFromPoints(CGPoint before[3], CGPoint af
     return transform;
 }
 
-#if IOS
+#if HX_IOS
 CGAffineTransform HXCGAffineTransformGetFromViews(UIView *from, UIView *to) {
     if (!from || !to) return CGAffineTransformIdentity;
     

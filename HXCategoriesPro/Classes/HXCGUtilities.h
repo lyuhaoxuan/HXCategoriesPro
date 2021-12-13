@@ -90,7 +90,7 @@ static inline CGAffineTransform CGAffineTransformMakeSkew(CGFloat x, CGFloat y){
     return transform;
 }
 
-#if IOS
+#if HX_IOS
 /// Negates/inverts a UIEdgeInsets.
 static inline UIEdgeInsets UIEdgeInsetsInvert(UIEdgeInsets insets) {
     return UIEdgeInsetsMake(-insets.top, -insets.left, -insets.bottom, -insets.right);

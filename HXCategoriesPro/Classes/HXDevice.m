@@ -17,7 +17,7 @@
 #import <sys/utsname.h>
 #import <SystemConfiguration/SCDynamicStoreCopySpecific.h>
 
-#if IOS
+#if HX_IOS
 @implementation UIDevice (HXCommon)
 #else
 @implementation HXDevice
@@ -110,7 +110,7 @@ static id _device = nil;
 
 #endif
 
-#if IOS
+#if HX_IOS
 - (BOOL)isPad {
     static dispatch_once_t one;
     static BOOL pad;

@@ -11,7 +11,7 @@
 
 @implementation UIView (HXCommon)
 
-#if MAC
+#if HX_MAC
 + (instancetype)initFromXib {
     NSString *className = [self className];
     Class ViewClass = NSClassFromString(className);
@@ -27,7 +27,7 @@
 }
 #endif
 
-#if IOS
+#if HX_IOS
 - (UIImage *)snapshotImage {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0);
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -71,7 +71,7 @@
     self.layer.shadowRadius = radius;
     self.layer.shadowOpacity = 1;
     self.layer.shouldRasterize = YES;
-#if MAC
+#if HX_MAC
     self.layer.rasterizationScale = [NSScreen mainScreen].backingScaleFactor;
 #else
     self.layer.rasterizationScale = [UIScreen mainScreen].scale;
@@ -84,7 +84,7 @@
     }
 }
 
-#if IOS
+#if HX_IOS
 - (UIViewController *)viewController {
     for (UIView *view = self; view; view = view.superview) {
         UIResponder *nextResponder = [view nextResponder];
@@ -260,7 +260,7 @@
     self.frame = frame;
 }
 
-#if IOS
+#if HX_IOS
 - (CGFloat)centerX {
     return self.center.x;
 }

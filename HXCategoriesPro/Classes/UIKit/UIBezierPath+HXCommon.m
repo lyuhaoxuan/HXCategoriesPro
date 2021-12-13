@@ -7,7 +7,7 @@
 
 #import "UIBezierPath+HXCommon.h"
 
-#if IOS
+#if HX_IOS
 #import <CoreText/CoreText.h>
 
 @implementation UIBezierPath (HXCommon)
@@ -54,4 +54,5 @@
     return path;
 }
 @end
+
 #endif

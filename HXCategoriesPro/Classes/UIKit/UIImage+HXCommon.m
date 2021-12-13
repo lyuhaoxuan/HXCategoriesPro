@@ -7,7 +7,7 @@
 
 #import "UIImage+HXCommon.h"
 
-#if IOS
+#if HX_IOS
 
 #import <ImageIO/ImageIO.h>
 #import <Accelerate/Accelerate.h>
@@ -16,7 +16,7 @@
 #import "HXCGUtilities.h"
 #import "HXMacro.h"
 
-static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef source, size_t index) {
+static NSTimeInterval _hx_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef source, size_t index) {
     NSTimeInterval delay = 0;
     CFDictionaryRef dic = CGImageSourceCopyPropertiesAtIndex(source, index, NULL);
     if (dic) {
@@ -54,7 +54,7 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
     NSUInteger totalFrame = 0;
     NSUInteger gcdFrame = 0;
     for (size_t i = 0; i < count; i++) {
-        NSTimeInterval delay = _yy_CGImageSourceGetGIFFrameDelayAtIndex(source, i);
+        NSTimeInterval delay = _hx_CGImageSourceGetGIFFrameDelayAtIndex(source, i);
         totalTime += delay;
         NSInteger frame = lrint(delay / oneFrameTime);
         if (frame < 1) frame = 1;
@@ -161,11 +161,11 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
 }
 
 + (UIImage *)imageWithPDF:(id)dataOrPath {
-    return [self _yy_imageWithPDF:dataOrPath resize:NO size:CGSizeZero];
+    return [self _hx_imageWithPDF:dataOrPath resize:NO size:CGSizeZero];
 }
 
 + (UIImage *)imageWithPDF:(id)dataOrPath size:(CGSize)size {
-    return [self _yy_imageWithPDF:dataOrPath resize:YES size:size];
+    return [self _hx_imageWithPDF:dataOrPath resize:YES size:size];
 }
 
 + (UIImage *)imageWithEmoji:(NSString *)emoji size:(CGFloat)size {
@@ -196,7 +196,7 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
     return image;
 }
 
-+ (UIImage *)_yy_imageWithPDF:(id)dataOrPath resize:(BOOL)resize size:(CGSize)size {
++ (UIImage *)_hx_imageWithPDF:(id)dataOrPath resize:(BOOL)resize size:(CGSize)size {
     CGPDFDocumentRef pdf = NULL;
     if ([dataOrPath isKindOfClass:[NSData class]]) {
         CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)dataOrPath);
@@ -440,7 +440,7 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
     return img;
 }
 
-- (UIImage *)_yy_flipHorizontal:(BOOL)horizontal vertical:(BOOL)vertical {
+- (UIImage *)_hx_flipHorizontal:(BOOL)horizontal vertical:(BOOL)vertical {
     if (!self.CGImage) return nil;
     size_t width = (size_t)CGImageGetWidth(self.CGImage);
     size_t height = (size_t)CGImageGetHeight(self.CGImage);
@@ -480,15 +480,15 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
 }
 
 - (UIImage *)imageByRotate180 {
-    return [self _yy_flipHorizontal:YES vertical:YES];
+    return [self _hx_flipHorizontal:YES vertical:YES];
 }
 
 - (UIImage *)imageByFlipVertical {
-    return [self _yy_flipHorizontal:NO vertical:YES];
+    return [self _hx_flipHorizontal:NO vertical:YES];
 }
 
 - (UIImage *)imageByFlipHorizontal {
-    return [self _yy_flipHorizontal:YES vertical:NO];
+    return [self _hx_flipHorizontal:YES vertical:NO];
 }
 
 - (UIImage *)imageByTintColor:(UIColor *)color {
@@ -546,15 +546,15 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
                     saturation:(CGFloat)saturation
                      maskImage:(UIImage *)maskImage {
     if (self.size.width < 1 || self.size.height < 1) {
-        NSLog(@"UIImage+YYAdd error: invalid size: (%.2f x %.2f). Both dimensions must be >= 1: %@", self.size.width, self.size.height, self);
+        NSLog(@"UIImage+HXCommon error: invalid size: (%.2f x %.2f). Both dimensions must be >= 1: %@", self.size.width, self.size.height, self);
         return nil;
     }
     if (!self.CGImage) {
-        NSLog(@"UIImage+YYAdd error: inputImage must be backed by a CGImage: %@", self);
+        NSLog(@"UIImage+HXCommon error: inputImage must be backed by a CGImage: %@", self);
         return nil;
     }
     if (maskImage && !maskImage.CGImage) {
-        NSLog(@"UIImage+YYAdd error: effectMaskImage must be backed by a CGImage: %@", maskImage);
+        NSLog(@"UIImage+HXCommon error: effectMaskImage must be backed by a CGImage: %@", maskImage);
         return nil;
     }
     
@@ -570,7 +570,7 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
     BOOL opaque = NO;
     
     if (!hasBlur && !hasSaturation) {
-        return [self _yy_mergeImageRef:imageRef tintColor:tintColor tintBlendMode:tintBlendMode maskImage:maskImage opaque:opaque];
+        return [self _hx_mergeImageRef:imageRef tintColor:tintColor tintBlendMode:tintBlendMode maskImage:maskImage opaque:opaque];
     }
     
     vImage_Buffer effect = { 0 }, scratch = { 0 };
@@ -590,12 +590,12 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
         vImage_Error err;
         err = vImageBuffer_InitWithCGImage(&effect, &format, NULL, imageRef, kvImagePrintDiagnosticsToConsole);
         if (err != kvImageNoError) {
-            NSLog(@"UIImage+YYAdd error: vImageBuffer_InitWithCGImage returned error code %zi for inputImage: %@", err, self);
+            NSLog(@"UIImage+HXCommon error: vImageBuffer_InitWithCGImage returned error code %zi for inputImage: %@", err, self);
             return nil;
         }
         err = vImageBuffer_Init(&scratch, effect.height, effect.width, format.bitsPerPixel, kvImageNoFlags);
         if (err != kvImageNoError) {
-            NSLog(@"UIImage+YYAdd error: vImageBuffer_Init returned error code %zi for inputImage: %@", err, self);
+            NSLog(@"UIImage+HXCommon error: vImageBuffer_Init returned error code %zi for inputImage: %@", err, self);
             return nil;
         }
     } else {
@@ -674,13 +674,13 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
     UIImage *outputImage = nil;
     if (hasNewFunc) {
         CGImageRef effectCGImage = NULL;
-        effectCGImage = vImageCreateCGImageFromBuffer(input, &format, &_yy_cleanupBuffer, NULL, kvImageNoAllocate, NULL);
+        effectCGImage = vImageCreateCGImageFromBuffer(input, &format, &_hx_cleanupBuffer, NULL, kvImageNoAllocate, NULL);
         if (effectCGImage == NULL) {
             effectCGImage = vImageCreateCGImageFromBuffer(input, &format, NULL, NULL, kvImageNoFlags, NULL);
             free(input->data);
         }
         free(output->data);
-        outputImage = [self _yy_mergeImageRef:effectCGImage tintColor:tintColor tintBlendMode:tintBlendMode maskImage:maskImage opaque:opaque];
+        outputImage = [self _hx_mergeImageRef:effectCGImage tintColor:tintColor tintBlendMode:tintBlendMode maskImage:maskImage opaque:opaque];
         CGImageRelease(effectCGImage);
     } else {
         CGImageRef effectCGImage;
@@ -690,18 +690,18 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
         if (input == &effect) effectImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         effectCGImage = effectImage.CGImage;
-        outputImage = [self _yy_mergeImageRef:effectCGImage tintColor:tintColor tintBlendMode:tintBlendMode maskImage:maskImage opaque:opaque];
+        outputImage = [self _hx_mergeImageRef:effectCGImage tintColor:tintColor tintBlendMode:tintBlendMode maskImage:maskImage opaque:opaque];
     }
     return outputImage;
 }
 
 // Helper function to handle deferred cleanup of a buffer.
-static void _yy_cleanupBuffer(void *userData, void *buf_data) {
+static void _hx_cleanupBuffer(void *userData, void *buf_data) {
     free(buf_data);
 }
 
 // Helper function to add tint and mask.
-- (UIImage *)_yy_mergeImageRef:(CGImageRef)effectCGImage
+- (UIImage *)_hx_mergeImageRef:(CGImageRef)effectCGImage
                      tintColor:(UIColor *)tintColor
                  tintBlendMode:(CGBlendMode)tintBlendMode
                      maskImage:(UIImage *)maskImage
@@ -742,4 +742,5 @@ static void _yy_cleanupBuffer(void *userData, void *buf_data) {
 }
 
 @end
+
 #endif

@@ -11,7 +11,7 @@
 
 @implementation UITextField (HXCommon)
 
-#if MAC
+#if HX_MAC
 - (NSString *)placeholderOrStringValue {
     NSString *string = self.stringValue;
     NSString *placeholderString = self.cell.accessibilityPlaceholderValue;

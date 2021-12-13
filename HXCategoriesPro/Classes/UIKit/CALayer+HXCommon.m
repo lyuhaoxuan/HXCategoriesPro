@@ -9,7 +9,7 @@
 #import "HXCGUtilities.h"
 
 @implementation CALayer (HXCommon)
-#if IOS
+#if HX_IOS
 - (UIImage *)snapshotImage {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -43,7 +43,7 @@
     self.shadowRadius = radius;
     self.shadowOpacity = 1;
     self.shouldRasterize = YES;
-#if MAC
+#if HX_MAC
     self.rasterizationScale = [NSScreen mainScreen].backingScaleFactor;
 #else
     self.rasterizationScale = [UIScreen mainScreen].scale;
@@ -277,7 +277,7 @@
     self.transform = d;
 }
 
-#if IOS
+#if HX_IOS
 - (UIViewContentMode)contentMode {
     return HXCAGravityToUIViewContentMode(self.contentsGravity);
 }

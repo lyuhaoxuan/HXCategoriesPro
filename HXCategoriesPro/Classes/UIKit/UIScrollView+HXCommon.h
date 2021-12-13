@@ -7,7 +7,7 @@
 
 #import "HXHeader.h"
 
-#if IOS
+#if HX_IOS
 
 NS_ASSUME_NONNULL_BEGIN
 

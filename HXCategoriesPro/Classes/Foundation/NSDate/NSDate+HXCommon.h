@@ -93,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
                         locale:(nullable NSLocale *)locale;
 
 /// 以 ISO8601 格式返回表示此 NSDate 的字符串
-/// e.g. "2010-07-09T16:13:30+12:00"
+/// e.g. "2010-07-09T16:13:30Z"
 - (nullable NSString *)ISOFormatString;
 
 /// NSDate 的格式化字符串

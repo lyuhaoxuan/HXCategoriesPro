@@ -54,7 +54,7 @@
 }
 
 - (BOOL)isPirated {
-#if IOS
+#if HX_IOS
     if ([[UIDevice currentDevice] isSimulator]) return YES; // Simulator is not from appstore
 #endif
     if (getgid() <= 10) return YES; // process ID shouldn't be root
@@ -177,7 +177,7 @@
 SYNTH_DYNAMIC_PROPERTY_OBJECT(networkActivityInfo, setNetworkActivityInfo, RETAIN_NONATOMIC, _HXUIApplicationNetworkIndicatorInfo *);
 
 - (void)_delaySetActivity:(NSTimer *)timer {
-#if IOS
+#if HX_IOS
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     NSNumber *visiable = timer.userInfo;

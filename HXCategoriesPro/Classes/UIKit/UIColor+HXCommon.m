@@ -344,7 +344,7 @@ static BOOL hexStrToRGBA(NSString *str,
 
 - (UIColor *)colorByChangeHue:(CGFloat)h saturation:(CGFloat)s brightness:(CGFloat)b alpha:(CGFloat)a {
     CGFloat hh, ss, bb, aa;
-#if MAC
+#if HX_MAC
     [self getHue:&hh saturation:&ss brightness:&bb alpha:&aa];
 #else
     if (![self getHue:&hh saturation:&ss brightness:&bb alpha:&aa]) {
@@ -368,7 +368,7 @@ static BOOL hexStrToRGBA(NSString *str,
      lightness:(CGFloat *)lightness
          alpha:(CGFloat *)alpha {
     CGFloat r, g, b, a;
-#if MAC
+#if HX_MAC
     [self getRed:&r green:&g blue:&b alpha:&a];
 #else
     if (![self getRed:&r green:&g blue:&b alpha:&a]) {
@@ -386,7 +386,7 @@ static BOOL hexStrToRGBA(NSString *str,
           black:(CGFloat *)black
           alpha:(CGFloat *)alpha {
     CGFloat r, g, b, a;
-#if MAC
+#if HX_MAC
     [self getRed:&r green:&g blue:&b alpha:&a];
 #else
     if (![self getRed:&r green:&g blue:&b alpha:&a]) {

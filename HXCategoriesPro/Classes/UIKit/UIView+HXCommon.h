@@ -29,12 +29,12 @@ CGRect RectWithAspectRatioInsideRect(CGSize size, CGRect rect);
 @property (nonatomic) CGFloat centerX;     ///< Shortcut for center.x
 @property (nonatomic) CGFloat centerY;     ///< Shortcut for center.y
 
-#if MAC
+#if HX_MAC
 /// 加载 xib 的 View
 + (instancetype)initFromXib;
 #endif
 
-#if IOS
+#if HX_IOS
 /**
  Create a snapshot image of the complete view hierarchy.
  */
@@ -69,7 +69,7 @@ CGRect RectWithAspectRatioInsideRect(CGSize size, CGRect rect);
  */
 - (void)removeAllSubviews;
 
-#if IOS
+#if HX_IOS
 /**
  Returns the view's view controller (may be nil).
  */

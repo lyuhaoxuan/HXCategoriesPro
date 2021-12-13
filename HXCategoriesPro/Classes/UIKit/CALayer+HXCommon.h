@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CALayer (HXCommon)
 
-#if IOS
+#if HX_IOS
 /**
  Take snapshot without transform, image's size equals to bounds.
  */
@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic) CGFloat transformDepth;
 
-#if IOS
+#if HX_IOS
 /**
  Wrapper for `contentsGravity` property.
  */

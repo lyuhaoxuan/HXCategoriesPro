@@ -6,7 +6,7 @@
 //
 
 #import "UIScrollView+HXCommon.h"
-#if IOS
+#if HX_IOS
 
 @implementation UIScrollView (HXCommon)
 
@@ -51,4 +51,5 @@
 }
 
 @end
+
 #endif

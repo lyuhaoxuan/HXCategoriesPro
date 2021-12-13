@@ -8,17 +8,24 @@
 
 #import "HXHeader.h"
 
-#if MAC
+#if HX_MAC
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIImage (HXCommon)
+@interface NSImage (HXCommon)
 
-/// 保持四周一定区域像素不拉伸，将图像扩散到一定的大小
-- (NSImage *)stretchableImageWithSize:(NSSize)size edgeInsets:(NSEdgeInsets)insets;
-
-/// 保持leftWidth,rightWidth这左右一定区域不拉伸，将图片宽度拉伸到(leftWidth+middleWidth+rightWidth)
-- (NSImage *)stretchableImageWithLeftCapWidth:(float)leftWidth middleWidth:(float)middleWidth rightCapWidth:(float)rightWidth;
+/**
+The underlying Core Graphics image object. This will actually use `CGImageForProposedRect` with the image size.
+ */
+@property (nonatomic, readonly, nullable) CGImageRef CGImage;
+/**
+ The underlying Core Image data. This will actually use `bestRepresentationForRect` with the image size to find the `NSCIImageRep`.
+ */
+@property (nonatomic, readonly, nullable) CIImage *CIImage;
+/**
+ The scale factor of the image. This wil actually use `bestRepresentationForRect` with image size and pixel size to calculate the scale factor. If failed, use the default value 1.0. Should be greater than or equal to 1.0.
+ */
+@property (nonatomic, readonly) CGFloat scale;
 
 @end
 

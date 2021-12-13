@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITextField (HXCommon)
 
-#if MAC
+#if HX_MAC
 - (NSString *)placeholderOrStringValue;
 #else
 

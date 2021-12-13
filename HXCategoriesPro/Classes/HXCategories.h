@@ -37,10 +37,12 @@
 #import "NSButton+HXCommon.h"
 #import "NSImage+HXCommon.h"
 
+#if HX_IOS
 #import "UIImage+HXCommon.h"
 #import "UITableView+HXCommon.h"
 #import "UIScrollView+HXCommon.h"
 #import "UIBezierPath+HXCommon.h"
+#endif
 
 /// 设备信息
 #import "HXDevice.h"

@@ -7,7 +7,7 @@
 //
 
 #import "NSBezierPath+HXNSBezierPath.h"
-#if MAC
+#if HX_MAC
 #import <objc/objc-runtime.h>
 
 @implementation NSBezierPath (HXNSBezierPath)
@@ -260,4 +260,5 @@ static void sPathApplier(void *info, const CGPathElement *element)
 }
 
 @end
+
 #endif

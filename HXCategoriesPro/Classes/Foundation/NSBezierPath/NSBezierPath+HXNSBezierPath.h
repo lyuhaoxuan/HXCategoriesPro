@@ -8,7 +8,7 @@
 
 #import "HXHeader.h"
 
-#if MAC
+#if HX_MAC
 
 typedef NS_OPTIONS(NSUInteger, HXRectCorner) {
     HXRectCornerTopLeft     = 1 << 0,
@@ -42,4 +42,5 @@ typedef NS_OPTIONS(NSUInteger, HXRectCorner) {
 - (void)strokeWithBlendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
 
 @end
+
 #endif

@@ -6,7 +6,7 @@
 //
 
 #import "UITableView+HXCommon.h"
-#if IOS
+#if HX_IOS
 
 @implementation UITableView (HXCommon)
 
@@ -71,4 +71,5 @@
 }
 
 @end
+
 #endif

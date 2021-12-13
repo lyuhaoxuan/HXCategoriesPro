@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#if IOS
+#if HX_IOS
 @interface UIDevice (HXCommon)
 #else
 @interface HXDevice : NSObject
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Device Information
 
-#if IOS
+#if HX_IOS
 /// Whether the device is iPad/iPad mini.
 @property (nonatomic, readonly) BOOL isPad;
 

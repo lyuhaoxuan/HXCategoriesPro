@@ -8,13 +8,13 @@
 
 #import "HXHeader.h"
 
-#if MAC
+#if HX_MAC
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSButton (HXCommon)
 
-- (void)setTitleTextColor:(NSColor *)newColor;
+- (void)setTitleColor:(NSColor *)titleColor;
 
 @end
 
