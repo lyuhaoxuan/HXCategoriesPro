@@ -1,5 +1,5 @@
 PODS:
-  - HXCategoriesPro (1.1.3)
+  - HXCategoriesPro (1.1.4)
 
 DEPENDENCIES:
   - HXCategoriesPro (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HXCategoriesPro: 448a3e6f43f3bc373fcbc0a8abca385e8e1ebbb5
+  HXCategoriesPro: 3600e0391465e0d4a61ee0b575552cd231dac710
 
 PODFILE CHECKSUM: d85a917372d2bf7b3bcb2c006369756023e28842
 

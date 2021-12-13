@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'HXCategoriesPro'
-  s.version          = '1.1.3'
+  s.version          = '1.1.4'
   s.summary          = 'HXCategoriesPro.'
 
   s.description      = <<-DESC
