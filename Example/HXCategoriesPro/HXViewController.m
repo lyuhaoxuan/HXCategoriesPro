@@ -21,7 +21,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    NSData *UUID = [[NSString UUID] dataValue];
+    NSData *UUID = [NSString UUID];
     
     NSLog(@"UUID:%@", UUID);
     
@@ -29,12 +29,6 @@
     NSLog(@"MIMEType:%@", @"wav".MIMEType);
     NSLog(@"MIMEType:%@", @".aac".MIMEType);
     NSLog(@"MIMEType:%@", @"123.mp3".MIMEType);
-    
-//    NSMutableDictionary *p = [NSMutableDictionary dictionary];
-//    [p setValue:@"" forKey:@""];
-//    [p setValue:@"" forKey:@""];
-//    [p setValue:@"" forKey:@""];
-//    [p setValue:@"" forKey:@""];
     
     NSString *jsonPath = [[NSBundle mainBundle] pathForResource:@"Json" ofType:@"json"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:jsonPath];
@@ -50,16 +44,6 @@
     MyModel *model = [MyModel modelWithJSON:data];
     
     NSLog(@"model:%@", [model.date stringWithFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"]);
-    
-    MAX(1, 2);
-    NSInteger aaa = CLAMP(3, 2, 40);
-    NSInteger bb = 444;
-    SWAP(aaa, bb);
-    NSLog(@"model:%@", [model.date stringWithFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"]);
-    
-    NSString * result = @"http://demo.demo.com/demo?{userToken:按时发斯蒂芬}";
-    NSLog(@"result: = %@",result.URLEncode);
-    
 
     NSString *strName = [[UIDevice currentDevice] name];
     NSLog(@"设备名称：%@", strName);//e.g. "My iPhone"
@@ -72,7 +56,21 @@
     NSString *strSysVersion = [[UIDevice currentDevice] systemVersion];
     NSLog(@"系统版本号：%@", strSysVersion);// e.g. @"4.0"
     
-    NSLog(@"machineModelName: %@", [[UIDevice currentDevice] ipAddressCell]);
+    NSLog(@"%@", [UIDevice currentDevice].machineModel);
+    NSLog(@"%@", [UIDevice currentDevice].machineModelName);
+    
+    NSLog(@"局域网 IP: %@", [UIDevice currentDevice].local_IP);
+    NSLog(@"蜂窝数据 IP: %@", [UIDevice currentDevice].cellular_IP);
+    
+    
+    
+    NSMutableDictionary *p = [NSMutableDictionary dictionary];
+    [p setValue:@"2啊" forKey:@"A啊"];
+    [p setValue:@"2啊" forKey:@"A啊1"];
+    [p setValue:@"2啊" forKey:@"A啊2"];
+    [p setValue:@"2啊" forKey:@"A啊3"];
+    
+    NSLog(@"%@", p.queryStringFromParameters);
 
 }
 

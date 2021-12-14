@@ -22,10 +22,12 @@
     NSLog(@"%@", [UIDevice currentDevice].UUID);
     NSLog(@"%@", [UIDevice currentDevice].serialNumber);
     
+    NSLog(@"%@", [UIDevice currentDevice].machineModel);
+    
     NSButton *btn = [[NSButton alloc] init];
     [btn setTitleColor:NSColor.redColor];
     
-    NSLog(@"%@", [[HXDevice currentDevice] ipAddressWIFI]);
+    NSLog(@"%@", [[HXDevice currentDevice] local_IP]);
 
     // Do any additional setup after loading the view.
 }

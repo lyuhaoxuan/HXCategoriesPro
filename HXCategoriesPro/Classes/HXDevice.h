@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(class, nonatomic, readonly) HXDevice *currentDevice;
 
 @property (nonatomic, readonly) NSString *name;               ///< e.g. @"lyuhaoxuan的MacBook Pro"
-@property (nonatomic, readonly) NSString *model;              ///< e.g. @"MacBookPro15,1"
+@property (nonatomic, readonly) NSString *model;              ///< e.g. @"Mac"
 @property (nonatomic, readonly) NSString *systemName;         ///< e.g. @"macOS"
 @property (nonatomic, readonly) NSString *systemVersion;      ///< e.g. @"12.0.1"
 @property (nonatomic, readonly) NSString *systemBuildVersion; ///< e.g. @"21A559"
@@ -40,13 +40,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// Wherher the device can make phone calls.
 @property (nonatomic, readonly) BOOL canMakePhoneCalls NS_EXTENSION_UNAVAILABLE_IOS("");
 
-/// The device's machine model.  e.g. "iPhone6,1" "iPad4,6"
+/// The device's machine model.  e.g. "iPhone6,1" "iPad4,6" "MacBookPro15,1"
 /// @see http://theiphonewiki.com/wiki/Models
 @property (nullable, nonatomic, readonly) NSString *machineModel;
 
 /// The device's machine model name. e.g. "iPhone 5s" "iPad mini 2"
 /// @see http://theiphonewiki.com/wiki/Models
-@property (nullable, nonatomic, readonly) NSString *machineModelName;
+@property (nullable, nonatomic, readonly) NSString *machineModelName API_AVAILABLE(ios(2.0));
 
 /// The System's startup time.
 @property (nonatomic, readonly) NSDate *systemUptime;
@@ -57,11 +57,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// @name Network Information
 ///=============================================================================
 
-/// WIFI IP address of this device (can be nil). e.g. @"192.168.1.111"
-@property (nullable, nonatomic, readonly) NSString *ipAddressWIFI;
+/// 局域网地址 IPv4  e.g. @"192.168.26.162"
+@property (nullable, nonatomic, readonly) NSString *local_IP;
 
-/// Cell IP address of this device (can be nil). e.g. @"10.2.2.222"
-@property (nullable, nonatomic, readonly) NSString *ipAddressCell;
+/// 蜂窝数据地址 IPv4 e.g. @"100.67.23.70"
+@property (nullable, nonatomic, readonly) NSString *cellular_IP;
 
 
 /**

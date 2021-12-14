@@ -14,7 +14,6 @@
 #include <arpa/inet.h>
 #include <ifaddrs.h>
 #import "NSString+HXCommon.h"
-#import <sys/utsname.h>
 #import <SystemConfiguration/SCDynamicStoreCopySpecific.h>
 
 #if HX_IOS
@@ -39,64 +38,90 @@ static id _device = nil;
 }
 
 - (NSString *)model {
-    id ret = nil;
-    io_service_t platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice")) ;
-    if (platformExpert) {
-        CFTypeRef typeRef = IORegistryEntryCreateCFProperty(platformExpert, CFSTR("model"), kCFAllocatorDefault, 0) ;
-        if (typeRef) {
-            ret = CFBridgingRelease(typeRef);
-            if ([ret isKindOfClass:[NSData class]]) {
-                ret = [[NSString alloc] initWithData:ret encoding:NSMacOSRomanStringEncoding];
-                while ([(NSString *)ret hasSuffix:@"\0"]) {
-                    ret = [(NSString *)ret substringWithRange:NSMakeRange(0, [(NSString *)ret length] - 1)];
+    static id model = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        io_service_t service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice")) ;
+        if (service) {
+            CFTypeRef typeRef = IORegistryEntryCreateCFProperty(service, CFSTR("target-type"), kCFAllocatorDefault, 0) ;
+            if (typeRef) {
+                model = CFBridgingRelease(typeRef);
+                if ([model isKindOfClass:[NSData class]]) {
+                    model = [[NSString alloc] initWithData:model encoding:NSMacOSRomanStringEncoding];
+                    while ([(NSString *)model hasSuffix:@"\0"]) {
+                        model = [(NSString *)model substringWithRange:NSMakeRange(0, [(NSString *)model length] - 1)];
+                    }
                 }
             }
+            IOObjectRelease(service);
+            service = 0;
         }
-        IOObjectRelease(platformExpert); platformExpert = 0;
-    }
-    return ret;
+    });
+    return model;
 }
 
 - (NSString *)systemName {
-    NSDictionary *dic = [self getSystemVersion];
-    return [dic valueForKey:@"ProductName"];
+    static NSString * systemName = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSDictionary *dic = [self getSystemVersion];
+        systemName = [dic valueForKey:@"ProductName"];
+    });
+    return systemName;
 }
 
 - (NSString *)systemVersion {
-    NSDictionary *dic = [self getSystemVersion];
-    return [dic valueForKey:@"ProductVersion"];
+    static NSString * systemVersion = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSDictionary *dic = [self getSystemVersion];
+        systemVersion = [dic valueForKey:@"ProductVersion"];
+    });
+    return systemVersion;
 }
 
 - (NSString *)systemBuildVersion {
-    NSDictionary *dic = [self getSystemVersion];
-    return [dic valueForKey:@"ProductBuildVersion"];
+    static NSString * systemBuildVersion = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSDictionary *dic = [self getSystemVersion];
+        systemBuildVersion = [dic valueForKey:@"ProductBuildVersion"];
+    });
+    return systemBuildVersion;
 }
 
 - (NSString *)UUID {
-    id ret = nil;
-    io_service_t platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice")) ;
-    if (platformExpert) {
-        CFTypeRef typeRef = IORegistryEntryCreateCFProperty(platformExpert, CFSTR(kIOPlatformUUIDKey), kCFAllocatorDefault, 0) ;
-        if (typeRef) {
-            ret = CFBridgingRelease(typeRef);
+    static NSString * UUID = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        io_service_t service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice")) ;
+        if (service) {
+            CFTypeRef typeRef = IORegistryEntryCreateCFProperty(service, CFSTR(kIOPlatformUUIDKey), kCFAllocatorDefault, 0) ;
+            if (typeRef) {
+                UUID = CFBridgingRelease(typeRef);
+            }
+            IOObjectRelease(service);
+            service = 0;
         }
-        IOObjectRelease(platformExpert); platformExpert = 0;
-    }
-    return ret;
+    });
+    return UUID;
 }
 
 - (NSString *)serialNumber {
-    NSString * ret = nil;
-    io_service_t platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice")) ;
-    if (platformExpert) {
-        CFTypeRef uuidNumberAsCFString = IORegistryEntryCreateCFProperty(platformExpert, CFSTR(kIOPlatformSerialNumberKey), kCFAllocatorDefault, 0) ;
-        if (uuidNumberAsCFString) {
-            ret = CFBridgingRelease(uuidNumberAsCFString);
+    static NSString * serialNumber = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        io_service_t service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice")) ;
+        if (service) {
+            CFTypeRef typeRef = IORegistryEntryCreateCFProperty(service, CFSTR(kIOPlatformSerialNumberKey), kCFAllocatorDefault, 0) ;
+            if (typeRef) {
+                serialNumber = CFBridgingRelease(typeRef);
+            }
+            IOObjectRelease(service);
+            service = 0;
         }
-        IOObjectRelease(platformExpert);
-        platformExpert = 0;
-    }
-    return ret;
+    });
+    return serialNumber;
 }
 
 - (NSDictionary *)getSystemVersion {
@@ -142,50 +167,34 @@ static id _device = nil;
 #endif
 
 - (NSString *)ipAddressWithIfaName:(NSString *)name {
-    if (name.length == 0) return nil;
-    NSString *address = nil;
-    struct ifaddrs *addrs = NULL;
-    if (getifaddrs(&addrs) == 0) {
-        struct ifaddrs *addr = addrs;
-        while (addr) {
-            if ([[NSString stringWithUTF8String:addr->ifa_name] isEqualToString:name]) {
-                sa_family_t family = addr->ifa_addr->sa_family;
-                switch (family) {
-                    case AF_INET: { // IPv4
-                        char str[INET_ADDRSTRLEN] = {0};
-                        inet_ntop(family, &(((struct sockaddr_in *)addr->ifa_addr)->sin_addr), str, sizeof(str));
-                        if (strlen(str) > 0) {
-                            address = [NSString stringWithUTF8String:str];
-                        }
-                    } break;
-                        
-                    case AF_INET6: { // IPv6
-                        char str[INET6_ADDRSTRLEN] = {0};
-                        inet_ntop(family, &(((struct sockaddr_in6 *)addr->ifa_addr)->sin6_addr), str, sizeof(str));
-                        if (strlen(str) > 0) {
-                            address = [NSString stringWithUTF8String:str];
-                        }
-                    }
-                        
-                    default: break;
+    NSString *ipAddress = nil;
+    struct ifaddrs *interfaces = NULL;
+    struct ifaddrs *temp_addr = NULL;
+    NSInteger success = getifaddrs(&interfaces);
+    if (success == 0) {
+        temp_addr = interfaces;
+        while(temp_addr != NULL) {
+            if(temp_addr->ifa_addr->sa_family == AF_INET) {
+                NSString* ifaName = [NSString stringWithUTF8String:temp_addr->ifa_name];
+                NSString* address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *) temp_addr->ifa_addr)->sin_addr)];
+                if ([ifaName isEqualToString:name]) {
+                    ipAddress = address;
+                    break;
                 }
-                if (address) break;
             }
-            addr = addr->ifa_next;
+            temp_addr = temp_addr->ifa_next;
         }
     }
-    freeifaddrs(addrs);
-    return address;
+    return ipAddress;
 }
 
-- (NSString *)ipAddressWIFI {
+- (NSString *)local_IP {
     return [self ipAddressWithIfaName:@"en0"];
 }
 
-- (NSString *)ipAddressCell {
+- (NSString *)cellular_IP {
     return [self ipAddressWithIfaName:@"pdp_ip0"];
 }
-
 
 typedef struct {
     uint64_t en_in;
@@ -278,12 +287,32 @@ static hx_net_interface_counter hx_get_net_interface_counter() {
     static dispatch_once_t one;
     static NSString *model;
     dispatch_once(&one, ^{
+#if HX_IOS
         size_t size;
         sysctlbyname("hw.machine", NULL, &size, NULL, 0);
         char *machine = malloc(size);
         sysctlbyname("hw.machine", machine, &size, NULL, 0);
         model = [NSString stringWithUTF8String:machine];
         free(machine);
+#else
+        id ret = nil;
+        io_service_t service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice")) ;
+        if (service) {
+            CFTypeRef typeRef = IORegistryEntryCreateCFProperty(service, CFSTR("model"), kCFAllocatorDefault, 0) ;
+            if (typeRef) {
+                ret = CFBridgingRelease(typeRef);
+                if ([ret isKindOfClass:[NSData class]]) {
+                    ret = [[NSString alloc] initWithData:ret encoding:NSMacOSRomanStringEncoding];
+                    while ([(NSString *)ret hasSuffix:@"\0"]) {
+                        ret = [(NSString *)ret substringWithRange:NSMakeRange(0, [(NSString *)ret length] - 1)];
+                    }
+                }
+            }
+            IOObjectRelease(service);
+            service = 0;
+        }
+        model = ret;
+#endif
     });
     return model;
 }

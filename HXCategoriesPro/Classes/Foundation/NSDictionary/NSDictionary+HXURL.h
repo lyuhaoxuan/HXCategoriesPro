@@ -10,40 +10,35 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 将 url 的参数转换成 NSDictionary
+ Returns a percent-escaped string following RFC 3986 for a query string key or value.
+ RFC 3986 states that the following characters are "reserved" characters.
+ - General Delimiters: ":", "#", "[", "]", "@", "?", "/"
+ - Sub-Delimiters: "!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "="
+
+ In RFC 3986 - Section 3.4, it states that the "?" and "/" characters should not be escaped to allow
+ query strings to include a URL. Therefore, all "reserved" characters with the exception of "?" and "/"
+ should be percent-escaped in the query string.
  
- @param parametersString url的参数
- @return descriptionNSDictionary
+ @param string The string to be percent-escaped.
+ 
+ @return The percent-escaped string.
  */
-NSDictionary * _Nullable HXDictionaryFromParametersString(NSString * _Nullable parametersString);
+FOUNDATION_EXPORT NSString * HXPercentEscapedStringFromString(NSString *string);
 
 /**
- 这将从给定的NSDictionary创建一个新的查询参数字符串。
- 
- 例如，如果输入是@ {@“day”：@“Tuesday”，@“month”：@“January”}，输出
- 字符串将是@“day=Tuesday＆month=January”。
- 
- @param queryParameters     输入字典
- @return                    创建的参数字符串
- */
-NSString * _Nullable HXStringFromQueryParameters(NSDictionary * _Nullable queryParameters, BOOL URLEncode);
+ A helper method to generate encoded url query parameters for appending to the end of a URL.
 
-/**
- 通过添加给定的查询参数来创建新URL
- 
- @param URLString           输入 URLString
- @param parameters          要添加的查询参数字典
- @return                    一个新的 URL
- */
-NSString * _Nullable HXURLByAppendingQueryParameters(NSString * _Nullable URLString,
-                                                   NSDictionary * _Nullable parameters);
+ @param parameters A dictionary of key/values to be encoded.
 
-/// URL编码
-/// @param URLString URL
-NSString * HXURLEncode(NSString *URLString);
+ @return A url encoded query string
+ */
+FOUNDATION_EXPORT NSString * HXQueryStringFromParameters(NSDictionary *parameters);
 
 @interface NSDictionary (HXURL)
 
+/// NSDictionary 转义请求字符。
+/// 例子：@{@"name":@"haoxuan", @"key":@"AB CD"} ==> name=haoxuan&key=AB%20CD
+- (NSString *)queryStringFromParameters;
 
 @end
 

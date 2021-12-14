@@ -79,14 +79,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) NSData   * hexData;              ///< 十六进制 NSString 转 NSData
 @property (readonly) NSData   * dataValue;            ///< NSString 转 NSData (UTF-8)
-@property (readonly) NSString * URLEncode;            ///< URL 编码
+@property (readonly) NSString * URLEncode;            ///< URL 编码 (URLQueryAllowedCharacterSet)
 @property (readonly) NSString * URLDecode;            ///< URL 解码
 @property (readonly) NSString * URLEntityEncode;      ///< URL 实体编码
 @property (readonly) NSString * URLEntityDecode;      ///< URL 实体解码
-@property (readonly) NSData   * base64EncodedData;    ///< NSData 编码 Base64
-@property (readonly) NSData   * base64DecodedData;    ///< NSData 解码 Base64
-@property (readonly) NSString * base64EncodedString;  ///< NSData 编码 Base64
-@property (readonly) NSString * base64DecodedString;  ///< NSData 解码 Base64
+@property (readonly) NSData   * base64EncodedData;    ///< 编码 Base64
+@property (readonly) NSData   * base64DecodedData;    ///< 解码 Base64
+@property (readonly) NSString * base64EncodedString;  ///< 编码 Base64
+@property (readonly) NSString * base64DecodedString;  ///< 解码 Base64
 @property (readonly) id         jsonValueDecoded;     ///< 将 NSString 解码成 NSDictionary/NSArray, 如果发生错, 返回 nil
                                                       /// 例如: NSString: @"{"name":"a","count":2}"  => NSDictionary: @{@"name":@"a",@"count":@2}
 

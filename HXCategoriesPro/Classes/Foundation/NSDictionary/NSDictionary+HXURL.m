@@ -6,125 +6,101 @@
 //
 
 #import "NSDictionary+HXURL.h"
-#import "NSArray+HXCommon.h"
 #import "NSString+HXCommon.h"
-#import "NSDictionary+HXCommon.h"
 
+/**
+ Returns a percent-escaped string following RFC 3986 for a query string key or value.
+ RFC 3986 states that the following characters are "reserved" characters.
+    - General Delimiters: ":", "#", "[", "]", "@", "?", "/"
+    - Sub-Delimiters: "!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "="
+
+ In RFC 3986 - Section 3.4, it states that the "?" and "/" characters should not be escaped to allow
+ query strings to include a URL. Therefore, all "reserved" characters with the exception of "?" and "/"
+ should be percent-escaped in the query string.
+    - parameter string: The string to be percent-escaped.
+    - returns: The percent-escaped string.
+ */
 NSString * HXPercentEscapedStringFromString(NSString *string) {
-    return [string URLEncode];
+    static NSString * const kAFCharactersGeneralDelimitersToEncode = @":#[]@"; // does not include "?" or "/" due to RFC 3986 - Section 3.4
+    static NSString * const kAFCharactersSubDelimitersToEncode = @"!$&'()*+,;=";
+
+    NSMutableCharacterSet * allowedCharacterSet = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
+    [allowedCharacterSet removeCharactersInString:[kAFCharactersGeneralDelimitersToEncode stringByAppendingString:kAFCharactersSubDelimitersToEncode]];
+
+    // FIXME: https://github.com/AFNetworking/AFNetworking/pull/3028
+    // return [string stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
+
+    static NSUInteger const batchSize = 50;
+
+    NSUInteger index = 0;
+    NSMutableString *escaped = @"".mutableCopy;
+
+    while (index < string.length) {
+        NSUInteger length = MIN(string.length - index, batchSize);
+        NSRange range = NSMakeRange(index, length);
+
+        // To avoid breaking up character sequences such as 👴🏻👮🏽
+        range = [string rangeOfComposedCharacterSequencesForRange:range];
+
+        NSString *substring = [string substringWithRange:range];
+        NSString *encoded = [substring stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
+        [escaped appendString:encoded];
+
+        index += range.length;
+    }
+
+    return escaped;
 }
 
-NSDictionary * HXDictionaryFromParametersString(NSString *parametersString) {
+NSArray * HXQueryStringPairsFromKeyAndValue(NSString *key, id value) {
+    NSMutableArray *mutableQueryStringComponents = [NSMutableArray array];
 
-    NSArray *strings = [parametersString componentsSeparatedByString:@"?"];
-    if (strings.count > 1) {
-        parametersString = [strings lastObject];
-    }
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    NSArray *parameters = [parametersString componentsSeparatedByString:@"&"];
-    for(NSString *parameter in parameters) {
-        NSArray<NSString *> *contents = [parameter componentsSeparatedByString:@"="];
-        if (contents.count > 2) {
-            NSMutableArray *strings = [NSMutableArray array];
-            [strings addObject:contents[0]];
-            NSString *str = contents[1];
-            for (int i = 2; i < contents.count; i++) {
-                str = [str stringByAppendingString:@"="];
-                str = [str stringByAppendingString:contents[i]];
-            }
-            [strings addObject:str];
-            contents = strings;
-        }
-        
-        if (contents.count == 2) {
-            NSString *key = [contents objectAtIndex:0];
-            NSString *value = [contents objectAtIndex:1];
-            value = [value URLEntityDecode];
-            if (key && value) {
-                [dict setObject:value forKey:key];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(compare:)];
+
+    if ([value isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dictionary = value;
+        // Sort dictionary keys to ensure consistent ordering in query string, which is important when deserializing potentially ambiguous sequences, such as an array of dictionaries
+        for (id nestedKey in [dictionary.allKeys sortedArrayUsingDescriptors:@[ sortDescriptor ]]) {
+            id nestedValue = dictionary[nestedKey];
+            if (nestedValue) {
+                [mutableQueryStringComponents addObjectsFromArray:HXQueryStringPairsFromKeyAndValue((key ? [NSString stringWithFormat:@"%@[%@]", key, nestedKey] : nestedKey), nestedValue)];
             }
         }
-    }
-    if (dict.allKeys == 0) {
-        return nil;
+    } else if ([value isKindOfClass:[NSArray class]]) {
+        NSArray *array = value;
+        for (id nestedValue in array) {
+            [mutableQueryStringComponents addObjectsFromArray:HXQueryStringPairsFromKeyAndValue([NSString stringWithFormat:@"%@[]", key], nestedValue)];
+        }
+    } else if ([value isKindOfClass:[NSSet class]]) {
+        NSSet *set = value;
+        for (id obj in [set sortedArrayUsingDescriptors:@[ sortDescriptor ]]) {
+            [mutableQueryStringComponents addObjectsFromArray:HXQueryStringPairsFromKeyAndValue(key, obj)];
+        }
     } else {
-        return [NSDictionary dictionaryWithDictionary:dict];
-    }
-}
-
-NSString * HXStringFromQueryParameters(NSDictionary *queryParameters, BOOL URLEncode) {
-    
-    if (!queryParameters.isSafe) return nil;
-    
-    NSMutableArray *parts = [NSMutableArray array];
-    [queryParameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        if ([value isKindOfClass:[NSNumber class]]) {
-            value = [value stringValue];
-        }
-        
-        NSString *part;
-        if ([value isEqualToString:@""]) {
-            part = [NSString stringWithFormat:@"%@", key];
+        NSString *queryStringPair;
+        if (!key || [value isEqual:[NSNull null]]) {
+            queryStringPair = HXPercentEscapedStringFromString([key description]);
         } else {
-            if (URLEncode) {
-                part = [NSString stringWithFormat:@"%@=%@",
-                        HXPercentEscapedStringFromString(key),
-                        HXPercentEscapedStringFromString(value)];
-            } else {
-                part = [NSString stringWithFormat:@"%@=%@", key, value];
-            }
+            queryStringPair = [NSString stringWithFormat:@"%@=%@", HXPercentEscapedStringFromString([key description]), HXPercentEscapedStringFromString([value description])];
         }
-        [parts addObject:part];
-    }];
-    return [parts componentsJoinedByString: @"&"];
+        [mutableQueryStringComponents addObject:queryStringPair];
+    }
+
+    return mutableQueryStringComponents;
 }
 
-NSString * HXURLEncode(NSString *URLString) {
-    if (!URLString.isSafe) return nil;
-    
-    NSString *h = [NSURL URLWithString:URLString].scheme;
-    if (h.isSafe) {
-        URLString = [URLString substringFromIndex:h.length + 2];
-        h = [h stringByAppendingString:@":/"];
+NSString * HXQueryStringFromParameters(NSDictionary *parameters) {
+    NSMutableArray *mutablePairs = [NSMutableArray array];
+    for (NSString *pair in HXQueryStringPairsFromKeyAndValue(nil, parameters)) {
+        [mutablePairs addObject:pair];
     }
-    NSString *newString;
-    NSString *lastPathComponent = [URLString lastPathComponent];
-    NSString *pathExtension = [lastPathComponent pathExtension];
-    if (!pathExtension.isSafe) {
-        NSCharacterSet *allowedCharacters = [NSCharacterSet URLQueryAllowedCharacterSet];
-        URLString = [URLString stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
-    } else {
-        NSString *deletingLastPathComponent = [URLString stringByDeletingLastPathComponent];
-        NSCharacterSet *allowedCharacters = [NSCharacterSet URLQueryAllowedCharacterSet];
-        deletingLastPathComponent = [deletingLastPathComponent stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
-        lastPathComponent = [lastPathComponent URLEntityEncode];
-
-        newString = [deletingLastPathComponent stringByAppendingPathComponent:lastPathComponent];
-    }
-    
-    if (h.isSafe) {
-        newString = [h stringByAppendingString:newString];
-    }
-    
-    return newString;
-}
-
-NSString * HXURLByAppendingQueryParameters(NSString *URLString, NSDictionary *parameters) {
-    
-    if (!URLString.isSafe) return nil;
-    if (!parameters.isSafe) return URLString;
-        
-    NSString *parametersString = HXStringFromQueryParameters(parameters, YES);
-    if (!parametersString.isSafe) {
-        return [NSString stringWithFormat:@"%@", HXURLEncode(URLString)];
-    } else {
-        return [NSString stringWithFormat:@"%@?%@", HXURLEncode(URLString), parametersString];
-    }
+    return [mutablePairs componentsJoinedByString:@"&"];
 }
 
 @implementation NSDictionary (HXURL)
 
-
+- (NSString *)queryStringFromParameters {
+    return HXQueryStringFromParameters(self);
+}
 
 @end
