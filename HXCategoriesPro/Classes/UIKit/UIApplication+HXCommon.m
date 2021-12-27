@@ -215,9 +215,11 @@ SYNTH_DYNAMIC_PROPERTY_OBJECT(networkActivityInfo, setNetworkActivityInfo, RETAI
     [self _changeNetworkActivityCount:-1];
 }
 
+#if HX_IOS
 - (UIEdgeInsets)safeAreaInsets {
     return [[UIApplication sharedApplication].windows lastObject].safeAreaInsets;
 }
+#endif
 
 + (BOOL)isAppExtension {
     static BOOL isAppExtension = NO;
