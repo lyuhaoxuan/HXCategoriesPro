@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) unsigned long long unsignedLongLongValue;
 @property (readonly) NSUInteger         unsignedIntegerValue;
 
-@property (readonly) BOOL       isSafe;               ///< 判断字符串是否安全 包括: nil, null, @"", @"\n", @"  "等
+@property (readonly) BOOL       isSafe;               ///< 判断字符串是否安全 包括: nil, NULL, NSNull, @"", @"\n", @"  "等
 @property (readonly) BOOL       isAllNum;             ///< 判断字符是否为纯数字
 @property (readonly) NSRange    rangeOfAll;           ///< 返回 NSMakeRange(0, self.length)
 @property (readonly) NSNumber * numberValue;          ///< 尝试解析这个字符串并返回一个NSNumber

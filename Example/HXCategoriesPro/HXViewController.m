@@ -71,6 +71,15 @@
     [p setValue:@"2啊" forKey:@"A啊3"];
     
     NSLog(@"%@", p.queryStringFromParameters);
+    
+    // nil, null, @"", @"\n", @"  "
+    NSString *stt = [NSNull null];
+    
+    if (stt.isSafe) {
+        NSLog(@"safe");
+    } else {
+        NSLog(@"no safe");
+    }
 
 }
 

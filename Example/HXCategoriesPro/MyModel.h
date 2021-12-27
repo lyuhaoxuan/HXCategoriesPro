@@ -13,21 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MyModel : NSObject
 
 @property (nonatomic) NSInteger n_int;
-
 @property (nonatomic) CGFloat n_float;
-
 @property (nonatomic) BOOL n_bool;
-
 @property (nonatomic, copy) NSString *string;
-
 @property (nonatomic) NSNumber *number;
-
 @property (nonatomic) NSValue *value;
-
 @property (nonatomic) NSDate *date;
-
 @property (nonatomic) NSDictionary *dic;
-
 @property (nonatomic) NSArray *arr;
 
 @end

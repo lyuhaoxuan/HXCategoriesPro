@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Current thread CPU usage, 1.0 means 100%. (-1 when error occurs)
 @property (nonatomic, readonly) float cpuUsage;
 
+@property (nonatomic,readonly) UIEdgeInsets safeAreaInsets API_AVAILABLE(macos(12.0),ios(11.0));
 
 /**
  Increments the number of active network requests.

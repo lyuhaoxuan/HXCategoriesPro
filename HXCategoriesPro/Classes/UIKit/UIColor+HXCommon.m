@@ -266,7 +266,7 @@ static BOOL hexStrToRGBA(NSString *str,
     }
     
     NSUInteger length = [str length];
-    //         RGB            RGBA          RRGGBB        RRGGBBAA
+    //     RGB            RGBA          RRGGBB        RRGGBBAA
     if (length != 3 && length != 4 && length != 6 && length != 8) {
         return NO;
     }

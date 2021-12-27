@@ -397,4 +397,35 @@ else if (size <= 4 * _size_ ) { \
     return obj;
 }
 
+- (BOOL)isSafe {
+    if ([self isKindOfClass:[NSString class]]) {
+        NSString *string = (NSString *)self;
+        if (!string || string.length == 0) {
+            return NO;
+        }
+        NSCharacterSet *blank = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        for (NSInteger i = 0; i < string.length; ++i) {
+            unichar c = [string characterAtIndex:i];
+            if (![blank characterIsMember:c]) {
+                return YES;
+            }
+        }
+        return NO;
+    } else if ([self isKindOfClass:[NSArray class]]) {
+        NSArray *array = (NSArray *)self;
+        if (!array || array.count == 0) {
+            return NO;
+        }
+        return YES;
+    } else if ([self isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dictionary = (NSDictionary *)self;
+        if (!dictionary || dictionary.count == 0) {
+            return NO;
+        }
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end
