@@ -76,10 +76,10 @@
     #endif
 
 #else
-    #if UIKIT
+    #if HX_UIKIT
         #import <UIKit/UIKit.h>
     #endif
-    #if WATCH
+    #if HX_WATCH
         #import <WatchKit/WatchKit.h>
         #ifndef UIView
             #define UIView WKInterfaceObject
