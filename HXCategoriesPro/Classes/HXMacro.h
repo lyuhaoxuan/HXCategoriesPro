@@ -163,6 +163,56 @@ EXTERN_C_BEGIN
     #endif
 #endif
 
+/// 本地化
+#define Localized(string) NSLocalizedString(string, string)
+
+/* ------------------------------ 创建单例 支持：ARC、MRC ------------------------------ */
+/// 在.h 文件中定义的宏
+#define SINGLETON_H \
++ (instancetype)shared; \
++ (instancetype)new __attribute__((unavailable("use '[Class shared]' to create the singletone"))); \
+- (instancetype)init __attribute__((unavailable("use '[Class shared]' to create the singletone")));
+
+/// 在.m 文件中处理好的宏 ARC 或 MRC
+/// SINGLETON_M(selfName) 之所以还要传递一个“selfName”,是因为有个属性要命名"
+/// @return 单例
+#if __has_feature(objc_arc)
+
+#define SINGLETON_M(self_name) \
+static id self_name = nil; \
++ (instancetype)shared { \
+    static dispatch_once_t onceToken; \
+    dispatch_once(&onceToken, ^{ \
+        self_name = [[super allocWithZone:NULL] init]; \
+    }); \
+    return self_name; \
+} \
++ (instancetype)allocWithZone:(struct _NSZone *)zone { return [self shared]; } \
+- (id)copyWithZone:(NSZone *)zone { return self; } \
+- (id)mutableCopyWithZone:(NSZone *)zone { return self; } \
+
+#else
+
+#define SingletonM(self_name) \
+static id self_name = nil; \
++ (instancetype)shared { \
+    static dispatch_once_t onceToken; \
+    dispatch_once(&onceToken, ^{ \
+        self_name = [[super allocWithZone:NULL] init]; \
+    }); \
+    return self_name; \
+} \
++ (instancetype)allocWithZone:(struct _NSZone *)zone  { return [self shared]; } \
+- (id)copyWithZone:(NSZone *)zone { return self; } \
+- (id)mutableCopyWithZone:(NSZone *)zone { return self; } \
+- (oneway void)release {} \
+- (id)retain { return self; } \
+- (NSUInteger)retainCount { return NSUIntegerMax; } \
+- (id)autorelease { return self; }
+
+#endif
+
+/* ------------------------------  单例创建结束  ------------------------------ */
 
 /**
  Convert CFRange to NSRange

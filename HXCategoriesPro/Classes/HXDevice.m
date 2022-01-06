@@ -2,7 +2,7 @@
 //  HXDevice.m
 //  Pods
 //
-//  Created by lyuhaoxuan on 2021/12/8.
+//  Created by 吕浩轩 on 2021/12/8.
 //
 
 #import "HXDevice.h"

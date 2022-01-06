@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03874DF42786EA6600F1896F /* HXModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03874DF32786EA6600F1896F /* HXModel.m */; };
 		03D2B1802758C2BF00A485E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2B17F2758C2BF00A485E5 /* AppDelegate.m */; };
 		03D2B1832758C2BF00A485E5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2B1822758C2BF00A485E5 /* ViewController.m */; };
 		03D2B1852758C2C100A485E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D2B1842758C2C100A485E5 /* Assets.xcassets */; };
@@ -31,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		0211E2612A8EAB16F7ED3F59 /* Pods-HXCategoriesPro_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HXCategoriesPro_Example.release.xcconfig"; path = "Target Support Files/Pods-HXCategoriesPro_Example/Pods-HXCategoriesPro_Example.release.xcconfig"; sourceTree = "<group>"; };
+		03874DF22786EA6600F1896F /* HXModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXModel.h; sourceTree = "<group>"; };
+		03874DF32786EA6600F1896F /* HXModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXModel.m; sourceTree = "<group>"; };
 		03D2B17C2758C2BF00A485E5 /* macApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D2B17E2758C2BF00A485E5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		03D2B17F2758C2BF00A485E5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -100,6 +103,8 @@
 				03D2B17F2758C2BF00A485E5 /* AppDelegate.m */,
 				03D2B1812758C2BF00A485E5 /* ViewController.h */,
 				03D2B1822758C2BF00A485E5 /* ViewController.m */,
+				03874DF22786EA6600F1896F /* HXModel.h */,
+				03874DF32786EA6600F1896F /* HXModel.m */,
 				03D2B1842758C2C100A485E5 /* Assets.xcassets */,
 				03D2B1862758C2C100A485E5 /* Main.storyboard */,
 				03D2B1892758C2C100A485E5 /* main.m */,
@@ -388,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D2B1832758C2BF00A485E5 /* ViewController.m in Sources */,
+				03874DF42786EA6600F1896F /* HXModel.m in Sources */,
 				03D2B18A2758C2C100A485E5 /* main.m in Sources */,
 				03D2B1802758C2BF00A485E5 /* AppDelegate.m in Sources */,
 			);
