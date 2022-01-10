@@ -11,9 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSArray (HXCommon)
 
-/// 判断 NSArray 是否安全
-- (BOOL)isSafe;
-
 /// 由基于 NSArray 类型的 plist 数据, 创建并返回新的 NSArray
 /// @param plist 基于 NSArray 类型的 plist 数据
 + (nullable NSArray *)arrayWithPlistData:(NSData *)plist;

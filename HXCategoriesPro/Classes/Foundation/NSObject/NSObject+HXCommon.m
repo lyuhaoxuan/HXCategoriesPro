@@ -399,30 +399,16 @@ else if (size <= 4 * _size_ ) { \
 
 - (BOOL)isSafe {
     if ([self isKindOfClass:[NSString class]]) {
-        NSString *string = (NSString *)self;
-        if (!string || string.length == 0) {
-            return NO;
-        }
-        NSCharacterSet *blank = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-        for (NSInteger i = 0; i < string.length; ++i) {
-            unichar c = [string characterAtIndex:i];
-            if (![blank characterIsMember:c]) {
-                return YES;
-            }
-        }
-        return NO;
+        if ([(NSString *)self length] == 0) return NO;
+        NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        NSString *trimmedStr = [(NSString *)self stringByTrimmingCharactersInSet:set];
+        return trimmedStr.length > 0;
     } else if ([self isKindOfClass:[NSArray class]]) {
-        NSArray *array = (NSArray *)self;
-        if (!array || array.count == 0) {
-            return NO;
-        }
-        return YES;
+        return [(NSArray *)self count] > 0;
     } else if ([self isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dictionary = (NSDictionary *)self;
-        if (!dictionary || dictionary.count == 0) {
-            return NO;
-        }
-        return YES;
+        return [(NSDictionary *)self count] > 0;
+    } else if ([self isKindOfClass:[NSData class]]) {
+        return [(NSData *)self length] > 0;
     } else {
         return NO;
     }

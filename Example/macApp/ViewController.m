@@ -28,6 +28,13 @@
     [btn setTitleColor:NSColor.redColor];
     
     NSLog(@"%@", [[HXDevice currentDevice] local_IP]);
+    
+    NSString *string = @"\0";
+    if (string.isSafe) {
+        NSLog(@"安全");
+    } else {
+        NSLog(@"不安全");
+    }
 
     // Do any additional setup after loading the view.
 }

@@ -8,15 +8,9 @@
 #import "NSArray+HXCommon.h"
 #import "NSData+HXCommon.h"
 #import <objc/runtime.h>
+#import "NSObject+HXCommon.h"
 
 @implementation NSArray (HXCommon)
-
-- (BOOL)isSafe {
-    if (!self || ![self isKindOfClass:[NSArray class]] || self.count == 0) {
-        return NO;
-    }
-    return YES;
-}
 
 + (NSArray *)arrayWithPlistData:(NSData *)plist {
     if (!plist) return nil;

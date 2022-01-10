@@ -8,6 +8,7 @@
 #import "NSString+HXCommon.h"
 #import "NSNumber+HXCommon.h"
 #import "NSArray+HXCommon.h"
+#import "NSObject+HXCommon.h"
 
 #if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -52,21 +53,6 @@ static const NSString *kRandomAlphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 - (NSData *)hmacDataUsingAlg:(CCHmacAlgorithm)alg key:(NSData *)key { return [self.dataValue hmacDataUsingAlg:alg key:key]; }
 
 - (nullable NSString *)crc32String { return [self.dataValue crc32String]; }
-
-- (BOOL)isSafe {
-    if (!self || ![self isKindOfClass:[NSString class]] || self.length == 0) {
-        return NO;
-    }
-    
-    NSCharacterSet *blank = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    for (NSInteger i = 0; i < self.length; ++i) {
-        unichar c = [self characterAtIndex:i];
-        if (![blank characterIsMember:c]) {
-            return YES;
-        }
-    }
-    return NO;
-}
 
 - (BOOL)isAllNum {
     unichar c;

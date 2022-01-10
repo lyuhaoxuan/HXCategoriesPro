@@ -10,13 +10,6 @@
 
 @implementation NSDictionary (HXCommon)
 
-- (BOOL)isSafe {
-    if (!self || ![self isKindOfClass:[NSDictionary class]] || self.count == 0) {
-        return NO;
-    }
-    return YES;
-}
-
 + (NSDictionary *)dictionaryWithPlistData:(NSData *)plist {
     if (!plist) return nil;
     NSDictionary *dictionary = [NSPropertyListSerialization propertyListWithData:plist options:NSPropertyListImmutable format:NULL error:NULL];

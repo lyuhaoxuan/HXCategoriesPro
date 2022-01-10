@@ -11,13 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDictionary (HXCommon)
 
-/**
- 判断 NSDictionary 是否安全
-
- @return 安全 --> YES,  不安全 --> NO
- */
-- (BOOL)isSafe;
-
 #pragma mark - Dictionary Convertor
 
 /**

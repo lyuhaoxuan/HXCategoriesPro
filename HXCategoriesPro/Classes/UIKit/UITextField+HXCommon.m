@@ -8,6 +8,7 @@
 
 #import "UITextField+HXCommon.h"
 #import "NSString+HXCommon.h"
+#import "NSObject+HXCommon.h"
 
 @implementation UITextField (HXCommon)
 
