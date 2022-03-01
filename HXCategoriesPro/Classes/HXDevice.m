@@ -317,6 +317,7 @@ static hx_net_interface_counter hx_get_net_interface_counter() {
     return model;
 }
 
+// http://theiphonewiki.com/wiki/Models
 - (NSString *)machineModelName {
     static dispatch_once_t one;
     static NSString *name;
@@ -372,10 +373,10 @@ static hx_net_interface_counter hx_get_net_interface_counter() {
             @"iPhone13,2" : @"iPhone 12",
             @"iPhone13,3" : @"iPhone 12 Pro",
             @"iPhone13,4" : @"iPhone 12 Pro Max",
-            @"iPhone14,1" : @"iPhone 13 mini",
-            @"iPhone14,2" : @"iPhone 13",
-            @"iPhone14,3" : @"iPhone 13 Pro",
-            @"iPhone14,4" : @"iPhone 13 Pro Max",
+            @"iPhone14,2" : @"iPhone 13 Pro",
+            @"iPhone14,3" : @"iPhone 13 Pro Max",
+            @"iPhone14,4" : @"iPhone 13 mini",
+            @"iPhone14,5" : @"iPhone 13",
             
             @"iPad1,1"    : @"iPad",
             @"iPad2,1"    : @"iPad 2",

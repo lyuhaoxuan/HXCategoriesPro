@@ -116,7 +116,7 @@
     if (!buffer) return nil;
     size_t encryptedSize = 0;
     CCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt,
-                                          kCCAlgorithmAES128,
+                                          kCCAlgorithmAES,
                                           kCCOptionPKCS7Padding,
                                           key.bytes,
                                           key.length,
@@ -150,7 +150,7 @@
     if (!buffer) return nil;
     size_t encryptedSize = 0;
     CCCryptorStatus cryptStatus = CCCrypt(kCCDecrypt,
-                                          kCCAlgorithmAES128,
+                                          kCCAlgorithmAES,
                                           kCCOptionPKCS7Padding,
                                           key.bytes,
                                           key.length,

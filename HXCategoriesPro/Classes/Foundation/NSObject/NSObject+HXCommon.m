@@ -397,7 +397,11 @@ else if (size <= 4 * _size_ ) { \
     return obj;
 }
 
-- (BOOL)isSafe {
+- (BOOL)isEmpty {
+    return ![self isNotEmpty];
+}
+
+- (BOOL)isNotEmpty {
     if ([self isKindOfClass:[NSString class]]) {
         if ([(NSString *)self length] == 0) return NO;
         NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
