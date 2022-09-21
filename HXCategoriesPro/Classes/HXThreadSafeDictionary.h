@@ -15,6 +15,6 @@ NS_SWIFT_NAME(ThreadSafeDictionary)
  use enumerate using block instead. When enumerate or sort with block/callback,
  do *NOT* send message to the dictionary inside the block/callback.
  */
-@interface HXThreadSafeDictionary : NSMutableDictionary
+@interface HXThreadSafeDictionary<KeyType, ObjectType> : NSMutableDictionary<KeyType, ObjectType>
 
 @end
