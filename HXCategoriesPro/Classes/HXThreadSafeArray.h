@@ -15,6 +15,6 @@ NS_SWIFT_NAME(ThreadSafeArray)
  use enumerate using block instead. When enumerate or sort with block/callback,
  do *NOT* send message to the array inside the block/callback.
  */
-@interface HXThreadSafeArray : NSMutableArray
+@interface HXThreadSafeArray<ObjectType> : NSMutableArray<ObjectType>
 
 @end
