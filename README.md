@@ -22,7 +22,7 @@ pod 'HXCategoriesPro'
 
 ## Author
 
-吕浩轩, lyuhaoxuan@icloud.com
+吕浩轩, lyuhaoxuan@163.com
 
 ## License
 
