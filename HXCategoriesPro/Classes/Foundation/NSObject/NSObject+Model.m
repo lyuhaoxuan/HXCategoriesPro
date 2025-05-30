@@ -137,7 +137,7 @@ static force_inline NSNumber *HXNSNumberCreateFromID(__unsafe_unretained id valu
  
  length: 20/24/25
  */
-static force_inline NSISO8601DateFormatter *HXISODateFormatter() {
+static force_inline NSISO8601DateFormatter *HXISODateFormatter(void) {
     static NSISO8601DateFormatter *formatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -265,7 +265,7 @@ static force_inline NSDate *HXNSDateFromString(__unsafe_unretained NSString *str
 
 
 /// Get the 'NSBlock' class.
-static force_inline Class HXNSBlockClass() {
+static force_inline Class HXNSBlockClass(void) {
     static Class cls;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
