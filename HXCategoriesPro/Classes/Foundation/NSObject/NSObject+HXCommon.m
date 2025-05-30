@@ -397,16 +397,9 @@ else if (size <= 4 * _size_ ) { \
     return obj;
 }
 
-- (BOOL)isEmpty {
-    return ![self isNotEmpty];
-}
-
-- (BOOL)isNotEmpty {
+- (BOOL)isSafe {
     if ([self isKindOfClass:[NSString class]]) {
-        if ([(NSString *)self length] == 0) return NO;
-        NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-        NSString *trimmedStr = [(NSString *)self stringByTrimmingCharactersInSet:set];
-        return trimmedStr.length > 0;
+        return [(NSString *)self length] > 0;
     } else if ([self isKindOfClass:[NSArray class]]) {
         return [(NSArray *)self count] > 0;
     } else if ([self isKindOfClass:[NSDictionary class]]) {
