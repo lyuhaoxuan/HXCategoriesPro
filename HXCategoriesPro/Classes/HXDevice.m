@@ -227,7 +227,7 @@ static uint64_t hx_net_counter_get_by_type(hx_net_interface_counter *counter, HX
     return bytes;
 }
 
-static hx_net_interface_counter hx_get_net_interface_counter() {
+static hx_net_interface_counter hx_get_net_interface_counter(void) {
     static dispatch_semaphore_t lock;
     static NSMutableDictionary *sharedInCounters;
     static NSMutableDictionary *sharedOutCounters;
