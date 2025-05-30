@@ -289,13 +289,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable id)deepCopyWithArchiver:(Class)archiver unarchiver:(Class)unarchiver;
 
-/// 判断 NSString、NSArray、NSDictionary、NSData容器类型数据是否安全（为空）
-/// 包含：nil, NULL, NSNull, @"", @"\n", @"  "等
-- (BOOL)isEmpty;
-
 /// 判断 NSString、NSArray、NSDictionary、NSData容器类型数据是否安全（不为空）
 /// 包含：nil, NULL, NSNull, @"", @"\n", @"  "等
-- (BOOL)isNotEmpty;
+- (BOOL)isSafe;
 
 @end
 
