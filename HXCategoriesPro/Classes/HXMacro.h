@@ -329,7 +329,7 @@ static inline dispatch_time_t dispatch_walltime_date(NSDate *date) {
 /**
  Whether in main queue/thread.
  */
-static inline bool dispatch_is_main_queue() {
+static inline bool dispatch_is_main_queue(void) {
     return pthread_main_np() != 0;
 }
 
